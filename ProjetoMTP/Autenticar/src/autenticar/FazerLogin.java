@@ -27,7 +27,7 @@ public class FazerLogin extends javax.swing.JFrame {
         setResizable(false);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/Marca-IF-vertical-preta-sem-fundo.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/SLFLOGO.png"))); // NOI18N
 
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

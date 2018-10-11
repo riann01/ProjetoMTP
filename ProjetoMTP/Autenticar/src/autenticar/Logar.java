@@ -26,9 +26,9 @@ public class Logar extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/Marca-IF-vertical-preta-sem-fundo.png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/SLFLOGO.png"))); // NOI18N
 
-        jLabel2.setText("Usuário");
+        jLabel2.setText("E-mail");
 
         jLabel3.setText("Senha");
 

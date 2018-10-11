@@ -72,7 +72,7 @@
           <Font name="Tahoma" size="14" style="0"/>
         </Property>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/autenticar/Foto/Marca-IF-vertical-preta-sem-fundo.png"/>
+          <Image iconType="3" name="/autenticar/Foto/SLFLOGO.png"/>
         </Property>
       </Properties>
     </Component>
