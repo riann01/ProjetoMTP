@@ -22,6 +22,7 @@ public class Logar extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/Marca-IF-vertical-preta-sem-fundo.png"))); // NOI18N
 
