@@ -12,11 +12,12 @@ public class Carrinho extends javax.swing.JFrame {
      */
     public Carrinho() {
         super("Carrinho de Compras");
+        Controle controle = new Controle ();
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
-        new Controle().mostraNome();
-        labelCarrinhoDeCompras.setText("Carrinho de Compras do " + new Controle().nome);
+        new Controle().mostraNome(controle.retornaId());
+        labelCarrinhoDeCompras.setText("Carrinho de Compras do " + controle.getNome());
         setVisible(true);
     }
 

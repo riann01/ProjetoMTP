@@ -98,20 +98,25 @@ public class Controle {
 
     }
     
-    public void mostraNome () {
+    public void mostraNome (int idUsuario) {
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT nome FROM pessoa WHERE id_pessoa = ?");
-            st.setInt(1 , idUsuario);
+            st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
+            //st.setInt(1 , idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                this.nome = rs.getString("nome");
+                if (rs.getInt(2)==idUsuario) {
+                    this.nome = rs.getString(1);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
+    public String getNome () {
+        return this.nome;
+    }
 
     public String retornaMensagem() {
 

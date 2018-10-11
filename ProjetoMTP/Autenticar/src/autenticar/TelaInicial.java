@@ -18,9 +18,10 @@ public class TelaInicial extends javax.swing.JFrame {
      */
     public TelaInicial(int id) {
         super ("Super Loja Fictícia");
+        Controle controle = new Controle();
         initComponents();
-        new Controle().mostraNome();
-        LabelNomeUsuario.setText("Olá, " + new Controle().nome + "!");
+        new Controle().mostraNome(controle.retornaId());
+        LabelNomeUsuario.setText("Olá, " + controle.getNome() + "!");
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setVisible(true);
@@ -254,10 +255,11 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botaoIr)
-                            .addComponent(textFieldPesquisa)
-                            .addComponent(LabelNomeUsuario))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textFieldPesquisa, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(botaoIr)
+                                .addComponent(LabelNomeUsuario)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
