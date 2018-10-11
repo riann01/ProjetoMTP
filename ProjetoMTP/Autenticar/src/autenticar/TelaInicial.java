@@ -5,6 +5,8 @@
  */
 package autenticar;
 
+import java.awt.Color;
+
 /**
  *
  * @author ifg
@@ -15,7 +17,11 @@ public class TelaInicial extends javax.swing.JFrame {
      * Creates new form TelaInicial
      */
     public TelaInicial(int id) {
+        super ("Super Loja Fictícia");
         initComponents();
+        new Controle().mostraNome();
+        LabelNomeUsuario.setText("Olá, " + new Controle().nome);
+        getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setVisible(true);
         this.idUsuario = id;
@@ -58,6 +64,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         LabelMinhaConta.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         LabelMinhaConta.setText("Minha conta >");
+        LabelMinhaConta.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         LabelMinhaConta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LabelMinhaContaMouseClicked(evt);
@@ -106,6 +113,7 @@ public class TelaInicial extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(jList1);
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/imagempadrao.png"))); // NOI18N
@@ -147,6 +155,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel1.setText("<  1  >");
 
         labelDepartamentos.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
+        labelDepartamentos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelDepartamentos.setText("Departamentos");
 
         jLabel2.setText("Excluir Tudo");
@@ -164,9 +173,9 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addGap(1, 1, 1))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelDepartamentos)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                            .addComponent(labelDepartamentos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(7, 7, 7)
@@ -225,8 +234,8 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addGap(15, 15, 15)
                             .addComponent(LabelNomeUsuario)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(LabelMinhaConta)
-                            .addGap(7, 7, 7)
+                            .addComponent(LabelMinhaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(LabelSair)
                             .addGap(14, 14, 14))
                         .addComponent(labelFotoUsuario, javax.swing.GroupLayout.Alignment.TRAILING))

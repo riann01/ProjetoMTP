@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package autenticar;
 
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,7 +17,9 @@ public class AlterarDados extends javax.swing.JFrame {
      * Creates new form AlterarDados
      */
     public AlterarDados(int id) {
+        super("Atualizar Dados");
         initComponents();
+        getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setVisible(true);
         
@@ -88,6 +86,8 @@ public class AlterarDados extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         jLabel1.setText("Alterar dados cadastrais");
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel2.setText("Nome:");
 
         jLabel4.setText("Endereço:");
@@ -96,6 +96,7 @@ public class AlterarDados extends javax.swing.JFrame {
 
         jLabel8.setText("Cidade:");
 
+        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("**************");
 
         jLabel6.setText("Senha:");

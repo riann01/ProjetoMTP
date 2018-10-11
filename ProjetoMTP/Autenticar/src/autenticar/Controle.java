@@ -15,6 +15,7 @@ public class Controle {
     boolean loginTeste = false;
     boolean administradorTeste = false;
     int idUsuario;
+    public String nome;
 
     public Controle() {
 
@@ -97,7 +98,19 @@ public class Controle {
 
     }
     
-    
+    public void mostraNome () {
+        PreparedStatement st;
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT nome FROM pessoa WHERE id_pessoa = ?");
+            st.setInt(1 , idUsuario);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                this.nome = rs.getString("nome");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     
 
     public String retornaMensagem() {
