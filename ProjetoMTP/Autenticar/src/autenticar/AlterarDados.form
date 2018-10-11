@@ -48,9 +48,9 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jLabel7" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                       <Component id="editarSenha" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -67,9 +67,9 @@
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="editarSenha" alignment="3" min="-2" pref="18" max="-2" attributes="0"/>
                   <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="editarSenha" alignment="1" min="-2" pref="17" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
               <Component id="jSeparator2" min="-2" pref="16" max="-2" attributes="0"/>
@@ -180,7 +180,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Login:"/>
+            <Property name="text" type="java.lang.String" value="Usu&#xe1;rio:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
