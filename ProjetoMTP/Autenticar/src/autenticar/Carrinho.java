@@ -5,6 +5,7 @@
  */
 package autenticar;
 
+
 /**
  *
  * @author ifg
@@ -17,6 +18,7 @@ public class Carrinho extends javax.swing.JFrame {
     public Carrinho() {
         initComponents();
         setLocationRelativeTo(null);
+        labelCarrinhoDeCompras.setText("Carrinho de Compras do " + "");
         setVisible(true);
     }
 
