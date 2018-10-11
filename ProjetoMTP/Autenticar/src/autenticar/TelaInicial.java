@@ -14,10 +14,11 @@ public class TelaInicial extends javax.swing.JFrame {
     /**
      * Creates new form TelaInicial
      */
-    public TelaInicial() {
+    public TelaInicial(int id) {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
+        this.idUsuario = id;
     }
 
     /**
@@ -57,6 +58,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         LabelMinhaConta.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         LabelMinhaConta.setText("Minha conta >");
+        LabelMinhaConta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                LabelMinhaContaMouseClicked(evt);
+            }
+        });
 
         LabelSair.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         LabelSair.setText("Sair");
@@ -245,10 +251,21 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    private void LabelMinhaContaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelMinhaContaMouseClicked
+        
+        
+        this.dispose();
+        new AlterarDados(idUsuario);
+        
+        
+    }//GEN-LAST:event_LabelMinhaContaMouseClicked
+
     private void LabelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelSairMouseClicked
         this.dispose();
         new Logar();
     }//GEN-LAST:event_LabelSairMouseClicked
+
 
     private void LabelCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelCarrinhoMouseClicked
         new Carrinho();
@@ -283,14 +300,10 @@ public class TelaInicial extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new TelaInicial().setVisible(true);
-            }
-        });
+        
     }
 
+    int idUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelCarrinho;
     private javax.swing.JLabel LabelMinhaConta;
