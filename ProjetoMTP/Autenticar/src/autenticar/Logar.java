@@ -101,7 +101,7 @@ public class Logar extends javax.swing.JFrame {
         
             JOptionPane.showMessageDialog(null , controle.retornaMensagem());
             this.dispose();
-            new FazerLogin();
+            new TelaInicial();
             
         }else{
         
