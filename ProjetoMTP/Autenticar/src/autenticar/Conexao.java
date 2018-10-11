@@ -12,7 +12,7 @@ public class Conexao {
 	
 	private String usuario = "postgres";
 	
-	private String senha = "postgres";
+	private String senha = "ifg";
 	
 	private Connection conn;
 	
@@ -69,7 +69,7 @@ public class Conexao {
 			e.printStackTrace();
 		}
 	}
-	/*
+	
 	public void atualizar() {
 		try {
 			PreparedStatement st = this.conn.prepareStatement("UPDATE pessoa SET nome = ?");
@@ -80,7 +80,7 @@ public class Conexao {
 			e.printStackTrace();
 		}
 	}
-	
+	/*
 	public void excluir() {
 		try {
 			PreparedStatement st = this.conn.prepareStatement("DELETE FROM pessoa WHERE id = ?");

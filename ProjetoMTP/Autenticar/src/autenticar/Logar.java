@@ -97,15 +97,25 @@ public class Logar extends javax.swing.JFrame {
         Controle controle = new Controle();
         String senha1 = new String(senha.getPassword());
         controle.controleLogin(login.getText(), senha1);
-        if(controle.validoLogin() == true){
+        if(controle.validoLogin() == true && controle.administrador()==true){
         
             JOptionPane.showMessageDialog(null , controle.retornaMensagem());
             this.dispose();
             new TelaInicial();
             
         }else{
+            
+            if(controle.validoLogin() == true){
         
-            JOptionPane.showMessageDialog(null , controle.retornaMensagem(), "Erro" , JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null , controle.retornaMensagem());
+                this.dispose();
+                new TelaInicial();
+            
+            }else{
+            
+               JOptionPane.showMessageDialog(null , controle.retornaMensagem(), "Erro" , JOptionPane.ERROR_MESSAGE); 
+            
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

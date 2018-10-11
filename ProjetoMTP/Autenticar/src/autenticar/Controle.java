@@ -13,6 +13,7 @@ public class Controle {
     Conexao conexao;
     boolean teste = false;
     boolean loginTeste = false;
+    boolean administradorTeste = false;
 
     public Controle() {
 
@@ -65,7 +66,7 @@ public class Controle {
 
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT email, senha FROM pessoa");
+            st = conexao.getConnection().prepareStatement("SELECT email, senha, administrador FROM pessoa");
             ResultSet rs = st.executeQuery();
 
             mensagem = new String("Email ou senha incorretos!");
@@ -76,6 +77,13 @@ public class Controle {
 
                     mensagem = new String("Login efetuado com sucesso!");
                     loginTeste = true;
+                    
+                    if(rs.getBoolean(3) == true){
+                    
+                        administradorTeste = true;
+                    
+                    }
+                    
 
                 }
 
@@ -102,6 +110,12 @@ public class Controle {
     public boolean validoLogin() {
 
         return loginTeste;
+
+    }
+    
+    public boolean administrador() {
+
+        return administradorTeste;
 
     }
 
