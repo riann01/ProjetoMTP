@@ -16,6 +16,8 @@ public class AlterarDados extends javax.swing.JFrame {
      */
     public AlterarDados() {
         initComponents();
+        
+        mostrarNome.setText("testeeeeeeeeeeee");
     }
 
     /**
@@ -246,6 +248,8 @@ public class AlterarDados extends javax.swing.JFrame {
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aplicar;
