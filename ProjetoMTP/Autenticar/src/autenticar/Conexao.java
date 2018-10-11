@@ -54,14 +54,15 @@ public class Conexao {
 		}
 	}
 	
-	public void inserir(String nome, String login, String senha, String email, String cidade) {
+	public void inserir(String nome, String senha, String email, String cidade, String endereco) {
 		try {
-			PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, login, senha, email, cidade) VALUES (?, ?, ?, ?, ?)");
+			PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, administrador, senha, email, cidade_estado, endereco) VALUES (?, ?, ?, ?, ?, ?)");
 			st.setString(1, nome);
-                        st.setString(2, login);
+                        st.setBoolean(2, false);
                         st.setString(3, senha);
                         st.setString(4, email);
                         st.setString(5, cidade);
+                        st.setString(6, endereco);
 			st.executeUpdate();
 			st.close();
 		} catch (SQLException e) {

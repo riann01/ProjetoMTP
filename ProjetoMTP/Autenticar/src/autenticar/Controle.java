@@ -20,30 +20,6 @@ public class Controle {
 
     }
 
-    public boolean ConsultarExistente(String usuario) {
-
-        boolean T = false;
-
-        try {
-            PreparedStatement stmt = conexao.getConnection().prepareStatement("SELECT * FROM pessoa WHERE login = ?");
-            stmt.setString(1, usuario);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                String usuariodois = rs.getString("login");
-                System.out.println(usuariodois);
-                if ((usuario.equals(usuariodois))) {
-                    T = true;
-                } else {
-                    T = false;
-                }
-            }
-        } catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
-            e.printStackTrace();
-        }
-        return T;
-    }
-
     public boolean ConsultarExistenteEmail(String email) {
 
         boolean T = false;
@@ -67,40 +43,32 @@ public class Controle {
         return T;
     }
 
-    public void controleCadastro(String login, String email, String senha, String local, String nome) {
+    public void controleCadastro(String email, String senha, String local, String endereco, String nome) {
 
         PreparedStatement st;
 
-        if (ConsultarExistente(login)) {
+        if (ConsultarExistenteEmail(email)) {
 
-            mensagem = new String("Usuário já cadastrado!");
+            mensagem = new String("Email já cadastrado!");
             teste = false;
 
         } else {
-            if (ConsultarExistenteEmail(email)) {
 
-                mensagem = new String("Email já cadastrado!");
-                teste = false;
+            conexao.inserir(nome, senha, email, local, endereco);
+            mensagem = new String("Cadastrado com sucesso");
+            teste = true;
 
-            } else {
-
-                conexao.inserir(nome, login, senha, email, local);
-                mensagem = new String("Cadastrado com sucesso");
-                teste = true;
-
-            }
         }
-
     }
 
     public void controleLogin(String login, String senha) {
 
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT login, senha FROM pessoa");
+            st = conexao.getConnection().prepareStatement("SELECT email, senha FROM pessoa");
             ResultSet rs = st.executeQuery();
 
-            mensagem = new String("Login ou senha incorretos!");
+            mensagem = new String("Email ou senha incorretos!");
 
             while (rs.next()) {
 
@@ -130,7 +98,7 @@ public class Controle {
         return teste;
 
     }
-    
+
     public boolean validoLogin() {
 
         return loginTeste;
