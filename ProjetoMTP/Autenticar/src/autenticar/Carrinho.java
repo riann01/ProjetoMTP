@@ -1,22 +1,22 @@
 package autenticar;
 import java.awt.Color;
+import javax.swing.UIManager;
 
-/**
- *
- * @author ifg
- */
 public class Carrinho extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Carrinho
-     */
+    {        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Não foi possível alterar o LookAndFeel");
+            e.printStackTrace();
+        }
+    }
     public Carrinho() {
         super("Carrinho de Compras");
         Controle controle = new Controle ();
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
-        new Controle().mostraNome(controle.retornaId());
         labelCarrinhoDeCompras.setText("Carrinho de Compras do " + controle.getNome());
         setVisible(true);
     }

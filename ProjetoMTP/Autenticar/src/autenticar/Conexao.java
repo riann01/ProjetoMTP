@@ -12,32 +12,28 @@ public class Conexao {
 	
 	private String usuario = "postgres";
 	
-	private String senha = "ifg";
+	private String senha = "postgres";
 	
 	private Connection conn;
 	
 	public Conexao() {
-		conectar();
+            conectar();
 	}
-	
-	
+		
 	public void conectar() {
-		try {
-			Class.forName("org.postgresql.Driver");
-		} catch (ClassNotFoundException e1) {
-			e1.printStackTrace();
-		}
-		
-		Properties props = new Properties();
-		props.setProperty("user", this.usuario);
-		props.setProperty("password", this.senha);
-		
-		try {
-			this.conn = DriverManager.getConnection(this.url, props);
-		} catch (SQLException e) {
-			e.getMessage();
-		}
-
+            try {
+		Class.forName("org.postgresql.Driver");
+            } catch (ClassNotFoundException e1) {
+		e1.printStackTrace();
+            }		
+            Properties props = new Properties();
+            props.setProperty("user", this.usuario);
+            props.setProperty("password", this.senha);
+            try {
+		this.conn = DriverManager.getConnection(this.url, props);
+            } catch (SQLException e) {
+                e.getMessage();
+            }
 	}
 	
 	public Connection getConnection() {

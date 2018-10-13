@@ -6,54 +6,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.UIManager;
 
-/**
- *
- * @author ifg
- */
 public class AlterarDados extends javax.swing.JFrame {
-
-    /**
-     * Creates new form AlterarDados
-     */
+    {        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Não foi possível alterar o LookAndFeel");
+            e.printStackTrace();
+        }
+    }
     public AlterarDados(int id) {
         super("Atualizar Dados");
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setVisible(true);
-        
         Conexao conexao = new Conexao();
-        
         PreparedStatement st;
         try {
             st = conexao.getConnection().prepareStatement("SELECT email, senha, cidade_estado, endereco, nome, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
-
             while (rs.next()) {
-
                 if (rs.getInt(6)==id) {
-
                     mostrarEmail.setText(rs.getString(1));
                     mostrarLocal.setText(rs.getString(4));
                     mostrarNome.setText(rs.getString(5));
                     mostrarCidade.setText(rs.getString(3));
-                    
-                    }
-                    
-
+                    }  
                 }
-
-            
-
         } catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-        
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -83,7 +69,7 @@ public class AlterarDados extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
         jLabel1.setText("Alterar dados cadastrais");
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -169,25 +155,25 @@ public class AlterarDados extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(136, 136, 136)
                         .addComponent(aplicar)
                         .addGap(18, 18, 18)
-                        .addComponent(cancelar)))
+                        .addComponent(cancelar))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(89, 89, 89)
+                        .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -200,7 +186,9 @@ public class AlterarDados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        Controle controle = new Controle ();
         this.dispose();
+        new TelaInicial(controle.idUsuario);
     }//GEN-LAST:event_cancelarActionPerformed
 
     /**

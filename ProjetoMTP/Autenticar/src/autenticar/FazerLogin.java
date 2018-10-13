@@ -1,14 +1,22 @@
 package autenticar;
-import javax.swing.JOptionPane;
 import java.awt.*;
+import javax.swing.UIManager;
 public class FazerLogin extends javax.swing.JFrame {
-
+    {        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Não foi possível alterar o LookAndFeel");
+            e.printStackTrace();
+        }
+    }
     public FazerLogin() {
         super("Autenticar");
         getContentPane().setBackground(Color.WHITE);        
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Foto/IFSULDEMINAS_vertical.png")));
         setLocationRelativeTo(null);
+        jButton1.requestFocus();
         setVisible(true);
     }
 
@@ -30,6 +38,7 @@ public class FazerLogin extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/SLFLOGO.png"))); // NOI18N
 
         jButton1.setText("Entrar");
+        jButton1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -37,6 +46,7 @@ public class FazerLogin extends javax.swing.JFrame {
         });
 
         jButton2.setText("Cadastrar");
+        jButton2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);

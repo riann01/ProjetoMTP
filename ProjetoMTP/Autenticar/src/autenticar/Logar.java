@@ -2,9 +2,17 @@ package autenticar;
 
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class Logar extends javax.swing.JFrame {
-
+    {        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Não foi possível alterar o LookAndFeel");
+            e.printStackTrace();
+        }
+    }
     public Logar() {
         initComponents();
         getContentPane().setBackground(Color.WHITE);
@@ -99,24 +107,22 @@ public class Logar extends javax.swing.JFrame {
         Controle controle = new Controle();
         String senha1 = new String(senha.getPassword());
         controle.controleLogin(login.getText(), senha1);
-        if(controle.validoLogin() == true && controle.administrador()==true){
-        
+        if((controle.validoLogin() == true) && (controle.administrador()==true)) {
             JOptionPane.showMessageDialog(null , controle.retornaMensagem());
             this.dispose();
             new TelaInicial(controle.retornaId());
-            
-        }else{
-            
+        }
+        else {
             if(controle.validoLogin() == true){
-        
+                controle.getNome(controle.retornaId());
+                controle.getId(login.getText());
+                System.out.println(login.getText());
                 JOptionPane.showMessageDialog(null , controle.retornaMensagem());
                 this.dispose();
                 new TelaInicial(controle.retornaId());
-            
-            }else{
-            
+            }
+            else {
                JOptionPane.showMessageDialog(null , controle.retornaMensagem(), "Erro" , JOptionPane.ERROR_MESSAGE); 
-            
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

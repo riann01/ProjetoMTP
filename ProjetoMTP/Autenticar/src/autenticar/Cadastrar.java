@@ -2,7 +2,14 @@ package autenticar;
 import javax.swing.*;
 import java.awt.*;       
 public class Cadastrar extends javax.swing.JFrame {
-
+    {        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Não foi possível alterar o LookAndFeel");
+            e.printStackTrace();
+        }
+    }
     public Cadastrar() {
         super("Cadastrar");
         initComponents();
@@ -74,7 +81,7 @@ public class Cadastrar extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 36)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Bahnschrift", 0, 36)); // NOI18N
         jLabel7.setText("Cadastrar");
 
         endereco1.setText("Endereço");
@@ -85,7 +92,7 @@ public class Cadastrar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 108, Short.MAX_VALUE)
+                .addGap(0, 102, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(94, 94, 94))
             .addGroup(layout.createSequentialGroup()
