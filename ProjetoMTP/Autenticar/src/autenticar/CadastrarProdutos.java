@@ -200,7 +200,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         Controle controle  = new Controle();
         Produto p = new Produto(nome.getText(), descricao.getText(), Integer.parseInt(categoria.getText()));
-        TelaInicial ti = new TelaInicial(controle.retornaId());     
+        //TelaInicial ti = new TelaInicial(controle.retornaId());     
         //ti.getPainel().add(p);
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
