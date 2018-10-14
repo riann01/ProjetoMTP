@@ -19,6 +19,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     public TelaInicial(int id) {
         super ("Super Loja Fictícia");
+        this.idUsuario = id;
         initComponents();
         Controle controle = new Controle();
         String nome = controle.mostraNome(id);
@@ -307,11 +308,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_LabelSairMouseClicked
 
     private void LabelCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelCarrinhoMouseClicked
-        new Carrinho();
+        new Carrinho(idUsuario);
     }//GEN-LAST:event_LabelCarrinhoMouseClicked
 
     private void labelAcessarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAcessarMouseClicked
-        new Carrinho();
+        new Carrinho(idUsuario);
     }//GEN-LAST:event_labelAcessarMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked

@@ -11,13 +11,15 @@ public class Carrinho extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public Carrinho() {
+    public Carrinho(int id) {
         super("Carrinho de Compras");
         Controle controle = new Controle ();
         initComponents();
+        String nome1 = controle.mostraNome(id);
+        String[] nome2 = nome1.split(" ");
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
-        labelCarrinhoDeCompras.setText("Carrinho de Compras do " + controle.getNome());
+        labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
         setVisible(true);
     }
 
@@ -143,11 +145,7 @@ public class Carrinho extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Carrinho().setVisible(true);
-            }
-        });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

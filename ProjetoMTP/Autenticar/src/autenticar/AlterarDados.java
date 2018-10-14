@@ -25,6 +25,7 @@ public class AlterarDados extends javax.swing.JFrame {
         setVisible(true);
         Conexao conexao = new Conexao();
         PreparedStatement st;
+        this.idUsuario = id;
         try {
             st = conexao.getConnection().prepareStatement("SELECT email, senha, cidade_estado, endereco, nome, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
@@ -188,7 +189,7 @@ public class AlterarDados extends javax.swing.JFrame {
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         Controle controle = new Controle ();
         this.dispose();
-        new TelaInicial(controle.idUsuario);
+        new TelaInicial(this.idUsuario);
     }//GEN-LAST:event_cancelarActionPerformed
 
     /**
@@ -226,7 +227,7 @@ public class AlterarDados extends javax.swing.JFrame {
         });*/
     }
     
-    
+    int idUsuario;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aplicar;
