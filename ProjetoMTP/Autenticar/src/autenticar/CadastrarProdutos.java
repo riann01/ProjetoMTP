@@ -234,8 +234,8 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                     labelImagem.setIcon(null);
                     
                 } else {
-                    Image image = imag;
-                    //image = Toolkit.getDefaultToolkit().createImage(fis);
+                    
+                    Image image = imag;                    
                     image = image.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(image);
 
