@@ -20,8 +20,10 @@ public class TelaInicial extends javax.swing.JFrame {
     public TelaInicial(int id) {
         super ("Super Loja Fictícia");
         initComponents();
-        Controle controle = new Controle();        
-        LabelNomeUsuario.setText("Olá, " + controle.mostraNome(id) + "!");
+        Controle controle = new Controle();
+        String nome = controle.mostraNome(id);
+        String[] nome1 = nome.split(" ");
+        LabelNomeUsuario.setText("Olá, " + nome1[0] + "!");
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setVisible(true);
