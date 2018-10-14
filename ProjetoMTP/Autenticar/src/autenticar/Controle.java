@@ -74,21 +74,28 @@ public class Controle {
         }
     }
     
-    /*public void mostraNome (int idUsuario) {
+    public String mostraNome (int idUsuario) {
+        
+        String nome1 = new String();
+        Conexao conexao = new Conexao();
         PreparedStatement st;
+        
         try {
             st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
-            //st.setInt(1 , idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(2)==idUsuario) {
-                    this.nome = rs.getString(1);
+                    
+                    nome1 = rs.getString(1);
+                    
+                    }  
                 }
-            }
         } catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+        
+        return nome1;
+    }
     
     public void getId (String email) {
         String nome;

@@ -1,6 +1,11 @@
 package autenticar;
 
 import java.awt.Color;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.UIManager;
 
 public class TelaInicial extends javax.swing.JFrame {
@@ -14,14 +19,13 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     public TelaInicial(int id) {
         super ("Super Loja Fictícia");
-        Controle controle = new Controle();
         initComponents();
-        LabelNomeUsuario.setText("Olá, " + controle.getNome() + "!");
+        Controle controle = new Controle();        
+        LabelNomeUsuario.setText("Olá, " + controle.mostraNome(id) + "!");
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         setVisible(true);
         new Propaganda ();
-        this.idUsuario = id;
     }
     
     
