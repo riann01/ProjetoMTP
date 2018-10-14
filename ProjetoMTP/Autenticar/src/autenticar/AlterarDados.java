@@ -208,6 +208,8 @@ public class AlterarDados extends javax.swing.JFrame {
         String passaSenha = new String(mostrarSenha.getPassword());
         conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);
         JOptionPane.showMessageDialog(null , "Atualizado com sucesso!");
+        this.dispose();
+        new TelaInicial(idUsuario);
         
     }//GEN-LAST:event_aplicarActionPerformed
 

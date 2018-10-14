@@ -1,5 +1,9 @@
 package autenticar;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -62,6 +66,28 @@ public class Conexao {
 			st.executeUpdate();
 			st.close();
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+        
+        public void inserirProduto(Double id, String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo) {
+		try {
+                        FileInputStream fis = new FileInputStream(arquivo);
+			PreparedStatement st = this.conn.prepareStatement("INSERT INTO produto (id_produto, nome_produto, descricao, preco_custo, preco_venda, foto) VALUES (?, ?, ?, ?, ?, ?)");
+			st.setDouble(1, id);
+                        st.setString(2, nome);
+                        st.setString(3, descricao);
+                        st.setFloat(4, preco_custo);
+                        st.setFloat(5, preco_venda);
+                        st.setBinaryStream(6, fis, (int) arquivo.length());
+                        //st.setBinaryStream();
+			st.executeUpdate();
+			st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
