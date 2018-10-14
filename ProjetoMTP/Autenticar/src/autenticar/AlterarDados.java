@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class AlterarDados extends javax.swing.JFrame {
@@ -35,6 +36,8 @@ public class AlterarDados extends javax.swing.JFrame {
                     mostrarLocal.setText(rs.getString(4));
                     mostrarNome.setText(rs.getString(5));
                     mostrarCidade.setText(rs.getString(3));
+                    senha11 = rs.getString(2);
+                    mostrarSenha.setText(senha11);
                     }  
                 }
         } catch (SQLException ex) {
@@ -57,12 +60,12 @@ public class AlterarDados extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         mostrarNome = new javax.swing.JTextField();
         mostrarLocal = new javax.swing.JTextField();
         mostrarCidade = new javax.swing.JTextField();
-        mostrarEmail = new javax.swing.JTextField();
+        mostrarEmail = new javax.swing.JLabel();
+        mostrarSenha = new javax.swing.JPasswordField();
         jSeparator2 = new javax.swing.JSeparator();
         cancelar = new javax.swing.JButton();
         aplicar = new javax.swing.JButton();
@@ -83,10 +86,9 @@ public class AlterarDados extends javax.swing.JFrame {
 
         jLabel8.setText("Cidade:");
 
-        jLabel7.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("**************");
-
         jLabel6.setText("Senha:");
+
+        mostrarSenha.setText("jPasswordField1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -101,12 +103,12 @@ public class AlterarDados extends javax.swing.JFrame {
                     .addComponent(jLabel5)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(mostrarNome)
-                    .addComponent(mostrarLocal, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mostrarEmail, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(mostrarCidade, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(mostrarNome, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 273, Short.MAX_VALUE)
+                    .addComponent(mostrarLocal)
+                    .addComponent(mostrarCidade)
+                    .addComponent(mostrarEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(mostrarSenha))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,14 +126,17 @@ public class AlterarDados extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
                     .addComponent(mostrarCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(mostrarEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(10, 10, 10)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jLabel5))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(mostrarEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(mostrarSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         cancelar.setText("Cancelar");
@@ -142,6 +147,11 @@ public class AlterarDados extends javax.swing.JFrame {
         });
 
         aplicar.setText("Aplicar");
+        aplicar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aplicarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -192,6 +202,15 @@ public class AlterarDados extends javax.swing.JFrame {
         new TelaInicial(this.idUsuario);
     }//GEN-LAST:event_cancelarActionPerformed
 
+    private void aplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarActionPerformed
+        // TODO add your handling code here:
+        Conexao conexao = new Conexao();
+        String passaSenha = new String(mostrarSenha.getPassword());
+        conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);
+        JOptionPane.showMessageDialog(null , "Atualizado com sucesso!");
+        
+    }//GEN-LAST:event_aplicarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -228,6 +247,7 @@ public class AlterarDados extends javax.swing.JFrame {
     }
     
     int idUsuario;
+    String senha11;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aplicar;
@@ -237,14 +257,14 @@ public class AlterarDados extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField mostrarCidade;
-    private javax.swing.JTextField mostrarEmail;
+    private javax.swing.JLabel mostrarEmail;
     private javax.swing.JTextField mostrarLocal;
     private javax.swing.JTextField mostrarNome;
+    private javax.swing.JPasswordField mostrarSenha;
     // End of variables declaration//GEN-END:variables
 }

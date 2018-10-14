@@ -66,10 +66,14 @@ public class Conexao {
 		}
 	}
 	
-	public void atualizar() {
+	public void atualizar(int id, String nome, String cidade, String endereco, String senha) {
 		try {
-			PreparedStatement st = this.conn.prepareStatement("UPDATE pessoa SET nome = ?");
-			st.setString(1, "Thiago 2");
+			PreparedStatement st = this.conn.prepareStatement("UPDATE pessoa SET nome = ?, cidade_estado = ?, endereco = ?, senha = ? WHERE id_pessoa=?");
+			st.setString(1, nome);
+                        st.setString(2, cidade);
+                        st.setString(3, endereco);
+                        st.setString(4, senha);
+                        st.setInt(5, id);
 			st.executeUpdate();
 			st.close();
 		} catch (SQLException e) {
