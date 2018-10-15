@@ -9,6 +9,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.io.InputStream;
 
 public class Conexao {
     
@@ -44,7 +45,7 @@ public class Conexao {
 		return this.conn;
 	}
 	
-	public void criarTabela() {
+	/*public void criarTabela() {
 		try {
 			PreparedStatement st = this.conn.prepareStatement("CREATE TABLE pessoa (id serial primary key, nome text)");
 			st.execute();
@@ -52,31 +53,32 @@ public class Conexao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 	
 	public void inserir(String nome, String senha, String email, String cidade, String endereco, File foto) {
-		try {
-                    FileInputStream fis = new FileInputStream(foto);
-                    PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, administrador, senha, email, cidade_estado, endereco, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                    st.setString(1, nome);
-                    st.setBoolean(2, false);
-                    st.setString(3, senha);
-                    st.setString(4, email);
-                    st.setString(5, cidade);
-                    st.setString(6, endereco);
-                    st.setBinaryStream(7, fis, (int) foto.length());
-                    st.executeUpdate();
-                    st.close();
-                    fis.close();
-		} catch (SQLException e) {
-                    e.printStackTrace();
-		}
-                catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
+            try {
+                FileInputStream fis = new FileInputStream(foto);
+                PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, email, cidade_estado, endereco, senha, administrador, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                st.setString(1, nome);
+                st.setString(2, email);
+                st.setString(3, cidade);
+                st.setString(4, endereco);
+                st.setString(5, senha);
+                st.setBoolean(6, false);
+                st.setBinaryStream(7, fis, (int) foto.length());
+                st.executeUpdate();
+                st.close();
+                fis.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+            catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
 	}
         
         public void inserirProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo) {

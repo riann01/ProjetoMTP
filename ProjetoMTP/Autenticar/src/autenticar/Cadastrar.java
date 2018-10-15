@@ -246,6 +246,7 @@ public class Cadastrar extends javax.swing.JFrame {
     }//GEN-LAST:event_quadro_brancoMouseExited
 
     private void quadro_brancoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quadro_brancoMouseClicked
+        T = true;
         JFileChooser fc;
         fc = new JFileChooser();
         ImageIcon foto = new ImageIcon(this.getClass().getResource("Foto/user.png"));
@@ -272,7 +273,7 @@ public class Cadastrar extends javax.swing.JFrame {
         }
         else {
             if (retorno == JFileChooser.CANCEL_OPTION) {
-                foto_usuario.setIcon(foto);
+                foto_usuario.setIcon(foto);                
             }
         }
     }//GEN-LAST:event_quadro_brancoMouseClicked
@@ -284,7 +285,8 @@ public class Cadastrar extends javax.swing.JFrame {
         return this.arquivo;
     }
     
-    private File arquivo;    
+    private File arquivo;
+    private Boolean T = false;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cidade;
     private javax.swing.JPasswordField confirmaSenha;
