@@ -115,50 +115,47 @@ public class Cadastrar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
+                .addGap(95, 95, 95)
+                .addComponent(quadro_branco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(95, 95, 95))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(60, 60, 60))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(61, 61, 61))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(80, 80, 80)
-                            .addComponent(jButton1)
-                            .addGap(28, 28, 28)
-                            .addComponent(jButton2))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(96, 96, 96)
-                            .addComponent(quadro_branco))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel3)
-                                .addComponent(endereco1))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(senha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-                                .addComponent(cidade, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(endereco, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(confirmaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 204, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel7)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(endereco1)
+                    .addComponent(jLabel6))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(confirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(senha, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
+                        .addComponent(cidade, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(endereco, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(nome, javax.swing.GroupLayout.Alignment.LEADING))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(96, 96, 96)
+                    .addGap(95, 95, 95)
                     .addComponent(mudar_foto)
-                    .addContainerGap(93, Short.MAX_VALUE)))
+                    .addContainerGap(99, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(97, 97, 97)
-                    .addComponent(foto_usuario, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(84, Short.MAX_VALUE)))
+                    .addComponent(foto_usuario, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                    .addGap(97, 97, 97)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,9 +188,9 @@ public class Cadastrar extends javax.swing.JFrame {
                     .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(confirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                    .addComponent(confirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
@@ -202,17 +199,17 @@ public class Cadastrar extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(95, 95, 95)
                     .addComponent(mudar_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(274, Short.MAX_VALUE)))
+                    .addContainerGap(269, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(104, 104, 104)
                     .addComponent(foto_usuario)
-                    .addContainerGap(280, Short.MAX_VALUE)))
+                    .addContainerGap(275, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-    File arquivo;
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         this.dispose();
         new FazerLogin();
@@ -224,7 +221,7 @@ public class Cadastrar extends javax.swing.JFrame {
         
         String senha1 = new String(senha.getPassword());
         
-        controle.controleCadastro(email.getText(), senha1, cidade.getText(), endereco.getText(), nome.getText() , controle.getFoto());
+        controle.controleCadastro(email.getText(), senha1, cidade.getText(), endereco.getText(), nome.getText() , getFoto());
         
         if(controle.validoCadastro() == true){
         
@@ -265,7 +262,7 @@ public class Cadastrar extends javax.swing.JFrame {
                     image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(image);
                     foto_usuario.setIcon(icon);
-                    new Controle().setFoto(arquivo);
+                    setFoto(arquivo);
                 }
                 pack();
 		setLocationRelativeTo(null);
@@ -279,7 +276,15 @@ public class Cadastrar extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_quadro_brancoMouseClicked
-      
+    public void setFoto (File foto) {
+        this.arquivo = foto;
+    }
+    
+    public File getFoto () {
+        return this.arquivo;
+    }
+    
+    private File arquivo;    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cidade;
     private javax.swing.JPasswordField confirmaSenha;
