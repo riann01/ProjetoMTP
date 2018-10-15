@@ -1,4 +1,7 @@
 package autenticar;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -6,7 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 public class Controle {
     String mensagem;
@@ -16,7 +22,8 @@ public class Controle {
     boolean administradorTeste = false;
     int idUsuario;
     private String nome;
-    File foto;
+    private ImageIcon foto;
+    
     public Controle() {
         conexao = new Conexao();
     }
@@ -76,25 +83,29 @@ public class Controle {
         }
     }
     
-    /*public File mostraFoto (int idUsuario) {
-        InputStream is;
-        File foto;
-        Conexao conn = new Conexao ();
+    public void pegaFoto (int id) {
+        Conexao conn = new Conexao();
         PreparedStatement st;
-        
         try {
             st = conn.getConnection().prepareStatement("SELECT foto, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                if (rs.getInt(2)==idUsuario) {
-                    is = rs.getBinaryStream(1);
-                    is.
+                if (id==rs.getInt(2)) {
+                    byte[] binario = rs.getBytes(1);
+                    InputStream is = new ByteArrayInputStream(binario);
+                    BufferedImage imag = ImageIO.read(is);
+                    Image image = imag;                    
+                    image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(image);
+                    setFoto(icon);
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (SQLException e) {  
-        }
-    }*/
+    }
     
     public String mostraNome (int idUsuario) {
         
@@ -148,11 +159,11 @@ public class Controle {
         }
     }
     
-    public void setFoto (File foto) {
+    public void setFoto(ImageIcon foto) {
         this.foto = foto;
     }
     
-    public File getFoto () {
+    public ImageIcon getFoto () {
         return this.foto;
     }
     
