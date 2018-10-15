@@ -1,12 +1,19 @@
 package autenticar;
 
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
+import java.io.File;
+import javax.swing.JOptionPane;
+import javax.swing.JFileChooser;
+import javax.swing.ImageIcon;
 
 public class TelaInicial extends javax.swing.JFrame {
     {        
@@ -27,12 +34,12 @@ public class TelaInicial extends javax.swing.JFrame {
         LabelNomeUsuario.setText("Olá, " + nome1[0] + "!");
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
+        controle.pegaFoto(idUsuario);
+        labelFotoUsuario.setIcon(controle.getFoto());
         setVisible(true);
-        labelFotoUsuario.setVisible(false);
+        labelFotoUsuarioMouseEvento.setVisible(false);
         new Propaganda ();
     }
-    
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -44,7 +51,7 @@ public class TelaInicial extends javax.swing.JFrame {
         textFieldPesquisa = new javax.swing.JTextField();
         botaoIr = new javax.swing.JButton();
         LabelCarrinho = new javax.swing.JLabel();
-        labelFotoUsuario = new javax.swing.JLabel();
+        labelFotoUsuarioMouseEvento = new javax.swing.JLabel();
         labelCarrinho = new javax.swing.JLabel();
         labelAcessar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -58,7 +65,8 @@ public class TelaInicial extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        labelFotoUsuarioMouseEvento = new javax.swing.JLabel();
+        labelFotoUsuario = new javax.swing.JLabel();
+        cover = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -97,13 +105,16 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        labelFotoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user_mudarfoto.png"))); // NOI18N
-        labelFotoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelFotoUsuarioMouseEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user_mudarfoto.png"))); // NOI18N
+        labelFotoUsuarioMouseEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelFotoUsuarioMouseEventoMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseEntered(evt);
+                labelFotoUsuarioMouseEventoMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseExited(evt);
+                labelFotoUsuarioMouseEventoMouseExited(evt);
             }
         });
 
@@ -178,13 +189,23 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        labelFotoUsuarioMouseEvento.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user.png"))); // NOI18N
-        labelFotoUsuarioMouseEvento.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelFotoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user.png"))); // NOI18N
+        labelFotoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseEventoMouseEntered(evt);
+                labelFotoUsuarioMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseEventoMouseExited(evt);
+                labelFotoUsuarioMouseExited(evt);
+            }
+        });
+
+        cover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user_branco.png"))); // NOI18N
+        cover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                coverMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                coverMouseExited(evt);
             }
         });
 
@@ -195,6 +216,7 @@ public class TelaInicial extends javax.swing.JFrame {
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -202,12 +224,11 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addComponent(labelDepartamentos, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(23, 23, 23)
-                                .addComponent(labelFotoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(2, 2, 2))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(labelFotoUsuarioMouseEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(2, 2, 2)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addComponent(painelConteudo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,10 +241,9 @@ public class TelaInicial extends javax.swing.JFrame {
                                     .addComponent(LabelMinhaConta)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(1, 1, 1)
-                                        .addComponent(LabelNomeUsuario))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(1, 1, 1)
-                                        .addComponent(LabelSair)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(LabelNomeUsuario)
+                                            .addComponent(LabelSair))))
                                 .addGap(59, 59, 59)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -256,8 +276,13 @@ public class TelaInicial extends javax.swing.JFrame {
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(23, 23, 23)
-                    .addComponent(labelFotoUsuarioMouseEvento)
-                    .addContainerGap(850, Short.MAX_VALUE)))
+                    .addComponent(cover)
+                    .addContainerGap(845, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(23, 23, 23)
+                    .addComponent(labelFotoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(840, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -299,9 +324,9 @@ public class TelaInicial extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE)))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(labelFotoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28)))
+                        .addGap(0, 11, Short.MAX_VALUE)
+                        .addComponent(labelFotoUsuarioMouseEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,9 +341,12 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(labelFotoUsuarioMouseEvento, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(507, Short.MAX_VALUE)))
+                    .addComponent(cover, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 489, Short.MAX_VALUE)))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addComponent(labelFotoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 493, Short.MAX_VALUE)))
         );
 
         pack();
@@ -349,25 +377,44 @@ public class TelaInicial extends javax.swing.JFrame {
         new CadastrarProdutos ();
     }//GEN-LAST:event_jLabel3MouseClicked
 
-    private void labelFotoUsuarioMouseEventoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEventoMouseExited
-        labelFotoUsuario.setVisible(false);
-    }//GEN-LAST:event_labelFotoUsuarioMouseEventoMouseExited
-
     private void labelFotoUsuarioMouseEventoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEventoMouseEntered
-        labelFotoUsuario.setVisible(true);
+        labelFotoUsuarioMouseEvento.setVisible(true);
     }//GEN-LAST:event_labelFotoUsuarioMouseEventoMouseEntered
 
-    private void labelFotoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEntered
-        labelFotoUsuario.setVisible(true);
-    }//GEN-LAST:event_labelFotoUsuarioMouseEntered
+    private void labelFotoUsuarioMouseEventoMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEventoMouseExited
+        labelFotoUsuarioMouseEvento.setVisible(false);
+    }//GEN-LAST:event_labelFotoUsuarioMouseEventoMouseExited
+
+    private void labelFotoUsuarioMouseEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEventoMouseClicked
+        File arquivo;
+        JFileChooser fc = new JFileChooser ();
+        int verifica = fc.showOpenDialog(this);
+        if (verifica == JFileChooser.APPROVE_OPTION) {
+            arquivo = fc.getSelectedFile();
+        }
+        else {
+            if (verifica == JFileChooser.ERROR_OPTION) {
+                JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo." , "Erro" , JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_labelFotoUsuarioMouseEventoMouseClicked
 
     private void labelFotoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseExited
-        labelFotoUsuario.setVisible(false);
+        // TODO add your handling code here:
     }//GEN-LAST:event_labelFotoUsuarioMouseExited
 
-    /**
-     * @param args the command line arguments
-     */
+    private void labelFotoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelFotoUsuarioMouseEntered
+
+    private void coverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseExited
+        labelFotoUsuarioMouseEvento.setVisible(false);
+    }//GEN-LAST:event_coverMouseExited
+
+    private void coverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseEntered
+        labelFotoUsuarioMouseEvento.setVisible(true);
+    }//GEN-LAST:event_coverMouseEntered
+
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -397,12 +444,14 @@ public class TelaInicial extends javax.swing.JFrame {
         return this.painelConteudo;
     }
     int idUsuario;
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelCarrinho;
     private javax.swing.JLabel LabelMinhaConta;
     private javax.swing.JLabel LabelNomeUsuario;
     private javax.swing.JLabel LabelSair;
     private javax.swing.JButton botaoIr;
+    private javax.swing.JLabel cover;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
