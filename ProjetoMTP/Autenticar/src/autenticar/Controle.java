@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.io.InputStream;
 
 public class Controle {
     String mensagem;
@@ -14,7 +16,7 @@ public class Controle {
     boolean administradorTeste = false;
     int idUsuario;
     private String nome;
-
+    File foto;
     public Controle() {
         conexao = new Conexao();
     }
@@ -40,14 +42,14 @@ public class Controle {
         return T;
     }
 
-    public void controleCadastro(String email, String senha, String local, String endereco, String nome) {
+    public void controleCadastro(String email, String senha, String local, String endereco, String nome , File foto) {
         PreparedStatement st;
         if (ConsultarExistenteEmail(email)) {
             mensagem = new String("Email já cadastrado!");
             teste = false;
         } 
         else {
-            conexao.inserir(nome, senha, email, local, endereco);
+            conexao.inserir(nome, senha, email, local, endereco, foto);
             mensagem = new String("Cadastrado com sucesso");
             teste = true;
         }
@@ -73,6 +75,26 @@ public class Controle {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /*public File mostraFoto (int idUsuario) {
+        InputStream is;
+        File foto;
+        Conexao conn = new Conexao ();
+        PreparedStatement st;
+        
+        try {
+            st = conn.getConnection().prepareStatement("SELECT foto, id_pessoa FROM pessoa");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt(2)==idUsuario) {
+                    is = rs.getBinaryStream(1);
+                    is.
+                }
+            }
+        }
+        catch (SQLException e) {  
+        }
+    }*/
     
     public String mostraNome (int idUsuario) {
         
@@ -124,6 +146,14 @@ public class Controle {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public void setFoto (File foto) {
+        this.foto = foto;
+    }
+    
+    public File getFoto () {
+        return this.foto;
     }
     
     public void setNome (String nome) {

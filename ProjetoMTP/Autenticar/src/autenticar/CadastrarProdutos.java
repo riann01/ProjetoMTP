@@ -19,6 +19,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
+        caminho.setVisible(false);
 
     }
 
@@ -36,7 +37,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         descricao = new javax.swing.JTextArea();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        caminho = new javax.swing.JLabel();
         botaoCadastrar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         adicionaImagem = new javax.swing.JButton();
@@ -66,7 +67,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
 
         jLabel5.setText("Foto");
 
-        jLabel6.setText("[CAMINHO]");
+        caminho.setText("[CAMINHO]");
 
         botaoCadastrar.setText("Cadastrar");
         botaoCadastrar.setActionCommand("");
@@ -140,7 +141,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                                 .addGap(42, 42, 42)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(caminho, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addComponent(categoria))))))
                 .addGap(59, 59, 59))
@@ -188,7 +189,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jLabel6))
+                    .addComponent(caminho))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adicionaImagem)
                 .addGap(5, 5, 5)
@@ -210,7 +211,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
 
         Conexao conexao = new Conexao();
-        conexao.inserirProduto(Double.parseDouble(codigo.getText()), nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
+        conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
@@ -240,6 +241,9 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                     ImageIcon icon = new ImageIcon(image);
 
                     labelImagem.setIcon(icon);
+                    
+                    caminho.setText(fc.getSelectedFile().getPath());
+                    caminho.setVisible(true);
                     
                 }
                 
@@ -295,6 +299,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionaImagem;
     private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JLabel caminho;
     private javax.swing.JTextField categoria;
     private javax.swing.JTextField codigo;
     private javax.swing.JTextArea descricao;
@@ -305,7 +310,6 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;

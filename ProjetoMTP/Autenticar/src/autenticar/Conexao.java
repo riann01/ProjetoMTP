@@ -54,32 +54,40 @@ public class Conexao {
 		}
 	}
 	
-	public void inserir(String nome, String senha, String email, String cidade, String endereco) {
+	public void inserir(String nome, String senha, String email, String cidade, String endereco, File foto) {
 		try {
-			PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, administrador, senha, email, cidade_estado, endereco) VALUES (?, ?, ?, ?, ?, ?)");
-			st.setString(1, nome);
-                        st.setBoolean(2, false);
-                        st.setString(3, senha);
-                        st.setString(4, email);
-                        st.setString(5, cidade);
-                        st.setString(6, endereco);
-			st.executeUpdate();
-			st.close();
+                    FileInputStream fis = new FileInputStream(foto);
+                    PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, administrador, senha, email, cidade_estado, endereco, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                    st.setString(1, nome);
+                    st.setBoolean(2, false);
+                    st.setString(3, senha);
+                    st.setString(4, email);
+                    st.setString(5, cidade);
+                    st.setString(6, endereco);
+                    st.setBinaryStream(7, fis, (int) foto.length());
+                    st.executeUpdate();
+                    st.close();
+                    fis.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+                    e.printStackTrace();
 		}
+                catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
 	}
         
-        public void inserirProduto(Double id, String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo) {
+        public void inserirProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo) {
 		try {
                         FileInputStream fis = new FileInputStream(arquivo);
-			PreparedStatement st = this.conn.prepareStatement("INSERT INTO produto (id_produto, nome_produto, descricao, preco_custo, preco_venda, foto) VALUES (?, ?, ?, ?, ?, ?)");
-			st.setDouble(1, id);
-                        st.setString(2, nome);
-                        st.setString(3, descricao);
-                        st.setFloat(4, preco_custo);
-                        st.setFloat(5, preco_venda);
-                        st.setBinaryStream(6, fis, (int) arquivo.length());
+			PreparedStatement st = this.conn.prepareStatement("INSERT INTO produto (nome_produto, descricao, preco_custo, preco_venda, foto) VALUES (?, ?, ?, ?, ?)");
+                        st.setString(1, nome);
+                        st.setString(2, descricao);
+                        st.setFloat(3, preco_custo);
+                        st.setFloat(4, preco_venda);
+                        st.setBinaryStream(5, fis, (int) arquivo.length());
                         //st.setBinaryStream();
 			st.executeUpdate();
 			st.close();
