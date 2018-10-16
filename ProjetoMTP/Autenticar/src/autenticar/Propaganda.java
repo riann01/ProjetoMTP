@@ -3,7 +3,7 @@ import javax.swing.UIManager;
 import java.awt.Color;
 
 public class Propaganda extends javax.swing.JFrame {
-    {        
+    {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {

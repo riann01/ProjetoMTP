@@ -83,16 +83,16 @@ public class Conexao {
         
         public void inserirProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo) {
 		try {
-                        FileInputStream fis = new FileInputStream(arquivo);
-			PreparedStatement st = this.conn.prepareStatement("INSERT INTO produto (nome_produto, descricao, preco_custo, preco_venda, foto) VALUES (?, ?, ?, ?, ?)");
-                        st.setString(1, nome);
-                        st.setString(2, descricao);
-                        st.setFloat(3, preco_custo);
-                        st.setFloat(4, preco_venda);
-                        st.setBinaryStream(5, fis, (int) arquivo.length());
-                        //st.setBinaryStream();
-			st.executeUpdate();
-			st.close();
+                    FileInputStream fis = new FileInputStream(arquivo);
+                    PreparedStatement st = this.conn.prepareStatement("INSERT INTO produto (nome_produto, descricao, preco_custo, preco_venda, foto) VALUES (?, ?, ?, ?, ?)");
+                    st.setString(1, nome);
+                    st.setString(2, descricao);
+                    st.setFloat(3, preco_custo);
+                    st.setFloat(4, preco_venda);
+                    st.setBinaryStream(5, fis, (int) arquivo.length());
+                    //st.setBinaryStream();
+                    st.executeUpdate();
+                    st.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
@@ -104,7 +104,7 @@ public class Conexao {
 	
 	public void atualizar(int id, String nome, String cidade, String endereco, String senha) {
 		try {
-			PreparedStatement st = this.conn.prepareStatement("UPDATE pessoa SET nome = ?, cidade_estado = ?, endereco = ?, senha = ? WHERE id_pessoa=?");
+			PreparedStatement st = this.conn.prepareStatement("UPDATE pessoa SET nome = ?, cidade_estado = ?, endereco = ?, senha = ? WHERE id_pessoa = ?");
 			st.setString(1, nome);
                         st.setString(2, cidade);
                         st.setString(3, endereco);

@@ -9,10 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import java.io.FileNotFoundException;
 
 public class Controle {
     String mensagem;
@@ -80,6 +82,24 @@ public class Controle {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void mudarFoto (int id, File foto) {
+        Conexao conn = new Conexao();
+        PreparedStatement st;
+        try {
+            FileInputStream fis = new FileInputStream(foto);
+            st = conn.getConnection().prepareStatement("UPDATE pessoa SET foto = ? WHERE id_pessoa = ?");
+            st.setBinaryStream(1, fis, (int) foto.length());
+            st.setInt(2, id);
+            st.executeUpdate();
+            st.close();
+        }
+        catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, e , "Erro" , JOptionPane.ERROR_MESSAGE);
+        }
+        catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null, e , "Erro" , JOptionPane.ERROR_MESSAGE);
         }
     }
     

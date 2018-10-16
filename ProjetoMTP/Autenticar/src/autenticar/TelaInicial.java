@@ -1,6 +1,8 @@
 package autenticar;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -11,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
@@ -387,25 +390,36 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void labelFotoUsuarioMouseEventoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEventoMouseClicked
         File arquivo;
-        JFileChooser fc = new JFileChooser ();
-        int verifica = fc.showOpenDialog(this);
-        if (verifica == JFileChooser.APPROVE_OPTION) {
+        JFileChooser fc = new JFileChooser();
+        ImageIcon foto = new ImageIcon(this.getClass().getResource("Foto/user.png"));
+        int retorno = fc.showOpenDialog(this);
+        if (retorno == JFileChooser.APPROVE_OPTION) {
             arquivo = fc.getSelectedFile();
+            try {
+                BufferedImage imag = ImageIO.read(arquivo);            
+                if (imag == null) {                    
+                    labelFotoUsuario.setIcon(foto);
+                } 
+                else {
+                    Image image = imag;                    
+                    image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(image);
+                    labelFotoUsuario.setIcon(icon);
+                    new Controle().mudarFoto(idUsuario , arquivo);
+                }
+                pack();
+		setLocationRelativeTo(null);
+            } 
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         else {
-            if (verifica == JFileChooser.ERROR_OPTION) {
+            if (retorno == JFileChooser.ERROR_OPTION) {
                 JOptionPane.showMessageDialog(null, "Erro ao abrir o arquivo." , "Erro" , JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_labelFotoUsuarioMouseEventoMouseClicked
-
-    private void labelFotoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelFotoUsuarioMouseExited
-
-    private void labelFotoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelFotoUsuarioMouseEntered
 
     private void coverMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseExited
         labelFotoUsuarioMouseEvento.setVisible(false);
@@ -414,6 +428,14 @@ public class TelaInicial extends javax.swing.JFrame {
     private void coverMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_coverMouseEntered
         labelFotoUsuarioMouseEvento.setVisible(true);
     }//GEN-LAST:event_coverMouseEntered
+
+    private void labelFotoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelFotoUsuarioMouseExited
+
+    private void labelFotoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelFotoUsuarioMouseEntered
 
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */
