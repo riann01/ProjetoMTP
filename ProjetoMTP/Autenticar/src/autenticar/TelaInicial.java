@@ -52,18 +52,16 @@ public class TelaInicial extends javax.swing.JFrame {
             st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
-                    byte[] binario = rs.getBytes(5);
-                    InputStream is = new ByteArrayInputStream(binario);
-                    BufferedImage imag = ImageIO.read(is);
-                    Image image = imag;                    
-                    image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
-                    ImageIcon icon = new ImageIcon(image);
-                    Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
-                  
-                    painelConteudo.add(p);
-                    
-             
-                }
+                byte[] binario = rs.getBytes(5);
+                InputStream is = new ByteArrayInputStream(binario);
+                BufferedImage imag = ImageIO.read(is);
+                Image image = imag;                    
+                image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(image);
+                Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
+                painelConteudo.add(p);
+                painelConteudo.revalidate();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {

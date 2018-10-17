@@ -8,6 +8,8 @@ public class Produto extends javax.swing.JPanel {
         setBackground(Color.WHITE);
         labelNomeProduto.setText(nome);
         labelDescricao.setText(descricao);
+        labelPreco.setText("R$"+Float.toString(preco));
+        labelFotoProduto.setIcon(foto);
         setVisible(true);
         
         
@@ -58,9 +60,6 @@ public class Produto extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(78, 78, 78)
-                                .addComponent(labelNomeProduto))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(152, 152, 152)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
@@ -68,6 +67,10 @@ public class Produto extends javax.swing.JPanel {
                                 .addComponent(labelPreco)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(78, 78, 78)
+                .addComponent(labelNomeProduto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
