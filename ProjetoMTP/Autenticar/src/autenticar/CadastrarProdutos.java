@@ -11,6 +11,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class CadastrarProdutos extends javax.swing.JFrame {
@@ -29,6 +30,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
         caminho.setVisible(false);
+        fc = new JFileChooser();
 
     }
 
@@ -214,15 +216,20 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-
-        Conexao conexao = new Conexao();
-        conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
+        if (fc.getSelectedFile()==null) {
+            JOptionPane jp = new JOptionPane ();
+            jp.showMessageDialog(null , "O produto será inserido sem uma foto, deseja continuar?" , "Atenção" , JOptionPane.QUESTION_MESSAGE);
+        }
+        else {
+            
+            Conexao conexao = new Conexao();
+            conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
+            this.dispose();
+        }
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
     private void adicionaImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adicionaImagemActionPerformed
-
-        fc = new JFileChooser();
 
         int retorno = fc.showOpenDialog(this);
 
