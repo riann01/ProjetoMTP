@@ -3,12 +3,14 @@ import java.awt.Color;
 import javax.swing.ImageIcon;
 public class Produto extends javax.swing.JPanel {
 
-    public Produto(/*ImageIcon foto,*/ String nome, String descricao, int categoria) {
+    public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
         initComponents();
         setBackground(Color.WHITE);
         labelNomeProduto.setText(nome);
         labelDescricao.setText(descricao);
         setVisible(true);
+        
+        
     }
 
     @SuppressWarnings("unchecked")

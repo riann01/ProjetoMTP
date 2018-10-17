@@ -3,6 +3,7 @@ package autenticar;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UIManager;
 import java.io.File;
+import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
@@ -42,6 +44,32 @@ public class TelaInicial extends javax.swing.JFrame {
         setVisible(true);
         labelFotoUsuarioMouseEvento.setVisible(false);
         new Propaganda ();
+        
+        Conexao conexao = new Conexao();
+        PreparedStatement st;
+        
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                    byte[] binario = rs.getBytes(5);
+                    InputStream is = new ByteArrayInputStream(binario);
+                    BufferedImage imag = ImageIO.read(is);
+                    Image image = imag;                    
+                    image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(image);
+                    Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
+                  
+                    painelConteudo.add(p);
+                    
+             
+                }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -60,7 +88,6 @@ public class TelaInicial extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
         painelConteudo = new javax.swing.JPanel();
-        jScrollBar1 = new javax.swing.JScrollBar();
         jLabel1 = new javax.swing.JLabel();
         labelDepartamentos = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -146,13 +173,11 @@ public class TelaInicial extends javax.swing.JFrame {
         painelConteudo.setLayout(painelConteudoLayout);
         painelConteudoLayout.setHorizontalGroup(
             painelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelConteudoLayout.createSequentialGroup()
-                .addContainerGap(806, Short.MAX_VALUE)
-                .addComponent(jScrollBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGap(0, 819, Short.MAX_VALUE)
         );
         painelConteudoLayout.setVerticalGroup(
             painelConteudoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+            .addGap(0, 418, Short.MAX_VALUE)
         );
 
         jLabel1.setText("<  1  >");
@@ -481,7 +506,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelAcessar;
