@@ -70,7 +70,6 @@ public class TelaInicial extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        painelConteudo.list();
         
     }
     @SuppressWarnings("unchecked")

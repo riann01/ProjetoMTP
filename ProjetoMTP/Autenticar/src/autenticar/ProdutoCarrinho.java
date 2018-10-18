@@ -1,14 +1,51 @@
 package autenticar;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 public class ProdutoCarrinho extends javax.swing.JPanel {
 
     /**
      * Creates new form ProdutoCarrinho
      */
-    public ProdutoCarrinho() {
+    public ProdutoCarrinho(int idProduto) {
         initComponents();
         setBackground(Color.WHITE);
         setVisible(true);
+        
+        Conexao conexao = new Conexao();
+        PreparedStatement st;
+        
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT nome_produto, descricao, preco_venda, foto FROM produto WHERE id_produto = ?");
+            st.setInt(1, idProduto);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                byte[] binario = rs.getBytes(4);
+                InputStream is = new ByteArrayInputStream(binario);
+                BufferedImage imag = ImageIO.read(is);
+                Image image = imag;                    
+                image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(image);
+                labelFotoProduto.setIcon(icon);
+                labelNome.setText(rs.getString(1));
+                labelDescricao.setText(rs.getString(2));
+                labelPreco.setText(""+rs.getFloat(3));
+                //labelQuantidade.setText(""+quantidade);
+                
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -21,10 +58,10 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
     private void initComponents() {
 
         labelFotoProduto = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        labelQuantidade = new javax.swing.JTextField();
         labelNome = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelDescricao = new javax.swing.JLabel();
+        labelPreco = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel3 = new javax.swing.JLabel();
         labelRemover = new javax.swing.JLabel();
@@ -33,18 +70,18 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
 
         labelFotoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/SEM FOTO.png"))); // NOI18N
 
-        jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField1.setText("1");
-        jTextField1.setToolTipText("");
+        labelQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        labelQuantidade.setText("1");
+        labelQuantidade.setToolTipText("");
 
         labelNome.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
         labelNome.setText("[NOME]");
 
-        jLabel1.setFont(new java.awt.Font("Bahnschrift", 0, 11)); // NOI18N
-        jLabel1.setText("<html> <body> <center>[Nesse campo contém a descrição do produto, ela pode conter características e funções]</center> </body> </html>");
+        labelDescricao.setFont(new java.awt.Font("Bahnschrift", 0, 11)); // NOI18N
+        labelDescricao.setText("<html> <body> <center>[Nesse campo contém a descrição do produto, ela pode conter características e funções]</center> </body> </html>");
 
-        jLabel2.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
-        jLabel2.setText("[PREÇO]");
+        labelPreco.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
+        labelPreco.setText("[PREÇO]");
 
         jSeparator1.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
@@ -66,10 +103,10 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                         .addComponent(labelNome))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(132, 132, 132)
-                        .addComponent(jLabel2))
+                        .addComponent(labelPreco))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(34, 34, 34)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(labelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -80,7 +117,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                         .addGap(44, 44, 44)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelRemover)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(labelQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -88,9 +125,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(labelFotoProduto)
-                        .addContainerGap(17, Short.MAX_VALUE))
+                    .addComponent(labelFotoProduto)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -99,30 +134,27 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(11, 11, 11)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelRemover)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                            .addComponent(labelPreco)
+                            .addComponent(labelRemover))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel labelDescricao;
     private javax.swing.JLabel labelFotoProduto;
     private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelPreco;
+    private javax.swing.JTextField labelQuantidade;
     private javax.swing.JLabel labelRemover;
     // End of variables declaration//GEN-END:variables
 }
