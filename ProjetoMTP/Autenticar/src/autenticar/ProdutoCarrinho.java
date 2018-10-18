@@ -32,12 +32,12 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 InputStream is = new ByteArrayInputStream(binario);
                 BufferedImage imag = ImageIO.read(is);
                 Image image = imag;                    
-                image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+                image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(image);
                 labelFotoProduto.setIcon(icon);
                 labelNome.setText(rs.getString(1));
                 labelDescricao.setText(rs.getString(2));
-                labelPreco.setText(""+rs.getFloat(3));
+                labelPreco.setText("R$"+rs.getFloat(3));
                 //labelQuantidade.setText(""+quantidade);
                 
             }
@@ -115,7 +115,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                         .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(44, 44, 44)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(labelRemover)
                             .addComponent(labelQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
