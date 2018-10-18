@@ -1,6 +1,7 @@
 package autenticar;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 public class Produto extends javax.swing.JPanel {
 
     public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
@@ -11,6 +12,9 @@ public class Produto extends javax.swing.JPanel {
         labelPreco.setText("R$"+Float.toString(preco));
         labelFotoProduto.setIcon(foto);
         setVisible(true);
+        
+        this.idUsuario1 = idUsuario;
+        this.idProduto1 = idProduto;
         
         
     }
@@ -23,7 +27,8 @@ public class Produto extends javax.swing.JPanel {
         labelDescricao = new javax.swing.JLabel();
         labelFotoProduto = new javax.swing.JLabel();
         labelPreco = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        carrinhoAdiciona = new javax.swing.JLabel();
+        quantidade = new javax.swing.JTextField();
 
         setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
 
@@ -42,7 +47,19 @@ public class Produto extends javax.swing.JPanel {
         labelPreco.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
         labelPreco.setText("[PREÇO]");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/adicionar.png"))); // NOI18N
+        carrinhoAdiciona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/adicionar.png"))); // NOI18N
+        carrinhoAdiciona.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                carrinhoAdicionaMouseClicked(evt);
+            }
+        });
+
+        quantidade.setText("1");
+        quantidade.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                quantidadeMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -61,13 +78,13 @@ public class Produto extends javax.swing.JPanel {
                 .addComponent(labelNomeProduto)
                 .addGap(39, 39, 39))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(70, 70, 70)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelPreco)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(82, 82, 82)
-                        .addComponent(labelPreco))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(99, 99, 99)
-                        .addComponent(jLabel1)))
+                        .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(carrinhoAdiciona)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,17 +99,34 @@ public class Produto extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelPreco)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(carrinhoAdiciona)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void carrinhoAdicionaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carrinhoAdicionaMouseClicked
+        Conexao conexao = new Conexao();
+        conexao.inserirProdutoCarrinho(this.idUsuario1, this.idProduto1, Integer.parseInt(quantidade.getText()));
+        JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
+        
+    }//GEN-LAST:event_carrinhoAdicionaMouseClicked
 
+    private void quantidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quantidadeMouseClicked
+        
+    }//GEN-LAST:event_quantidadeMouseClicked
+
+    private int idUsuario1;
+    private int idProduto1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel carrinhoAdiciona;
     private javax.swing.JLabel labelDescricao;
     private javax.swing.JLabel labelFotoProduto;
     private javax.swing.JLabel labelNomeProduto;
     private javax.swing.JLabel labelPreco;
+    private javax.swing.JTextField quantidade;
     // End of variables declaration//GEN-END:variables
 }

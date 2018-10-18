@@ -101,6 +101,20 @@ public class Conexao {
 			e.printStackTrace();
 		}
 	}
+        
+        public void inserirProdutoCarrinho(int idUsuario, int idProduto, int quantidade) {
+		try {
+                    PreparedStatement st = this.conn.prepareStatement("INSERT INTO carrinho (id_pessoa, id_produto, quantidade) VALUES (?, ?, ?)");
+                    st.setInt(1, idUsuario);
+                    st.setInt(2, idProduto);   
+                    st.setInt(3, quantidade);
+                    st.executeUpdate();
+                    st.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		
+		}
+	}
 	
 	public void atualizar(int id, String nome, String cidade, String endereco, String senha) {
 		try {
