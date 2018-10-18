@@ -59,7 +59,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 InputStream is = new ByteArrayInputStream(binario);
                 BufferedImage imag = ImageIO.read(is);
                 Image image = imag;                    
-                image = image.getScaledInstance(125, 125, Image.SCALE_SMOOTH);
+                image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(image);
                 Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
                 painelConteudo.add(p);
@@ -222,6 +222,9 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         painelConteudo.setBackground(new java.awt.Color(255, 255, 255));
         painelConteudo.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         painelConteudo.setMaximumSize(new java.awt.Dimension(800, 800));
@@ -283,9 +286,11 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
                                     .addComponent(labelAcessar))
-                                .addGap(53, 53, 53))))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 59, Short.MAX_VALUE))
+                                .addGap(53, 53, 53)))
+                        .addGap(0, 74, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(23, 23, 23)
