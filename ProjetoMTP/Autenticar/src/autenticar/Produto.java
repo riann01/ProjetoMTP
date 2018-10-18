@@ -10,7 +10,6 @@ public class Produto extends javax.swing.JPanel {
         labelDescricao.setText(descricao);
         labelPreco.setText("R$"+Float.toString(preco));
         labelFotoProduto.setIcon(foto);
-        setLayout(null);
         setVisible(true);
         
         
