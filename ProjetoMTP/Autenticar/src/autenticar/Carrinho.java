@@ -1,5 +1,6 @@
 package autenticar;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -31,6 +32,7 @@ public class Carrinho extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
         setVisible(true);
+        int controle1 = 0;
         
         Conexao conexao = new Conexao();
         PreparedStatement st;
@@ -41,7 +43,9 @@ public class Carrinho extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1));
+                controle1 += 170;
                 painelCarrinho2.add(p);
+                painelCarrinho2.setPreferredSize(new Dimension(700,controle1));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,9 +126,10 @@ public class Carrinho extends javax.swing.JFrame {
         painelCarrinho2.setAutoscrolls(true);
         painelCarrinho2.setMaximumSize(new java.awt.Dimension(32000, 32000));
         painelCarrinho2.setMinimumSize(new java.awt.Dimension(700, 413));
-        painelCarrinho2.setPreferredSize(new java.awt.Dimension(700, 413));
+        painelCarrinho2.setPreferredSize(new java.awt.Dimension(0, 0));
         jScrollPane1.setViewportView(painelCarrinho2);
         painelCarrinho2.getAccessibleContext().setAccessibleName("");
+        painelCarrinho2.getAccessibleContext().setAccessibleParent(jScrollPane3);
 
         jScrollPane3.setViewportView(jScrollPane1);
 
@@ -141,7 +146,7 @@ public class Carrinho extends javax.swing.JFrame {
                 .addComponent(painelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
-                .addGap(38, 38, 38))
+                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(labelIconeCarrinho)
@@ -174,7 +179,7 @@ public class Carrinho extends javax.swing.JFrame {
                     .addComponent(painelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
-                .addGap(19, 19, 19))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();

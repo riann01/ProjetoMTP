@@ -47,6 +47,8 @@ public class TelaInicial extends javax.swing.JFrame {
         labelFotoUsuarioMouseEvento.setVisible(false);
         
         //new Propaganda ();
+        int controle1 = 415;
+        int contador1 = 0;
         
         Conexao conexao = new Conexao();
         PreparedStatement st;
@@ -55,6 +57,7 @@ public class TelaInicial extends javax.swing.JFrame {
             st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
+                contador1++;
                 byte[] binario = rs.getBytes(5);
                 InputStream is = new ByteArrayInputStream(binario);
                 BufferedImage imag = ImageIO.read(is);
@@ -63,6 +66,15 @@ public class TelaInicial extends javax.swing.JFrame {
                 ImageIcon icon = new ImageIcon(image);
                 Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
                 painelConteudo.add(p);
+                if(contador1%3==0){
+                    
+                    controle1 += 415;
+                
+                }
+                
+                painelConteudo.setPreferredSize(new Dimension(800,controle1));
+                
+                
             }
         } catch (SQLException e) {
             e.printStackTrace();
