@@ -41,7 +41,7 @@ public class Carrinho extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1));
-                painelCarrinho.add(p);
+                painelCarrinho2.add(p);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,6 +65,10 @@ public class Carrinho extends javax.swing.JFrame {
         labelFinalizarCompra = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         painelCarrinho = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        painelCarrinho2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -111,24 +115,40 @@ public class Carrinho extends javax.swing.JFrame {
         painelCarrinho.setMaximumSize(new java.awt.Dimension(650, 330));
         painelCarrinho.setMinimumSize(new java.awt.Dimension(650, 330));
 
+        jScrollPane3.setAutoscrolls(true);
+        jScrollPane3.setMinimumSize(new java.awt.Dimension(701, 401));
+        jScrollPane3.setPreferredSize(new java.awt.Dimension(701, 32767));
+
+        painelCarrinho2.setAutoscrolls(true);
+        painelCarrinho2.setMaximumSize(new java.awt.Dimension(32000, 32000));
+        painelCarrinho2.setMinimumSize(new java.awt.Dimension(700, 413));
+        painelCarrinho2.setPreferredSize(new java.awt.Dimension(700, 413));
+        jScrollPane1.setViewportView(painelCarrinho2);
+        painelCarrinho2.getAccessibleContext().setAccessibleName("");
+
+        jScrollPane3.setViewportView(jScrollPane1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(labelIconeCarrinho)
-                        .addGap(27, 27, 27)
-                        .addComponent(labelCarrinhoDeCompras)
-                        .addGap(113, 113, 113)
-                        .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(painelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 840, Short.MAX_VALUE)
+                .addGap(38, 38, 38))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(labelIconeCarrinho)
+                .addGap(27, 27, 27)
+                .addComponent(labelCarrinhoDeCompras)
+                .addGap(113, 113, 113)
+                .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -151,8 +171,10 @@ public class Carrinho extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(painelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(420, Short.MAX_VALUE))
+                    .addComponent(painelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE))
+                .addGap(19, 19, 19))
         );
 
         pack();
@@ -191,12 +213,16 @@ public class Carrinho extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelCarrinhoDeCompras;
     private javax.swing.JLabel labelFinalizarCompra;
     private javax.swing.JLabel labelIconeCarrinho;
     private javax.swing.JLabel labelQtdItens;
     private javax.swing.JPanel painelCarrinho;
+    private javax.swing.JPanel painelCarrinho2;
     private javax.swing.JPanel panelCarrinho;
     // End of variables declaration//GEN-END:variables
 }
