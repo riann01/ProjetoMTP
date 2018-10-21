@@ -426,7 +426,6 @@ public class TelaInicial extends javax.swing.JFrame {
                     labelFotoUsuario.setIcon(icon);
                     new Controle().mudarFoto(idUsuario , arquivo);
                 }
-                pack();
 		setLocationRelativeTo(null);
             } 
             catch (IOException e) {

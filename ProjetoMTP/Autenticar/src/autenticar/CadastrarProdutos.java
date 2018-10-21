@@ -223,7 +223,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         else {
             
             Conexao conexao = new Conexao();
-            conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
+            conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
             this.dispose();
         }
 

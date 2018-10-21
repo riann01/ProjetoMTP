@@ -30,7 +30,7 @@ public class Produto extends javax.swing.JPanel {
         carrinhoAdiciona = new javax.swing.JLabel();
         quantidade = new javax.swing.JTextField();
 
-        setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         labelNomeProduto.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
         labelNomeProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
