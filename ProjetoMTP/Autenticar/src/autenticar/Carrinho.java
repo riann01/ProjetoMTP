@@ -37,22 +37,6 @@ public class Carrinho extends javax.swing.JFrame {
         Conexao conexao = new Conexao();
         PreparedStatement st;
         labelSemItens.setVisible(false);
-        i = painelCarrinho2.getComponentCount();
-        System.out.println(i);
-        
-        if (i==0) {
-            panelCarrinho.setVisible(false);
-            labelSemItens.setVisible(true);
-        }
-        else {
-            if (i==1) {
-                labelQtdItens.setText(String.valueOf(i)+" ITEM");
-                panelCarrinho.setVisible(true);
-            }
-            else {
-                labelQtdItens.setText(String.valueOf(i)+" ITENS");
-            }
-        }
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
             st.setInt(1, id);
@@ -66,6 +50,20 @@ public class Carrinho extends javax.swing.JFrame {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        i = painelCarrinho2.getComponentCount();        
+        if (i==0) {
+            panelCarrinho.setVisible(false);
+            labelSemItens.setVisible(true);
+        }
+        else {
+            if (i==1) {
+                labelQtdItens.setText(String.valueOf(i)+" ITEM");
+                panelCarrinho.setVisible(true);
+            }
+            else {
+                labelQtdItens.setText(String.valueOf(i)+" ITENS");
+            }
         }
     }
     @SuppressWarnings("unchecked")

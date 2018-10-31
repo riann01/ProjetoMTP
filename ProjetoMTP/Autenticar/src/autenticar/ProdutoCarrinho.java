@@ -36,7 +36,6 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 labelDescricao.setText(rs.getString(2));
                 labelPreco.setText("R$"+rs.getFloat(3));
                 //labelQuantidade.setText(""+quantidade);
-                
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -156,12 +155,8 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRemoverMouseClicked
-        
         deletarDoCarrinho(idDoProduto);
         this.setVisible(false);
-        
-        
-        
     }//GEN-LAST:event_labelRemoverMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
