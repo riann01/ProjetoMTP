@@ -273,7 +273,8 @@ public class Cadastrar extends javax.swing.JFrame {
         }
         else {
             if (retorno == JFileChooser.CANCEL_OPTION) {
-                foto_usuario.setIcon(foto);                
+                foto_usuario.setIcon(foto);
+                fc.setSelectedFile(arquivo);
             }
         }
         /*if (retorno!=JFileChooser.APPROVE_OPTION) {
