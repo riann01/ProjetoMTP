@@ -12,9 +12,6 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 public class ProdutoCarrinho extends javax.swing.JPanel {
 
-    /**
-     * Creates new form ProdutoCarrinho
-     */
     public ProdutoCarrinho(int idProduto) {
         initComponents();
         setBackground(Color.WHITE);

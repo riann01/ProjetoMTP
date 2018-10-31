@@ -37,20 +37,6 @@ public class Carrinho extends javax.swing.JFrame {
         Conexao conexao = new Conexao();
         PreparedStatement st;
         labelSemItens.setVisible(false);
-        try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
-            st.setInt(1, id);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {  
-                i++;
-                ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1));
-                controle1 += 170;
-                painelCarrinho2.add(p);
-                painelCarrinho2.setPreferredSize(new Dimension(700,controle1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         i = painelCarrinho2.getComponentCount();
         System.out.println(i);
         
@@ -66,6 +52,20 @@ public class Carrinho extends javax.swing.JFrame {
             else {
                 labelQtdItens.setText(String.valueOf(i)+" ITENS");
             }
+        }
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {  
+                i++;
+                ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1));
+                controle1 += 170;
+                painelCarrinho2.add(p);
+                painelCarrinho2.setPreferredSize(new Dimension(700,controle1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     @SuppressWarnings("unchecked")
