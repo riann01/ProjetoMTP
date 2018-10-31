@@ -276,6 +276,9 @@ public class Cadastrar extends javax.swing.JFrame {
                 foto_usuario.setIcon(foto);                
             }
         }
+        /*if (retorno!=JFileChooser.APPROVE_OPTION) {
+            
+        }*/
     }//GEN-LAST:event_quadro_brancoMouseClicked
     public void setFoto (File foto) {
         this.arquivo = foto;
@@ -285,7 +288,7 @@ public class Cadastrar extends javax.swing.JFrame {
         return this.arquivo;
     }
     
-    private File arquivo;
+    private File arquivo = new File ("autenticar.Foto/user.png");
     private Boolean T = false;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cidade;
