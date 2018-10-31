@@ -43,6 +43,10 @@
                       <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                       <Component id="labelCarrinhoDeCompras" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="321" max="-2" attributes="0"/>
+                      <Component id="labelSemItens" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -59,7 +63,9 @@
                       <Component id="labelCarrinhoDeCompras" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="labelSemItens" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
               <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -213,5 +219,10 @@
         </Container>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JLabel" name="labelSemItens">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Hmm... parece meio vazio por aqui, tente adiciocar alguns itens!"/>
+      </Properties>
+    </Component>
   </SubComponents>
 </Form>

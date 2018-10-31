@@ -288,7 +288,7 @@ public class Cadastrar extends javax.swing.JFrame {
         return this.arquivo;
     }
     
-    private File arquivo = new File ("/home/ifg/user.png");
+    private File arquivo = new File ("Foto/user.png");
     private Boolean T = false;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cidade;

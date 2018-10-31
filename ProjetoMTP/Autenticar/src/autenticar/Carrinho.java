@@ -36,7 +36,7 @@ public class Carrinho extends javax.swing.JFrame {
         int i = 0;
         Conexao conexao = new Conexao();
         PreparedStatement st;
-        
+        labelSemItens.setVisible(false);
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
             st.setInt(1, id);
@@ -51,11 +51,21 @@ public class Carrinho extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        if (i==1) {
-            labelQtdItens.setText(String.valueOf(i)+" ITEM");
+        i = painelCarrinho2.getComponentCount();
+        System.out.println(i);
+        
+        if (i==0) {
+            panelCarrinho.setVisible(false);
+            labelSemItens.setVisible(true);
         }
         else {
-            labelQtdItens.setText(String.valueOf(i)+" ITENS");
+            if (i==1) {
+                labelQtdItens.setText(String.valueOf(i)+" ITEM");
+                panelCarrinho.setVisible(true);
+            }
+            else {
+                labelQtdItens.setText(String.valueOf(i)+" ITENS");
+            }
         }
     }
     @SuppressWarnings("unchecked")
@@ -74,6 +84,7 @@ public class Carrinho extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         painelCarrinho2 = new javax.swing.JPanel();
+        labelSemItens = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -142,6 +153,8 @@ public class Carrinho extends javax.swing.JFrame {
         jScrollPane1.setViewportView(painelCarrinho2);
         painelCarrinho2.getAccessibleContext().setAccessibleName("");
 
+        labelSemItens.setText("Hmm... parece meio vazio por aqui, tente adiciocar alguns itens!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -159,7 +172,10 @@ public class Carrinho extends javax.swing.JFrame {
                         .addGap(281, 281, 281)
                         .addComponent(labelIconeCarrinho)
                         .addGap(27, 27, 27)
-                        .addComponent(labelCarrinhoDeCompras)))
+                        .addComponent(labelCarrinhoDeCompras))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(321, 321, 321)
+                        .addComponent(labelSemItens)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -171,7 +187,9 @@ public class Carrinho extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(13, 13, 13)
                         .addComponent(labelCarrinhoDeCompras)))
-                .addGap(37, 37, 37)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelSemItens)
+                .addGap(12, 12, 12)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,6 +244,7 @@ public class Carrinho extends javax.swing.JFrame {
     private javax.swing.JLabel labelIconeCarrinho;
     private javax.swing.JLabel labelQtdItens;
     private javax.swing.JLabel labelResumo;
+    private javax.swing.JLabel labelSemItens;
     private javax.swing.JPanel painelCarrinho2;
     private javax.swing.JPanel panelCarrinho;
     // End of variables declaration//GEN-END:variables
