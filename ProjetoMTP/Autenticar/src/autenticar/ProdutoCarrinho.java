@@ -157,6 +157,9 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
     private void labelRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRemoverMouseClicked
         deletarDoCarrinho(idDoProduto);
         this.setVisible(false);
+        Controle controle = new Controle ();
+        new Carrinho(controle.retornaId()).retornaLabelCarrinho().setText("Carrinho de compras ("+String.valueOf(controle.getCont())+")");
+        System.out.println(controle.getCont());
     }//GEN-LAST:event_labelRemoverMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

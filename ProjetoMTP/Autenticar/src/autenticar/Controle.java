@@ -25,6 +25,7 @@ public class Controle {
     int idUsuario;
     private String nome;
     private ImageIcon foto;
+    private int cont;
     
     public Controle() {
         conexao = new Conexao();
@@ -179,6 +180,23 @@ public class Controle {
         }
     }
     
+    public void mostrarItens () {
+        PreparedStatement st;
+        Conexao conexao = new Conexao();
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                ++this.cont;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getCont() {
+        return this.cont;
+    }
     public void setFoto(ImageIcon foto) {
         this.foto = foto;
     }

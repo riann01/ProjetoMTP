@@ -108,7 +108,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         caminho.setText("[CAMINHO]");
         caminho.setAutoscrolls(true);
         caminho.setFocusable(false);
-        caminho.setHorizontalTextPosition(javax.swing.SwingConstants.LEADING);
+        caminho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,8 +116,8 @@ public class CadastrarProdutos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(labelImagem)
+                .addGap(46, 46, 46)
+                .addComponent(labelImagem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(45, 45, 45))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,7 +129,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(24, 24, 24)
                         .addComponent(jLabel1)))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -201,7 +201,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                 .addComponent(caminho, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelImagem)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botaoCadastrar)
                     .addComponent(jButton1))
@@ -218,10 +218,14 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         if (fc.getSelectedFile()==null) {
             JOptionPane jp = new JOptionPane ();
-            jp.showMessageDialog(null , "O produto será inserido sem uma foto, deseja continuar?" , "Atenção" , JOptionPane.QUESTION_MESSAGE);
+            jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
+            if (jp.getOptionType()==JOptionPane.YES_OPTION) {
+                Conexao conexao = new Conexao();
+                conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
+                this.dispose();
+            }
         }
         else {
-            
             Conexao conexao = new Conexao();
             conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
             this.dispose();
@@ -307,7 +311,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         });
     }
     private JFileChooser fc;
-    private File arquivo;
+    private File arquivo = new File ("Foto/SEM FOTO.png");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionaImagem;
     private javax.swing.JButton botaoCadastrar;

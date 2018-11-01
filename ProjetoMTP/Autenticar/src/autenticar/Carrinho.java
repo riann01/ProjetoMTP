@@ -31,7 +31,6 @@ public class Carrinho extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
-        setVisible(true);
         int controle1 = 0;
         int i = 0;
         Conexao conexao = new Conexao();
@@ -230,7 +229,9 @@ public class Carrinho extends javax.swing.JFrame {
         /* Create and display the form */
         
     }
-
+    public javax.swing.JLabel retornaLabelCarrinho() {
+        return this.labelCarrinhoDeCompras;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

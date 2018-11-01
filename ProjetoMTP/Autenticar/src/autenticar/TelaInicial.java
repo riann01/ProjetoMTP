@@ -45,7 +45,8 @@ public class TelaInicial extends javax.swing.JFrame {
         setLayout(null);
         setVisible(true);
         labelFotoUsuarioMouseEvento.setVisible(false);
-        
+        mostrarItens();
+        labelCarrinho.setText("Carrinho de compras ("+String.valueOf(cont)+")");
         //new Propaganda ();
         int controle1 = 415;
         int contador1 = 0;
@@ -81,8 +82,31 @@ public class TelaInicial extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        
+    }
+    public void deletarDoCarrinho () {
+        try {
+            PreparedStatement st;
+            Conexao conn = new Conexao();
+            st = conn.getConnection().prepareStatement("DELETE FROM carrinho");
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void mostrarItens () {
+        PreparedStatement st;
+        Conexao conexao = new Conexao();
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                ++cont;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -184,6 +208,12 @@ public class TelaInicial extends javax.swing.JFrame {
         labelDepartamentos.setText("Departamentos");
 
         jLabel2.setText("Excluir Tudo");
+        jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+        });
 
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel6.setText("Favoritos");
@@ -271,15 +301,16 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(LabelNomeUsuario)
                                     .addComponent(LabelSair))))
-                        .addGap(59, 59, 59)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
                                 .addComponent(textFieldPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(botaoIr, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(49, 49, 49)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(34, 34, 34)
+                                .addGap(44, 44, 44)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(13, 13, 13)
@@ -388,11 +419,11 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_LabelSairMouseClicked
 
     private void LabelCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelCarrinhoMouseClicked
-        new Carrinho(idUsuario);
+        new Carrinho(idUsuario).setVisible(true);
     }//GEN-LAST:event_LabelCarrinhoMouseClicked
 
     private void labelAcessarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAcessarMouseClicked
-        new Carrinho(idUsuario);
+        new Carrinho(idUsuario).setVisible(true);
     }//GEN-LAST:event_labelAcessarMouseClicked
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
@@ -455,6 +486,13 @@ public class TelaInicial extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_labelFotoUsuarioMouseEntered
 
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        deletarDoCarrinho();
+        mostrarItens();
+        labelCarrinho.setText("Carrinho de compras ("+String.valueOf(cont)+")");
+        JOptionPane.showMessageDialog(null , "Agora o carrinho está vazio." , "Informação" , JOptionPane.OK_OPTION);
+    }//GEN-LAST:event_jLabel2MouseClicked
+
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -483,7 +521,7 @@ public class TelaInicial extends javax.swing.JFrame {
         return this.painelConteudo;
     }
     int idUsuario;
-    
+    int cont = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel LabelCarrinho;
     private javax.swing.JLabel LabelMinhaConta;
