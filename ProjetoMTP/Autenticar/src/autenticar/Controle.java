@@ -26,6 +26,7 @@ public class Controle {
     private String nome;
     private ImageIcon foto;
     private int cont;
+    private double total;
     
     public Controle() {
         conexao = new Conexao();
@@ -233,4 +234,11 @@ public class Controle {
         return idUsuario;
     }
     
+    public void setTotal (double total) {
+        this.total = total;
+    }
+    
+    public double getTotal () {
+        return this.total;
+    }
 }

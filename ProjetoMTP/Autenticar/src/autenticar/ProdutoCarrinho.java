@@ -35,6 +35,8 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 labelNome.setText(rs.getString(1));
                 labelDescricao.setText(rs.getString(2));
                 labelPreco.setText("R$"+rs.getFloat(3));
+                precoTotal = precoTotal+rs.getFloat(3);
+                ++QtdItens;
                 //labelQuantidade.setText(""+quantidade);
             }
         } catch (SQLException e) {
@@ -43,7 +45,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
+    //System.out.println(precoTotal);
     public void deletarDoCarrinho (int idProduto) {
         try {
             PreparedStatement st;
@@ -56,8 +58,9 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    
     int idDoProduto;
+    float precoTotal = 0;
+    int QtdItens = 0;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -158,8 +161,6 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         deletarDoCarrinho(idDoProduto);
         this.setVisible(false);
         Controle controle = new Controle ();
-        new Carrinho(controle.retornaId()).retornaLabelCarrinho().setText("Carrinho de compras ("+String.valueOf(controle.getCont())+")");
-        System.out.println(controle.getCont());
     }//GEN-LAST:event_labelRemoverMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
