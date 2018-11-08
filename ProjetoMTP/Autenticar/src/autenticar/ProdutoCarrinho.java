@@ -17,6 +17,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         setBackground(Color.WHITE);
         setVisible(true);
         idDoProduto = idProduto;
+        float precoTotal = 0;
         Conexao conexao = new Conexao();
         PreparedStatement st;
         
@@ -39,12 +40,16 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 ++QtdItens;
                 //labelQuantidade.setText(""+quantidade);
             }
+            System.out.println(precoTotal);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        
     }
+    
     //System.out.println(precoTotal);
     public void deletarDoCarrinho (int idProduto) {
         try {
@@ -54,12 +59,14 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             st.setInt(1, idProduto);
             st.executeUpdate();
             st.close();
+            this.finalize();
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (Throwable e) {
             e.printStackTrace();
         }
     }
     int idDoProduto;
-    float precoTotal = 0;
     int QtdItens = 0;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -159,8 +166,6 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
 
     private void labelRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRemoverMouseClicked
         deletarDoCarrinho(idDoProduto);
-        this.setVisible(false);
-        Controle controle = new Controle ();
     }//GEN-LAST:event_labelRemoverMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

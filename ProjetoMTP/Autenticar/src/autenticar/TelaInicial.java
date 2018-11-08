@@ -131,6 +131,11 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         LabelNomeUsuario.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         LabelNomeUsuario.setText("Olá, usuário!");
@@ -313,7 +318,6 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGap(79, 79, 79)
                                 .addComponent(LabelCarrinho))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jLabel2)
                                     .addComponent(labelAcessar))
@@ -359,8 +363,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addComponent(LabelMinhaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(LabelSair))
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(labelFotoUsuarioMouseEvento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(10, 10, 10)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -504,6 +507,11 @@ public class TelaInicial extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }//GEN-LAST:event_botaoIrActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+        //jPanel2.revalidate();
+        painelConteudo.revalidate();
+    }//GEN-LAST:event_formFocusGained
 
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */

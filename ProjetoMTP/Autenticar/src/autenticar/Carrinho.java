@@ -31,14 +31,19 @@ public class Carrinho extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
+        idUsuario = id;
+        labelSemItens.setVisible(false);
+        mostrarItens();
+    }
+    
+    public void mostrarItens () {
         int controle1 = 0;
         int i = 0;
         Conexao conexao = new Conexao();
         PreparedStatement st;
-        labelSemItens.setVisible(false);
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
-            st.setInt(1, id);
+            st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {  
                 i++;
@@ -142,6 +147,15 @@ public class Carrinho extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jScrollPane1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jScrollPane1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jScrollPane1FocusLost(evt);
+            }
+        });
+
         painelCarrinho2.setBackground(new java.awt.Color(255, 255, 255));
         painelCarrinho2.setAutoscrolls(true);
         painelCarrinho2.setMaximumSize(new java.awt.Dimension(32000, 32000));
@@ -199,6 +213,14 @@ public class Carrinho extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jScrollPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane1FocusGained
+        this.revalidate();
+    }//GEN-LAST:event_jScrollPane1FocusGained
+
+    private void jScrollPane1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane1FocusLost
+        this.revalidate();
+    }//GEN-LAST:event_jScrollPane1FocusLost
+
     /**
      * @param args the command line arguments
      */
@@ -232,6 +254,7 @@ public class Carrinho extends javax.swing.JFrame {
     public javax.swing.JPanel retornaPainel() {
         return this.painelCarrinho2;
     }
+    private int idUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;

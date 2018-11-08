@@ -219,7 +219,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         if (fc.getSelectedFile()==null) {
             JOptionPane jp = new JOptionPane ();
             jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
-            if (jp.getOptionType()==JOptionPane.YES_OPTION) {
+            if (jp.getOptionType()==-1) {
                 Conexao conexao = new Conexao();
                 conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
                 this.dispose();
