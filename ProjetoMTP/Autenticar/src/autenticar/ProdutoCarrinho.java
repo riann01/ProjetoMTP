@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 public class ProdutoCarrinho extends javax.swing.JPanel {
 
     public ProdutoCarrinho(int idProduto) {
@@ -35,19 +36,18 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 labelFotoProduto.setIcon(icon);
                 labelNome.setText(rs.getString(1));
                 labelDescricao.setText(rs.getString(2));
-                labelPreco.setText("R$"+rs.getFloat(3));
+                String convertido = String.valueOf(rs.getFloat(3));
+                System.out.println(convertido);
+                String separador[] = convertido.split(".");
+                System.out.println(separador);
+                //labelPreco.setText("R$"+separador[0]+","+separador[1]);
                 precoTotal = precoTotal+rs.getFloat(3);
-                ++QtdItens;
-                //labelQuantidade.setText(""+quantidade);
             }
-            System.out.println(precoTotal);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        
-        
+        }        
     }
     
     //System.out.println(precoTotal);
@@ -67,7 +67,6 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         }
     }
     int idDoProduto;
-    int QtdItens = 0;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -166,6 +165,8 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
 
     private void labelRemoverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRemoverMouseClicked
         deletarDoCarrinho(idDoProduto);
+        this.setVisible(false);
+        JOptionPane.showMessageDialog(null, "Produto excluído." , "Informação" , JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_labelRemoverMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

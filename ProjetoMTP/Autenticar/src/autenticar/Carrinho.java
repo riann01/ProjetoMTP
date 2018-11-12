@@ -1,4 +1,5 @@
 package autenticar;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -67,6 +68,36 @@ public class Carrinho extends javax.swing.JFrame {
             }
             else {
                 labelQtdItens.setText(String.valueOf(i)+" ITENS");
+            }
+        }
+    }
+    
+        public void atualizaItens () {
+        int cont = 0;
+        PreparedStatement st;
+        Conexao conexao = new Conexao();
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                ++cont;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } //catch (NullPointerException e) {
+            //JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
+        //}
+        if (cont==0) {
+            panelCarrinho.setVisible(false);
+            labelSemItens.setVisible(true);
+        }
+        else {
+            if (cont==1) {
+                labelQtdItens.setText(String.valueOf(cont)+" ITEM");
+                panelCarrinho.setVisible(true);
+            }
+            else {
+                labelQtdItens.setText(String.valueOf(cont)+" ITENS");
             }
         }
     }
@@ -161,6 +192,11 @@ public class Carrinho extends javax.swing.JFrame {
         painelCarrinho2.setMaximumSize(new java.awt.Dimension(32000, 32000));
         painelCarrinho2.setMinimumSize(new java.awt.Dimension(700, 413));
         painelCarrinho2.setPreferredSize(new java.awt.Dimension(0, 0));
+        painelCarrinho2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                painelCarrinho2MouseMoved(evt);
+            }
+        });
         jScrollPane1.setViewportView(painelCarrinho2);
         painelCarrinho2.getAccessibleContext().setAccessibleName("");
 
@@ -220,6 +256,10 @@ public class Carrinho extends javax.swing.JFrame {
     private void jScrollPane1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jScrollPane1FocusLost
         this.revalidate();
     }//GEN-LAST:event_jScrollPane1FocusLost
+
+    private void painelCarrinho2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelCarrinho2MouseMoved
+        atualizaItens();
+    }//GEN-LAST:event_painelCarrinho2MouseMoved
 
     /**
      * @param args the command line arguments
