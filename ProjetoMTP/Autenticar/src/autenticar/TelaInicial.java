@@ -94,7 +94,7 @@ public class TelaInicial extends javax.swing.JFrame {
         PreparedStatement st;
         Conexao conexao = new Conexao();
         try {
-            st = conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
+            st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 ++cont;
