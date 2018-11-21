@@ -37,7 +37,7 @@
                       <EmptySpace pref="12" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="panelCarrinho" max="32767" attributes="0"/>
-                          <Component id="jPanel2" max="32767" attributes="0"/>
+                          <Component id="panelEndereco" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -85,7 +85,7 @@
                           </Group>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jPanel2" max="32767" attributes="0"/>
+                      <Component id="panelEndereco" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -130,7 +130,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="labelFinalizarCompra" alignment="1" pref="177" max="32767" attributes="0"/>
+              <Component id="labelFinalizarCompra" alignment="1" max="32767" attributes="0"/>
               <Component id="labelResumo" alignment="1" max="32767" attributes="0"/>
               <Component id="labelQtdItens" alignment="1" max="32767" attributes="0"/>
               <Component id="jLabel1" alignment="1" max="32767" attributes="0"/>
@@ -250,7 +250,7 @@
         <Property name="text" type="java.lang.String" value="Hmm... parece meio vazio por aqui, tente adiciocar alguns itens!"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JPanel" name="jPanel2">
+    <Container class="javax.swing.JPanel" name="panelEndereco">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="fe" green="fe" red="fe" type="rgb"/>
@@ -268,7 +268,7 @@
               <Component id="jLabel2" alignment="1" max="32767" attributes="0"/>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="labelEndereco" max="32767" attributes="0"/>
+                  <Component id="labelEndereco" min="-2" pref="153" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -279,7 +279,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="labelEndereco" pref="140" max="32767" attributes="0"/>
+                  <Component id="labelEndereco" min="-2" pref="140" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>

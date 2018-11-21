@@ -72,6 +72,7 @@ public class Carrinho extends javax.swing.JFrame {
         if (cont==0) {
             panelCarrinho.setVisible(false);
             labelSemItens.setVisible(true);
+            panelEndereco.setVisible(false);
         }
         else {
             if (cont==1) {
@@ -91,7 +92,7 @@ public class Carrinho extends javax.swing.JFrame {
             ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                labelEndereco.setText(rs.getString(1)+"\n"+rs.getString(2));
+                labelEndereco.setText("<html><body><center>"+rs.getString(1)+"\n"+rs.getString(2)+"</center></body></html>");
             }
         }
         catch (SQLException e) {
@@ -115,7 +116,7 @@ public class Carrinho extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         painelCarrinho2 = new javax.swing.JPanel();
         labelSemItens = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        panelEndereco = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         labelEndereco = new javax.swing.JLabel();
 
@@ -156,7 +157,7 @@ public class Carrinho extends javax.swing.JFrame {
         panelCarrinho.setLayout(panelCarrinhoLayout);
         panelCarrinhoLayout.setHorizontalGroup(
             panelCarrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelFinalizarCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+            .addComponent(labelFinalizarCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelResumo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelQtdItens, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -202,8 +203,8 @@ public class Carrinho extends javax.swing.JFrame {
 
         labelSemItens.setText("Hmm... parece meio vazio por aqui, tente adiciocar alguns itens!");
 
-        jPanel2.setBackground(new java.awt.Color(254, 254, 254));
-        jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelEndereco.setBackground(new java.awt.Color(254, 254, 254));
+        panelEndereco.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -212,23 +213,23 @@ public class Carrinho extends javax.swing.JFrame {
         labelEndereco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelEndereco.setText("[ENDEREÇO]");
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout panelEnderecoLayout = new javax.swing.GroupLayout(panelEndereco);
+        panelEndereco.setLayout(panelEnderecoLayout);
+        panelEnderecoLayout.setHorizontalGroup(
+            panelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+            .addGroup(panelEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        panelEnderecoLayout.setVerticalGroup(
+            panelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+                .addComponent(labelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -246,7 +247,7 @@ public class Carrinho extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(panelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(282, 282, 282)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -281,7 +282,7 @@ public class Carrinho extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(panelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1)))
@@ -340,7 +341,6 @@ public class Carrinho extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelCarrinhoDeCompras;
@@ -352,6 +352,7 @@ public class Carrinho extends javax.swing.JFrame {
     private javax.swing.JLabel labelSemItens;
     private javax.swing.JPanel painelCarrinho2;
     private javax.swing.JPanel panelCarrinho;
+    private javax.swing.JPanel panelEndereco;
     private javax.swing.JLabel precoTotal;
     // End of variables declaration//GEN-END:variables
 }

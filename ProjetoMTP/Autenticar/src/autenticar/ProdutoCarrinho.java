@@ -34,13 +34,30 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
                 ImageIcon icon = new ImageIcon(image);
                 labelFotoProduto.setIcon(icon);
-                labelNome.setText(rs.getString(1));
-                labelDescricao.setText(rs.getString(2));
+                labelNome.setText("<html><body><center>"+rs.getString(1)+"</center></body></html>");
+                labelDescricao.setText("<html><body><center>"+rs.getString(2)+"</center></body></html>");
                 float transf = rs.getFloat(3);
                 String convertido = String.valueOf(transf);
-                JOptionPane.showMessageDialog(null, "INFORMAçÃO", "Valor da varíavel transf é: "+convertido, JOptionPane.INFORMATION_MESSAGE);
-                String separador[] = convertido.split(".");
-                labelPreco.setText("R$"+separador[0]+","+separador[1]);
+                String replace = convertido.replace('.', ',');
+                /*int contum = 0;
+                int contdois = 0;
+                String separador [] = replace.split(",");
+                for (int i = 0; i < separador.length; i++) {
+                    if (separador[0].charAt(i)=='0') {
+                        ++contum;
+                    }
+                    if (separador[1].charAt(i)=='0') {
+                        ++contdois;
+                    }
+                }
+                if (contum==1) {
+                    separador[0] = "0"+separador[0];
+                }
+                if (contdois==1) {
+                    separador[1] = "0"+separador[1];
+                }
+                replace = separador[0]+","+separador[1];*/
+                labelPreco.setText("R$"+replace);
                 precoTotal = precoTotal+rs.getFloat(3);
             }
         } catch (SQLException e) {
