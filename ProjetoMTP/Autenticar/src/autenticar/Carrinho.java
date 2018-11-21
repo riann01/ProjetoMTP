@@ -36,19 +36,17 @@ public class Carrinho extends javax.swing.JFrame {
         mostraEndereco(idUsuario);
         labelSemItens.setVisible(false);
         mostrarItens();
+        atualizaItens();
     }
     
     public void mostrarItens () {
         int controle1 = 0;
-        int i = 0;
-        Conexao conexao = new Conexao();
         PreparedStatement st;
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {  
-                i++;
                 ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1));
                 controle1 += 170;
                 painelCarrinho2.add(p);
@@ -57,37 +55,20 @@ public class Carrinho extends javax.swing.JFrame {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        i = painelCarrinho2.getComponentCount();        
-        if (i==0) {
-            panelCarrinho.setVisible(false);
-            labelSemItens.setVisible(true);
-        }
-        else {
-            if (i==1) {
-                labelQtdItens.setText(String.valueOf(i)+" ITEM");
-                panelCarrinho.setVisible(true);
-            }
-            else {
-                labelQtdItens.setText(String.valueOf(i)+" ITENS");
-            }
-        }
     }
     
         public void atualizaItens () {
-        int cont = 0;
+        cont = 0;
         PreparedStatement st;
-        Conexao conexao = new Conexao();
         try {
-            st = conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
+            st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 ++cont;
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        } //catch (NullPointerException e) {
-            //JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
-        //}
+        }
         if (cont==0) {
             panelCarrinho.setVisible(false);
             labelSemItens.setVisible(true);
@@ -352,10 +333,9 @@ public class Carrinho extends javax.swing.JFrame {
         /* Create and display the form */
         
     }
-    public javax.swing.JPanel retornaPainel() {
-        return this.painelCarrinho2;
-    }
-    private int idUsuario;
+    Conexao conexao = new Conexao();
+    private int cont = 0;
+    private final int idUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

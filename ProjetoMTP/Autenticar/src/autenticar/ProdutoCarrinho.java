@@ -36,11 +36,11 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 labelFotoProduto.setIcon(icon);
                 labelNome.setText(rs.getString(1));
                 labelDescricao.setText(rs.getString(2));
-                String convertido = String.valueOf(rs.getFloat(3));
-                System.out.println(convertido);
+                float transf = rs.getFloat(3);
+                String convertido = String.valueOf(transf);
+                JOptionPane.showMessageDialog(null, "INFORMAçÃO", "Valor da varíavel transf é: "+convertido, JOptionPane.INFORMATION_MESSAGE);
                 String separador[] = convertido.split(".");
-                System.out.println(separador);
-                //labelPreco.setText("R$"+separador[0]+","+separador[1]);
+                labelPreco.setText("R$"+separador[0]+","+separador[1]);
                 precoTotal = precoTotal+rs.getFloat(3);
             }
         } catch (SQLException e) {

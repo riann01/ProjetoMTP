@@ -91,14 +91,15 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     public void atualizaItens () {
         cont = 0;
-        PreparedStatement st;
-        Conexao conexao = new Conexao();
+        //PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho");
+            PreparedStatement st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho;");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 ++cont;
-            } 
+            }
+            st.clearBatch();
+            rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } //catch (NullPointerException e) {
@@ -558,6 +559,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public javax.swing.JPanel getPainel () {
         return this.painelConteudo;
     }
+    Conexao conexao = new Conexao();
     int idUsuario;
     int cont = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
