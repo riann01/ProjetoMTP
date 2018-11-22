@@ -20,6 +20,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
+import java.awt.Event;
 
 public class TelaInicial extends javax.swing.JFrame {
     {        
@@ -102,11 +103,11 @@ public class TelaInicial extends javax.swing.JFrame {
             rs.close();
         } catch (SQLException e) {
             e.printStackTrace();
-        } //catch (NullPointerException e) {
-            //JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
-        //}
+        }
         labelCarrinho.setText("Carrinho de compras ("+String.valueOf(cont)+")");
+        
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -122,7 +123,7 @@ public class TelaInicial extends javax.swing.JFrame {
         labelCarrinho = new javax.swing.JLabel();
         labelAcessar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaCategorias = new javax.swing.JList<>();
         labelDepartamentos = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -212,13 +213,18 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        jList1.setFont(new java.awt.Font("Google Sans", 0, 11)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Todos", "Informática", "Eletrodomésticos", "Artigos Esportivos", "Games", "..." };
+        listaCategorias.setFont(new java.awt.Font("Google Sans", 0, 11)); // NOI18N
+        listaCategorias.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Todos", "Informática", "Eletrodomésticos", "Artigos Esportivos", "Games", "Lazer", "Smartphones", "TV e vídeo", "..." };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        listaCategorias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                listaCategoriasValueChanged(evt);
+            }
+        });
+        jScrollPane1.setViewportView(listaCategorias);
 
         labelDepartamentos.setFont(new java.awt.Font("Google Sans", 0, 18)); // NOI18N
         labelDepartamentos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -365,7 +371,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(labelCarrinho)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelAcessar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
@@ -534,6 +540,12 @@ public class TelaInicial extends javax.swing.JFrame {
         
     }//GEN-LAST:event_formMouseMoved
 
+    private void listaCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaCategoriasValueChanged
+
+            
+
+    }//GEN-LAST:event_listaCategoriasValueChanged
+
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -571,7 +583,6 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel cover;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
@@ -581,6 +592,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel labelDepartamentos;
     private javax.swing.JLabel labelFotoUsuario;
     private javax.swing.JLabel labelFotoUsuarioMouseEvento;
+    private javax.swing.JList<String> listaCategorias;
     private javax.swing.JPanel painelConteudo;
     private javax.swing.JTextField textFieldPesquisa;
     // End of variables declaration//GEN-END:variables

@@ -42,7 +42,8 @@ public class Controle {
                 String emaildois = rs.getString("email");
                 if ((email.equals(emaildois))) {
                     T = true;
-                } else {
+                }
+                else {
                     T = false;
                 }
             }

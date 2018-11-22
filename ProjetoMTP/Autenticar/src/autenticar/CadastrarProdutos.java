@@ -50,13 +50,13 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         adicionaImagem = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        categoria = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         valor_compra = new javax.swing.JTextField();
         valor_venda = new javax.swing.JTextField();
         labelImagem = new javax.swing.JLabel();
         caminho = new javax.swing.JLabel();
+        cbCategoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -110,6 +110,8 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         caminho.setFocusable(false);
         caminho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
+        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Games", "Eletrodomésticos", "Informática", "Artigos Esportivos", "Lazer", "Smartphones", "TV e vídeo" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -151,14 +153,12 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(adicionaImagem)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(categoria))))
+                            .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(caminho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -192,7 +192,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(categoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -221,13 +221,13 @@ public class CadastrarProdutos extends javax.swing.JFrame {
             jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
             if (jp.getOptionType()==-1) {
                 Conexao conexao = new Conexao();
-                conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
+                conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, cbCategoria.getSelectedIndex()+1);
                 this.dispose();
             }
         }
         else {
             Conexao conexao = new Conexao();
-            conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo);
+            conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, cbCategoria.getSelectedIndex()+1);
             this.dispose();
         }
 
@@ -316,7 +316,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     private javax.swing.JButton adicionaImagem;
     private javax.swing.JButton botaoCadastrar;
     private javax.swing.JLabel caminho;
-    private javax.swing.JTextField categoria;
+    private javax.swing.JComboBox<String> cbCategoria;
     private javax.swing.JTextArea descricao;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
