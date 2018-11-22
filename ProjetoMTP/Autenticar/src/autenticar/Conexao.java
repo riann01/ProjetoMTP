@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Properties;
-import java.io.InputStream;
 
 public class Conexao {
     
@@ -17,7 +16,7 @@ public class Conexao {
 	
 	private String usuario = "postgres";
 	
-	private String senha = "ifg";
+	private String senha = "postgres";
 	
 	private Connection conn;
 	

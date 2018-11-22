@@ -20,6 +20,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.FontFormatException;
 
 public class TelaInicial extends javax.swing.JFrame {
     {        
@@ -46,6 +48,7 @@ public class TelaInicial extends javax.swing.JFrame {
         setVisible(true);
         labelFotoUsuarioMouseEvento.setVisible(false);
         atualizaItens();
+        mudaFonte();
         
         //new Propaganda ();
         int controle1 = 415;
@@ -106,6 +109,18 @@ public class TelaInicial extends javax.swing.JFrame {
             //JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
         //}
         labelCarrinho.setText("Carrinho de compras ("+String.valueOf(cont)+")");
+    }
+    
+    public void mudaFonte () {
+        try {
+        Font font = Font.createFont(Font.TRUETYPE_FONT, new File("Fonte/GoogleSans-Medium.ttf"));
+        }
+        catch (FontFormatException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -200,6 +215,7 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         labelCarrinho.setFont(new java.awt.Font("Google Sans", 0, 14)); // NOI18N
+        labelCarrinho.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelCarrinho.setText("Carrinho de Compras (0)");
 
         labelAcessar.setFont(new java.awt.Font("Google Sans", 0, 11)); // NOI18N
@@ -329,20 +345,19 @@ public class TelaInicial extends javax.swing.JFrame {
                                 .addGap(73, 73, 73)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(30, 30, 30)
-                                .addComponent(labelCarrinho))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(79, 79, 79)
                                 .addComponent(LabelCarrinho))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addComponent(labelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(labelAcessar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(53, 53, 53)))
-                        .addGap(0, 70, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())))
+                                    .addComponent(labelAcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(64, 64, 64)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 848, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(23, 23, 23)
@@ -365,7 +380,7 @@ public class TelaInicial extends javax.swing.JFrame {
                         .addComponent(labelCarrinho)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labelAcessar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
