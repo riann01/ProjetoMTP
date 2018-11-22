@@ -100,8 +100,7 @@ public class Produto extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void carrinhoAdicionaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carrinhoAdicionaMouseClicked
-        Conexao conexao = new Conexao();
-        conexao.inserirProdutoCarrinho(this.idUsuario1, this.idProduto1, Integer.parseInt(quantidade.getText()));
+        new Controle().corrigirDualidades(idProduto1, idUsuario1, Integer.parseInt(quantidade.getText()));
         JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
         
     }//GEN-LAST:event_carrinhoAdicionaMouseClicked

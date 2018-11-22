@@ -214,7 +214,6 @@ public class Controle {
     }
     
     public String [] pegaModeloCat() {
-        int i = 0;
         String model = "";
         try {
             PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
@@ -230,6 +229,33 @@ public class Controle {
         return arrayModel;
     }
 
+    public void corrigirDualidades (int idProduto, int idUsuario, int quantidade) {
+        int quantidadeum = 0;
+        try {
+            PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ?");
+            ps.setInt(1, idProduto);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ++quantidadeum;
+            }
+            rs.close();
+            ps.close();
+            if (quantidadeum==0) {
+                conexao.inserirProdutoCarrinho(idUsuario, idProduto, quantidadeum);
+            }
+            else {
+                ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = quantidade+? WHERE id_produto = ?");
+                ps.setInt(1, quantidadeum);
+                ps.setInt(2, idProduto);
+                ps.executeUpdate();
+                ps.close();
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+        
     public int getCont() {
         return this.cont;
     }

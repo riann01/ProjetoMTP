@@ -26,7 +26,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             st = conexao.getConnection().prepareStatement("SELECT nome_produto, descricao, preco_venda, foto FROM produto WHERE id_produto = ?");
             st.setInt(1, idProduto);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            if (rs.next()) {                
                 byte[] binario = rs.getBytes(4);
                 InputStream is = new ByteArrayInputStream(binario);
                 BufferedImage imag = ImageIO.read(is);
@@ -39,26 +39,16 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 float transf = rs.getFloat(3);
                 String convertido = String.valueOf(transf);
                 String replace = convertido.replace('.', ',');
-                /*int contum = 0;
-                int contdois = 0;
-                String separador [] = replace.split(",");
-                for (int i = 0; i < separador.length; i++) {
-                    if (separador[0].charAt(i)=='0') {
-                        ++contum;
-                    }
-                    if (separador[1].charAt(i)=='0') {
-                        ++contdois;
-                    }
-                }
-                if (contum==1) {
-                    separador[0] = "0"+separador[0];
-                }
-                if (contdois==1) {
-                    separador[1] = "0"+separador[1];
-                }
-                replace = separador[0]+","+separador[1];*/
                 labelPreco.setText("R$"+replace);
                 precoTotal = precoTotal+rs.getFloat(3);
+            }
+            rs.close();
+            st.close();
+            st = conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ?");
+            st.setInt(1, idProduto);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                labelQuantidade.setText(String.valueOf(rs.getInt(1)));
             }
         } catch (SQLException e) {
             e.printStackTrace();

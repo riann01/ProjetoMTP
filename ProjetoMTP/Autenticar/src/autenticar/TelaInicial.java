@@ -53,34 +53,7 @@ public class TelaInicial extends javax.swing.JFrame {
         insereCategorias();
         
         //new Propaganda ();
-        int controle1 = 415;
-        int contador1 = 0;
-        Conexao conexao = new Conexao();
-        PreparedStatement st;
-        
-        try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
-                contador1++;
-                byte[] binario = rs.getBytes(5);
-                InputStream is = new ByteArrayInputStream(binario);
-                BufferedImage imag = ImageIO.read(is);
-                Image image = imag;                    
-                image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
-                ImageIcon icon = new ImageIcon(image);
-                Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
-                painelConteudo.add(p);
-                if(contador1%3==0){
-                    controle1 += 415;
-                }
-                painelConteudo.setPreferredSize(new Dimension(800,controle1));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        mostrarTodosOsItens();
         //LabelCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("Foto/carrinho.png")));
     }
     public void deletarDoCarrinho () {
@@ -157,6 +130,68 @@ public class TelaInicial extends javax.swing.JFrame {
             catch (SQLException e) {
                 e.printStackTrace();
             }
+        }
+    }
+    
+    public void mostrarCategoria (int id_categoria) {
+        int controle1 = 415;
+        int contador1 = 0;
+        PreparedStatement st;
+        
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE id_categoria = ?");
+            st.setInt(1,id_categoria);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                contador1++;
+                byte[] binario = rs.getBytes(5);
+                InputStream is = new ByteArrayInputStream(binario);
+                BufferedImage imag = ImageIO.read(is);
+                Image image = imag;                    
+                image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(image);
+                Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
+                painelConteudo.add(p);
+                if(contador1%3==0){
+                    controle1 += 415;
+                }
+                painelConteudo.setPreferredSize(new Dimension(800,controle1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        listaCategorias.getSelectedValue();
+    }
+    
+    public void mostrarTodosOsItens() {
+        int controle1 = 415;
+        int contador1 = 0;
+        Conexao conexao = new Conexao();
+        PreparedStatement st;
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {                
+                contador1++;
+                byte[] binario = rs.getBytes(5);
+                InputStream is = new ByteArrayInputStream(binario);
+                BufferedImage imag = ImageIO.read(is);
+                Image image = imag;                    
+                image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(image);
+                Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
+                painelConteudo.add(p);
+                if(contador1%3==0){
+                    controle1 += 415;
+                }
+                painelConteudo.setPreferredSize(new Dimension(800,controle1));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
     @SuppressWarnings("unchecked")
@@ -588,13 +623,19 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_painelConteudoMouseMoved
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-        
+        atualizaItens();
     }//GEN-LAST:event_formMouseMoved
 
     private void listaCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaCategoriasValueChanged
-
-            
-
+        painelConteudo.removeAll();
+        painelConteudo.revalidate();
+        if (listaCategorias.getSelectedValue().equals("Todos")) {
+            mostrarTodosOsItens();
+        }
+        else {
+            mostrarCategoria(new Controle().pegaIdCategorias(listaCategorias.getSelectedValue()));
+            painelConteudo.revalidate();
+        }
     }//GEN-LAST:event_listaCategoriasValueChanged
 
     public static void main(String args[]) throws IllegalAccessException {

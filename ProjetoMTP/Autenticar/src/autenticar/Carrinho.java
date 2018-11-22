@@ -57,8 +57,8 @@ public class Carrinho extends javax.swing.JFrame {
         }
     }
     
-        public void atualizaItens () {
-        cont = 0;
+    public void atualizaItens () {
+        int cont = 0;
         PreparedStatement st;
         try {
             st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho");
@@ -335,7 +335,6 @@ public class Carrinho extends javax.swing.JFrame {
         
     }
     Conexao conexao = new Conexao();
-    private int cont = 0;
     private final int idUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
