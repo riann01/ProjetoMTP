@@ -42,7 +42,8 @@ public class Controle {
                 String emaildois = rs.getString("email");
                 if ((email.equals(emaildois))) {
                     T = true;
-                } else {
+                }
+                else {
                     T = false;
                 }
             }
@@ -193,6 +194,40 @@ public class Controle {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public int pegaIdCategorias (Object cat) {
+        String catCasting = String.valueOf(cat);
+        int id_categoria = 0;
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
+            st.setString(1, catCasting);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                id_categoria = rs.getInt(1);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id_categoria;
+    }
+    
+    public String [] pegaModeloCat() {
+        int i = 0;
+        String model = "";
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                model = rs.getString(1)+"/"+model;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String arrayModel [] = model.split("/");
+        return arrayModel;
     }
 
     public int getCont() {
