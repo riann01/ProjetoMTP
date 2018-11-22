@@ -50,6 +50,8 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             if (rs.next()) {
                 labelQuantidade.setText(String.valueOf(rs.getInt(1)));
             }
+            rs.close();
+            st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
