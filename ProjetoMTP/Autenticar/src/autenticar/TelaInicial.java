@@ -596,8 +596,9 @@ public class TelaInicial extends javax.swing.JFrame {
         String pesquisa = "%"+textFieldPesquisa.getText()+"%";
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto like ?");
+            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto like ? OR descricao like ?");
             st.setString(1, pesquisa);
+            st.setString(2, pesquisa);
             ResultSet rs = st.executeQuery();
             painelConteudo.removeAll();
             while (rs.next()) {                
