@@ -308,7 +308,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        listaCategorias.setFont(new java.awt.Font("Google Sans", 0, 11)); // NOI18N
+        listaCategorias.setFont(new java.awt.Font("Google Sans", 0, 15)); // NOI18N
         listaCategorias.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Todos", "Informática", "Eletrodomésticos", "Artigos Esportivos", "Games", "Lazer", "Smartphones", "TV e vídeo", "..." };
             public int getSize() { return strings.length; }
@@ -593,12 +593,13 @@ public class TelaInicial extends javax.swing.JFrame {
     private void botaoIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIrActionPerformed
         int controle1 = 500;
         int contador1 = 0;
-        Conexao conexao = new Conexao();
+        String pesquisa = "%"+textFieldPesquisa.getText()+"%";
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT FROM produto WHERE nome_produto = ?");
-            st.setString(1, textFieldPesquisa.getText());
+            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto like ?");
+            st.setString(1, pesquisa);
             ResultSet rs = st.executeQuery();
+            painelConteudo.removeAll();
             while (rs.next()) {                
                 contador1++;
                 byte[] binario = rs.getBytes(5);
@@ -614,6 +615,8 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
                 painelConteudo.setPreferredSize(new Dimension(800,controle1));
             }
+            rs.close();
+            st.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (IOException e) {
