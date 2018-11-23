@@ -31,8 +31,13 @@ public class Carrinho extends javax.swing.JFrame {
         String[] nome2 = nome1.split(" ");
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
-        labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
         idUsuario = id;
+        if(controle.pegaSexo(idUsuario).equals("M")) {
+            labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
+        }
+        else {
+            labelCarrinhoDeCompras.setText("Carrinho de Compras da " + nome2[0]);
+        }
         mostraEndereco(idUsuario);
         labelSemItens.setVisible(false);
         mostrarItens();

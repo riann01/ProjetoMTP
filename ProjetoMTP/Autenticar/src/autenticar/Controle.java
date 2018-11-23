@@ -54,14 +54,20 @@ public class Controle {
         return T;
     }
 
-    public void controleCadastro(String email, String senha, String local, String endereco, String nome , File foto) {
-        PreparedStatement st;
+    public void controleCadastro(String email, String senha, String local, String endereco, String nome , File foto, String sexo) {
+        String sexoSelecao;
+        if (sexo.equals("Masculino")) {
+            sexoSelecao = "M";
+        }
+        else {
+            sexoSelecao = "F";
+        }
         if (ConsultarExistenteEmail(email)) {
             mensagem = new String("Email já cadastrado!");
             teste = false;
         } 
         else {
-            conexao.inserir(nome, senha, email, local, endereco, foto);
+            conexao.inserir(nome, senha, email, local, endereco, foto, sexoSelecao);
             mensagem = new String("Cadastrado com sucesso");
             teste = true;
         }
@@ -180,6 +186,25 @@ public class Controle {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public String pegaSexo (int idUsuario) {
+        PreparedStatement st;
+        String sexo = "";
+        try {
+            st = this.conexao.getConnection().prepareStatement("SELECT sexo FROM pessoa WHERE id_pessoa = ?");
+            st.setInt(1, idUsuario);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                sexo = rs.getString(1);
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return sexo;
     }
     
     public void mostrarItens () {

@@ -44,10 +44,10 @@ public class Conexao {
 		return this.conn;
 	}
 	
-	public void inserir(String nome, String senha, String email, String cidade, String endereco, File foto) {
+	public void inserir(String nome, String senha, String email, String cidade, String endereco, File foto, String sexo) {
             try {
                 FileInputStream fis = new FileInputStream(foto);
-                PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, email, cidade_estado, endereco, senha, administrador, foto) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, email, cidade_estado, endereco, senha, administrador, foto, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                 st.setString(1, nome);
                 st.setString(2, email);
                 st.setString(3, cidade);
@@ -55,6 +55,7 @@ public class Conexao {
                 st.setString(5, senha);
                 st.setBoolean(6, false);
                 st.setBinaryStream(7, fis, (int) foto.length());
+                st.setString(8, sexo);
                 st.executeUpdate();
                 st.close();
                 fis.close();
