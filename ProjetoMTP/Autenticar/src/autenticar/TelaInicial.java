@@ -166,7 +166,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     
     public void mostrarTodosOsItens() {
-        int controle1 = 415;
+        int controle1 = 440;
         int contador1 = 0;
         Conexao conexao = new Conexao();
         PreparedStatement st;
@@ -184,7 +184,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
                 painelConteudo.add(p);
                 if(contador1%3==0){
-                    controle1 += 415;
+                    controle1 += 440;
                 }
                 painelConteudo.setPreferredSize(new Dimension(800,controle1));
             }
@@ -229,6 +229,14 @@ public class TelaInicial extends javax.swing.JFrame {
         addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 formFocusGained(evt);
+            }
+        });
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                formMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                formMouseExited(evt);
             }
         });
 
@@ -583,7 +591,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void botaoIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIrActionPerformed
-        int controle1 = 415;
+        int controle1 = 500;
         int contador1 = 0;
         Conexao conexao = new Conexao();
         PreparedStatement st;
@@ -602,7 +610,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
                 painelConteudo.add(p);
                 if(contador1%3==0){ 
-                    controle1 += 415;
+                    controle1 += 500;
                 }
                 painelConteudo.setPreferredSize(new Dimension(800,controle1));
             }
@@ -614,15 +622,17 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoIrActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
-        //jPanel2.revalidate();
+        atualizaItens();
         painelConteudo.revalidate();
     }//GEN-LAST:event_formFocusGained
 
     private void painelConteudoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelConteudoMouseMoved
         atualizaItens();
+        painelConteudo.revalidate();
     }//GEN-LAST:event_painelConteudoMouseMoved
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
+        painelConteudo.revalidate();
         atualizaItens();
     }//GEN-LAST:event_formMouseMoved
 
@@ -637,6 +647,16 @@ public class TelaInicial extends javax.swing.JFrame {
             painelConteudo.revalidate();
         }
     }//GEN-LAST:event_listaCategoriasValueChanged
+
+    private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
+        atualizaItens();
+        painelConteudo.revalidate();
+    }//GEN-LAST:event_formMouseEntered
+
+    private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
+        atualizaItens();
+        painelConteudo.revalidate();
+    }//GEN-LAST:event_formMouseExited
 
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */
