@@ -41,7 +41,7 @@ public class Carrinho extends javax.swing.JFrame {
         mostraEndereco(idUsuario);
         labelSemItens.setVisible(false);
         mostrarItens();
-        atualizaItens();
+        atualizaItens(idUsuario);
     }
     
     public void mostrarItens () {
@@ -62,11 +62,12 @@ public class Carrinho extends javax.swing.JFrame {
         }
     }
     
-    public void atualizaItens () {
+    public void atualizaItens (int idPessoa) {
         int cont = 0;
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho");
+            st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_pessoa = ?");
+            st.setInt(1,idPessoa);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 ++cont;
@@ -316,7 +317,7 @@ public class Carrinho extends javax.swing.JFrame {
     }//GEN-LAST:event_jScrollPane1FocusLost
 
     private void painelCarrinho2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelCarrinho2MouseMoved
-        atualizaItens();
+        atualizaItens(idUsuario);
     }//GEN-LAST:event_painelCarrinho2MouseMoved
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
@@ -324,7 +325,7 @@ public class Carrinho extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
-        atualizaItens();
+        atualizaItens(idUsuario);
     }//GEN-LAST:event_formMouseEntered
 
     /**
