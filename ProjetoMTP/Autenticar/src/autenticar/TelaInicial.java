@@ -362,6 +362,11 @@ public class TelaInicial extends javax.swing.JFrame {
                 painelConteudoMouseMoved(evt);
             }
         });
+        painelConteudo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                painelConteudoMouseEntered(evt);
+            }
+        });
         jScrollPane2.setViewportView(painelConteudo);
         painelConteudo.getAccessibleContext().setAccessibleDescription("");
 
@@ -432,7 +437,6 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addComponent(labelDepartamentos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -460,7 +464,10 @@ public class TelaInicial extends javax.swing.JFrame {
                             .addComponent(labelCarrinho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(labelAcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(66, 66, 66))))))
+                                .addGap(66, 66, 66))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(23, 23, 23)
@@ -675,13 +682,24 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         atualizaItens(idUsuario);
+        painelConteudo.removeAll();
+        mostrarTodosOsItens();
         painelConteudo.revalidate();
     }//GEN-LAST:event_formMouseEntered
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
         atualizaItens(idUsuario);
+        painelConteudo.removeAll();
+        mostrarTodosOsItens();
         painelConteudo.revalidate();
     }//GEN-LAST:event_formMouseExited
+
+    private void painelConteudoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelConteudoMouseEntered
+        atualizaItens(idUsuario);
+        painelConteudo.removeAll();
+        mostrarTodosOsItens();
+        painelConteudo.revalidate();
+    }//GEN-LAST:event_painelConteudoMouseEntered
 
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */

@@ -263,7 +263,6 @@ public class Controle {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ++quantidadeum;
-                System.out.println(quantidadeum);
             }
             rs.close();
             ps.close();

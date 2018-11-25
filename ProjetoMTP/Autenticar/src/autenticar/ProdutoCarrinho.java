@@ -97,6 +97,11 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         labelQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         labelQuantidade.setText("1");
         labelQuantidade.setToolTipText("");
+        labelQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                labelQuantidadeKeyPressed(evt);
+            }
+        });
 
         labelNome.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
         labelNome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -179,6 +184,12 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         this.setVisible(false);
         JOptionPane.showMessageDialog(null, "Produto excluído." , "Informação" , JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_labelRemoverMouseClicked
+
+    private void labelQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelQuantidadeKeyPressed
+        /*if (evt.getSource().equals("\n")) {
+            System.out.println("Pressionou o enter");
+        }*/
+    }//GEN-LAST:event_labelQuantidadeKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel3;
