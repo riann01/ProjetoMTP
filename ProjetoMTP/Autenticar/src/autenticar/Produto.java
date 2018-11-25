@@ -10,7 +10,7 @@ public class Produto extends javax.swing.JPanel {
 
     public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
         initComponents();
-        labelPreco.setFont(new java.awt.Font("Fonte/GoogleSans-Medium.ttf", 0, 20));
+        //labelPreco.setFont(new java.awt.Font("Fonte/GoogleSans-Medium.ttf", 0, 20));
         setBackground(Color.WHITE);
         labelNomeProduto.setText(nome);
         labelDescricao.setText(descricao);
@@ -74,7 +74,6 @@ public class Produto extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelDescricao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(labelNomeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
@@ -87,6 +86,7 @@ public class Produto extends javax.swing.JPanel {
                     .addComponent(carrinhoAdiciona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(quantidade))
                 .addGap(102, 102, 102))
+            .addComponent(labelDescricao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
