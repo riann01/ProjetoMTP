@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 public class Produto extends javax.swing.JPanel {
 
     public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
+        mostraIcones();
         initComponents();
         setBackground(Color.WHITE);
         labelNomeProduto.setText(nome);
@@ -12,13 +13,13 @@ public class Produto extends javax.swing.JPanel {
         labelPreco.setText("R$"+Float.toString(preco));
         labelFotoProduto.setIcon(foto);
         setVisible(true);
-        
         this.idUsuario1 = idUsuario;
         this.idProduto1 = idProduto;
-        
-        
     }
 
+    public void mostraIcones () {
+        carrinhoAdicionar = new ImageIcon(getClass().getResource("Foto/carrinho.png"));
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -49,7 +50,7 @@ public class Produto extends javax.swing.JPanel {
         labelPreco.setText("[PREÇO]");
 
         carrinhoAdiciona.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        carrinhoAdiciona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/adicionar.png"))); // NOI18N
+        carrinhoAdiciona.setIcon(carrinhoAdicionar);
         carrinhoAdiciona.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 carrinhoAdicionaMouseClicked(evt);
@@ -93,8 +94,8 @@ public class Produto extends javax.swing.JPanel {
                 .addComponent(labelPreco)
                 .addGap(18, 18, 18)
                 .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(carrinhoAdiciona)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(carrinhoAdiciona, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -108,7 +109,7 @@ public class Produto extends javax.swing.JPanel {
     private void quantidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quantidadeMouseClicked
         
     }//GEN-LAST:event_quantidadeMouseClicked
-
+    private ImageIcon carrinhoAdicionar;
     private int idUsuario1;
     private int idProduto1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
