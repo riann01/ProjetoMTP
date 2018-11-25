@@ -257,11 +257,13 @@ public class Controle {
     public void corrigirDualidades (int idProduto, int idUsuario, int quantidade) {
         int quantidadeum = 0;
         try {
-            PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ?");
+            PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
             ps.setInt(1, idProduto);
+            ps.setInt(2, idUsuario);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ++quantidadeum;
+                System.out.println(quantidadeum);
             }
             rs.close();
             ps.close();
@@ -269,9 +271,10 @@ public class Controle {
                 conexao.inserirProdutoCarrinho(idUsuario, idProduto, 1);
             }
             else {
-                ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = quantidade+? WHERE id_produto = ?");
-                ps.setInt(1, quantidadeum);
+                ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = quantidade+? WHERE id_produto = ? AND id_pessoa = ?");
+                ps.setInt(1, quantidade);
                 ps.setInt(2, idProduto);
+                ps.setInt(3, idUsuario);
                 ps.executeUpdate();
                 ps.close();
             }
