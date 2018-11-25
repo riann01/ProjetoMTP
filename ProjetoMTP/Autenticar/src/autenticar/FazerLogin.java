@@ -1,6 +1,7 @@
 package autenticar;
 import java.awt.*;
 import javax.swing.UIManager;
+import javax.swing.ImageIcon;
 public class FazerLogin extends javax.swing.JFrame {
     {        
         try {
@@ -12,7 +13,7 @@ public class FazerLogin extends javax.swing.JFrame {
     }
     public FazerLogin() {
         super("Autenticar");
-        getContentPane().setBackground(Color.WHITE);        
+        getContentPane().setBackground(Color.WHITE);  
         initComponents();
         setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Foto/IFSULDEMINAS_vertical.png")));
         setLocationRelativeTo(null);
@@ -125,7 +126,7 @@ public class FazerLogin extends javax.swing.JFrame {
             }
         });
     }
-
+    ImageIcon logo;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

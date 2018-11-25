@@ -5,7 +5,6 @@ import javax.swing.JOptionPane;
 public class Produto extends javax.swing.JPanel {
 
     public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
-        mostraIcones();
         initComponents();
         setBackground(Color.WHITE);
         labelNomeProduto.setText(nome);
@@ -17,9 +16,6 @@ public class Produto extends javax.swing.JPanel {
         this.idProduto1 = idProduto;
     }
 
-    public void mostraIcones () {
-        carrinhoAdicionar = new ImageIcon(getClass().getResource("Foto/carrinho.png"));
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -50,7 +46,8 @@ public class Produto extends javax.swing.JPanel {
         labelPreco.setText("[PREÇO]");
 
         carrinhoAdiciona.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        carrinhoAdiciona.setIcon(carrinhoAdicionar);
+        carrinhoAdiciona.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/adicionar.png"))); // NOI18N
+        carrinhoAdiciona.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         carrinhoAdiciona.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 carrinhoAdicionaMouseClicked(evt);
@@ -71,15 +68,20 @@ public class Produto extends javax.swing.JPanel {
             .addComponent(labelDescricao, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addComponent(labelNomeProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(labelFotoProduto)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(carrinhoAdiciona, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(121, 121, 121))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelFotoProduto))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(carrinhoAdiciona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(93, 93, 93)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +111,6 @@ public class Produto extends javax.swing.JPanel {
     private void quantidadeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quantidadeMouseClicked
         
     }//GEN-LAST:event_quantidadeMouseClicked
-    private ImageIcon carrinhoAdicionar;
     private int idUsuario1;
     private int idProduto1;
     // Variables declaration - do not modify//GEN-BEGIN:variables
