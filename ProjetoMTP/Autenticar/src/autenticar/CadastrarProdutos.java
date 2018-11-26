@@ -24,8 +24,8 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         }
     }
     
-    public CadastrarProdutos() {
-
+    public CadastrarProdutos(int idUsuario) {
+        idDoUsuario = idUsuario;
         initComponents();
         setLocationRelativeTo(null);
         setVisible(true);
@@ -213,6 +213,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
+        new PainelAdmin(idDoUsuario);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
@@ -230,6 +231,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
             Conexao conexao = new Conexao();
             conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
             this.dispose();
+            new PainelAdmin(idDoUsuario);
         }
 
     }//GEN-LAST:event_botaoCadastrarActionPerformed
@@ -303,14 +305,8 @@ public class CadastrarProdutos extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CadastrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastrarProdutos().setVisible(true);
-            }
-        });
     }
+    private int idDoUsuario;
     private JFileChooser fc;
     private File arquivo = new File ("Foto/SEM FOTO.png");
     // Variables declaration - do not modify//GEN-BEGIN:variables

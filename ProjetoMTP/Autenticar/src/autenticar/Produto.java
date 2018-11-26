@@ -2,15 +2,12 @@ package autenticar;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import java.awt.Font;
-import java.io.InputStream;
-import java.awt.FontFormatException;
-import java.io.IOException;
+
 public class Produto extends javax.swing.JPanel {
 
     public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
         initComponents();
-        //labelPreco.setFont(new java.awt.Font("Fonte/GoogleSans-Medium.ttf", 0, 20));
+        mudarFonte();
         setBackground(Color.WHITE);
         labelNomeProduto.setText(nome);
         labelDescricao.setText(descricao);
@@ -20,9 +17,13 @@ public class Produto extends javax.swing.JPanel {
         this.idUsuario1 = idUsuario;
         this.idProduto1 = idProduto;
     }
-    /*public static Font createFont(int fontFormat,InputStream fontStream) throws FontFormatException,IOException {
-
-    }*/
+    public void mudarFonte () {
+        Controle ctr = new Controle();
+        labelNomeProduto.setFont(ctr.mudaFonte(18));
+        labelDescricao.setFont(ctr.mudaFonte(13));
+        labelPreco.setFont(ctr.mudaFonte(20));
+        quantidade.setFont(ctr.mudaFonte(14));
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

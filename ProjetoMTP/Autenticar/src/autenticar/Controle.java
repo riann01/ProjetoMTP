@@ -1,4 +1,6 @@
 package autenticar;
+import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
@@ -27,6 +29,7 @@ public class Controle {
     private ImageIcon foto;
     private int cont;
     private double total;
+    private Font fonte;
     
     public Controle() {
         conexao = new Conexao();
@@ -281,6 +284,19 @@ public class Controle {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public Font mudaFonte (int tamanho) {
+        try {
+        fonte = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Fonte/GoogleSans-Regular.ttf"))).deriveFont(0, tamanho);
+        }
+        catch (FontFormatException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        return this.fonte;
     }
         
     public int getCont() {

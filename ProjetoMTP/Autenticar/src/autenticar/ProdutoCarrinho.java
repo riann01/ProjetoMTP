@@ -15,6 +15,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
 
     public ProdutoCarrinho(int idProduto) {
         initComponents();
+        mudarFonte();
         setBackground(Color.WHITE);
         setVisible(true);
         idDoProduto = idProduto;
@@ -48,7 +49,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             st.setInt(1, idProduto);
             rs = st.executeQuery();
             if (rs.next()) {
-                labelQuantidade.setText(String.valueOf(rs.getInt(1)));
+                tfQuantidade.setText(String.valueOf(rs.getInt(1)));
             }
             rs.close();
             st.close();
@@ -75,17 +76,26 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
+    
+    public void mudarFonte () {
+        Controle ctr = new Controle ();
+        labelNome.setFont(ctr.mudaFonte(19));
+        labelDescricao.setFont(ctr.mudaFonte(12));
+        labelPreco.setFont(ctr.mudaFonte(20));
+        labelQtd.setFont(ctr.mudaFonte(20));
+        tfQuantidade.setFont(ctr.mudaFonte(14));
+    }
     int idDoProduto;
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         labelFotoProduto = new javax.swing.JLabel();
-        labelQuantidade = new javax.swing.JTextField();
+        tfQuantidade = new javax.swing.JTextField();
         labelNome = new javax.swing.JLabel();
         labelDescricao = new javax.swing.JLabel();
         labelPreco = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        labelQtd = new javax.swing.JLabel();
         labelRemover = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
 
@@ -93,13 +103,13 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
 
         labelFotoProduto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/SEM FOTO.png"))); // NOI18N
 
-        labelQuantidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        labelQuantidade.setText("1");
-        labelQuantidade.setToolTipText("");
-        labelQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+        tfQuantidade.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        tfQuantidade.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        tfQuantidade.setText("1");
+        tfQuantidade.setToolTipText("");
+        tfQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                labelQuantidadeKeyPressed(evt);
+                tfQuantidadeKeyPressed(evt);
             }
         });
 
@@ -114,9 +124,9 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         labelPreco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelPreco.setText("[PREÇO]");
 
-        jLabel3.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Quantidade");
+        labelQtd.setFont(new java.awt.Font("Bahnschrift", 0, 20)); // NOI18N
+        labelQtd.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelQtd.setText("Quantidade");
 
         labelRemover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/botaox.png"))); // NOI18N
         labelRemover.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -146,10 +156,10 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labelQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(labelQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(63, 63, 63)
                         .addComponent(labelRemover)))
@@ -170,9 +180,9 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                     .addContainerGap()
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel3)
+                            .addComponent(labelQtd)
                             .addGap(18, 18, 18)
-                            .addComponent(labelQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGap(11, 11, 11)
                             .addComponent(labelRemover))
                         .addComponent(labelFotoProduto))))
@@ -185,20 +195,20 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Produto excluído." , "Informação" , JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_labelRemoverMouseClicked
 
-    private void labelQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_labelQuantidadeKeyPressed
+    private void tfQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfQuantidadeKeyPressed
         /*if (evt.getSource().equals("\n")) {
             System.out.println("Pressionou o enter");
         }*/
-    }//GEN-LAST:event_labelQuantidadeKeyPressed
+    }//GEN-LAST:event_tfQuantidadeKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelDescricao;
     private javax.swing.JLabel labelFotoProduto;
     private javax.swing.JLabel labelNome;
     private javax.swing.JLabel labelPreco;
-    private javax.swing.JTextField labelQuantidade;
+    private javax.swing.JLabel labelQtd;
     private javax.swing.JLabel labelRemover;
+    private javax.swing.JTextField tfQuantidade;
     // End of variables declaration//GEN-END:variables
 }

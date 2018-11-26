@@ -26,7 +26,9 @@ public class Carrinho extends javax.swing.JFrame {
     public Carrinho(int id) {
         super("Carrinho de Compras");
         Controle controle = new Controle ();
+        mostraIcones();
         initComponents();
+        mudarFonte();
         String nome1 = controle.mostraNome(id);
         String[] nome2 = nome1.split(" ");
         getContentPane().setBackground(Color.WHITE);
@@ -105,6 +107,23 @@ public class Carrinho extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
+    public void mudarFonte () {
+        Controle ctr = new Controle ();
+        labelResumo.setFont(ctr.mudaFonte(24));
+        labelFinalizarCompra.setFont(ctr.mudaFonte(14));
+        labelQtdItens.setFont(ctr.mudaFonte(14));
+        labelSubtotal.setFont(ctr.mudaFonte(18));
+        precoTotal.setFont(ctr.mudaFonte(24));
+        labelEntrega.setFont(ctr.mudaFonte(14));
+        labelEndereco.setFont(ctr.mudaFonte(15));
+        labelCarrinhoDeCompras.setFont(ctr.mudaFonte(18));
+        labelSemItens.setFont(ctr.mudaFonte(11));
+    }
+    
+    public void mostraIcones () {
+        carrinho = new ImageIcon(getClass().getResource("Foto/carrinho.png"));
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -116,14 +135,14 @@ public class Carrinho extends javax.swing.JFrame {
         labelResumo = new javax.swing.JLabel();
         labelFinalizarCompra = new javax.swing.JLabel();
         labelQtdItens = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        labelSubtotal = new javax.swing.JLabel();
         precoTotal = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         painelCarrinho2 = new javax.swing.JPanel();
         labelSemItens = new javax.swing.JLabel();
         panelEndereco = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        labelEntrega = new javax.swing.JLabel();
         labelEndereco = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -143,7 +162,7 @@ public class Carrinho extends javax.swing.JFrame {
         labelCarrinhoDeCompras.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         labelCarrinhoDeCompras.setText("Carrinho de Compras do [USUÁRIO]");
 
-        labelIconeCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/shoppingcart_compras_3767.png"))); // NOI18N
+        labelIconeCarrinho.setIcon(carrinho);
 
         panelCarrinho.setBackground(new java.awt.Color(255, 255, 255));
         panelCarrinho.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -161,9 +180,9 @@ public class Carrinho extends javax.swing.JFrame {
         labelQtdItens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelQtdItens.setText("[QTD] ITENS");
 
-        jLabel1.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("SUBTOTAL");
+        labelSubtotal.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
+        labelSubtotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelSubtotal.setText("SUBTOTAL");
 
         precoTotal.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
         precoTotal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -176,7 +195,7 @@ public class Carrinho extends javax.swing.JFrame {
             .addComponent(labelFinalizarCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelResumo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelQtdItens, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelSubtotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(precoTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelCarrinhoLayout.setVerticalGroup(
@@ -187,7 +206,7 @@ public class Carrinho extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(labelQtdItens)
                 .addGap(35, 35, 35)
-                .addComponent(jLabel1)
+                .addComponent(labelSubtotal)
                 .addGap(18, 18, 18)
                 .addComponent(precoTotal)
                 .addGap(18, 18, 18)
@@ -222,9 +241,9 @@ public class Carrinho extends javax.swing.JFrame {
         panelEndereco.setBackground(new java.awt.Color(254, 254, 254));
         panelEndereco.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Entregar em:");
+        labelEntrega.setFont(new java.awt.Font("Noto Sans", 0, 14)); // NOI18N
+        labelEntrega.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelEntrega.setText("Entregar em:");
 
         labelEndereco.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelEndereco.setText("[ENDEREÇO]");
@@ -233,7 +252,7 @@ public class Carrinho extends javax.swing.JFrame {
         panelEndereco.setLayout(panelEnderecoLayout);
         panelEnderecoLayout.setHorizontalGroup(
             panelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelEntrega, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(panelEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(labelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,7 +262,7 @@ public class Carrinho extends javax.swing.JFrame {
             panelEnderecoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEnderecoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel2)
+                .addComponent(labelEntrega)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -260,7 +279,7 @@ public class Carrinho extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(panelCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
@@ -360,19 +379,20 @@ public class Carrinho extends javax.swing.JFrame {
     }
     Conexao conexao = new Conexao();
     private final int idUsuario;
+    ImageIcon carrinho;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelCarrinhoDeCompras;
     private javax.swing.JLabel labelEndereco;
+    private javax.swing.JLabel labelEntrega;
     private javax.swing.JLabel labelFinalizarCompra;
     private javax.swing.JLabel labelIconeCarrinho;
     private javax.swing.JLabel labelQtdItens;
     private javax.swing.JLabel labelResumo;
     private javax.swing.JLabel labelSemItens;
+    private javax.swing.JLabel labelSubtotal;
     private javax.swing.JPanel painelCarrinho2;
     private javax.swing.JPanel panelCarrinho;
     private javax.swing.JPanel panelEndereco;

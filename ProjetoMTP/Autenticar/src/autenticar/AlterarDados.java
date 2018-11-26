@@ -199,7 +199,7 @@ public class AlterarDados extends javax.swing.JFrame {
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
         Controle controle = new Controle ();
         this.dispose();
-        new TelaInicial(this.idUsuario);
+        new MinhaConta(this.idUsuario);
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void aplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarActionPerformed
@@ -209,7 +209,7 @@ public class AlterarDados extends javax.swing.JFrame {
         conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);
         JOptionPane.showMessageDialog(null , "Atualizado com sucesso!");
         this.dispose();
-        new TelaInicial(idUsuario);
+        new MinhaConta(idUsuario);
         
     }//GEN-LAST:event_aplicarActionPerformed
 
