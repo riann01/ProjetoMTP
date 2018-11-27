@@ -54,6 +54,7 @@ public class TelaInicial extends javax.swing.JFrame {
         mostrarTodosOsItens();
         insereCategorias();
         alterarFonte();
+        verificaAdministrador();
         //new Propaganda ();
         
         //LabelCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("Foto/carrinho.png")));
@@ -193,12 +194,21 @@ public class TelaInicial extends javax.swing.JFrame {
         LabelNomeUsuario.setFont(ctr.mudaFonte(18));
         LabelSair.setFont(ctr.mudaFonte(14));
         botaoIr.setFont(ctr.mudaFonte(14));
-        jLabel1.setFont(ctr.mudaFonte(18));
+        admPainel.setFont(ctr.mudaFonte(18));
         jLabel2.setFont(ctr.mudaFonte(12));
         textFieldPesquisa.setFont(ctr.mudaFonte(14));
         listaCategorias.setFont(ctr.mudaFonte(15));
         labelDepartamentos.setFont(ctr.mudaFonte(15));
         labelAcessar.setFont(ctr.mudaFonte(12));
+    }
+    
+    public void verificaAdministrador () {
+        if (new Controle().administrador()==true) {
+            admPainel.setVisible(true);
+        }
+        else {
+            admPainel.setVisible(false);
+        }
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -223,7 +233,7 @@ public class TelaInicial extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         textFieldPesquisa = new javax.swing.JTextField();
         botaoIr = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        admPainel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -402,12 +412,12 @@ public class TelaInicial extends javax.swing.JFrame {
                 .addComponent(botaoIr, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel1.setFont(new java.awt.Font("Google Sans", 0, 18)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Painel do Administrador >");
-        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        admPainel.setFont(new java.awt.Font("Google Sans", 0, 18)); // NOI18N
+        admPainel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        admPainel.setText("Painel do Administrador >");
+        admPainel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel1MouseClicked(evt);
+                admPainelMouseClicked(evt);
             }
         });
 
@@ -443,7 +453,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                                 .addGap(1, 1, 1)
                                                 .addComponent(LabelSair)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(admPainel, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(143, 143, 143)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
@@ -452,11 +462,13 @@ public class TelaInicial extends javax.swing.JFrame {
                                         .addGap(0, 0, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
-                                        .addComponent(labelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addContainerGap())
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(labelAcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(61, 61, 61))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(labelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addContainerGap())
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(labelAcessar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(61, 61, 61))))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 834, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))
@@ -494,7 +506,7 @@ public class TelaInicial extends javax.swing.JFrame {
                                         .addComponent(LabelSair))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(27, 27, 27)
-                                        .addComponent(jLabel1)))
+                                        .addComponent(admPainel)))
                                 .addGap(25, 25, 25))
                             .addComponent(labelFotoUsuarioMouseEvento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10))
@@ -693,10 +705,10 @@ public class TelaInicial extends javax.swing.JFrame {
         painelConteudo.revalidate();
     }//GEN-LAST:event_painelConteudoMouseEntered
 
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+    private void admPainelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_admPainelMouseClicked
         this.dispose();
         new PainelAdmin(idUsuario);
-    }//GEN-LAST:event_jLabel1MouseClicked
+    }//GEN-LAST:event_admPainelMouseClicked
 
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */
@@ -733,9 +745,9 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel LabelMinhaConta;
     private javax.swing.JLabel LabelNomeUsuario;
     private javax.swing.JLabel LabelSair;
+    private javax.swing.JLabel admPainel;
     private javax.swing.JButton botaoIr;
     private javax.swing.JLabel cover;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
