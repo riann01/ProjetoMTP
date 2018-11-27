@@ -549,7 +549,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void LabelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelSairMouseClicked
         this.dispose();
-        new Logar(true);
+        new Logar();
     }//GEN-LAST:event_LabelSairMouseClicked
 
     private void LabelCarrinhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelCarrinhoMouseClicked
