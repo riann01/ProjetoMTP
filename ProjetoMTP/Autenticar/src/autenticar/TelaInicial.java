@@ -55,9 +55,9 @@ public class TelaInicial extends javax.swing.JFrame {
         insereCategorias();
         alterarFonte();
         verificaAdministrador();
+        botaoIr.requestFocus();
+        listaCategorias.setSelectedIndex(0);
         //new Propaganda ();
-        
-        //LabelCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("Foto/carrinho.png")));
     }
     public void deletarDoCarrinho () {
         try {
@@ -322,6 +322,7 @@ public class TelaInicial extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        listaCategorias.setSelectionBackground(javax.swing.UIManager.getDefaults().getColor("ComboBox.disabledForeground"));
         listaCategorias.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 listaCategoriasValueChanged(evt);
@@ -387,6 +388,15 @@ public class TelaInicial extends javax.swing.JFrame {
 
         textFieldPesquisa.setFont(new java.awt.Font("Google Sans", 0, 14)); // NOI18N
         textFieldPesquisa.setText("Pesquisar...");
+        textFieldPesquisa.setVerifyInputWhenFocusTarget(false);
+        textFieldPesquisa.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textFieldPesquisaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textFieldPesquisaFocusLost(evt);
+            }
+        });
 
         botaoIr.setFont(new java.awt.Font("Google Sans", 0, 14)); // NOI18N
         botaoIr.setText("Ir");
@@ -655,6 +665,7 @@ public class TelaInicial extends javax.swing.JFrame {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        painelConteudo.revalidate();
     }//GEN-LAST:event_botaoIrActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -686,22 +697,16 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         atualizaItens(idUsuario);
-        painelConteudo.removeAll();
-        mostrarTodosOsItens();
         painelConteudo.revalidate();
     }//GEN-LAST:event_formMouseEntered
 
     private void formMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseExited
         atualizaItens(idUsuario);
-        painelConteudo.removeAll();
-        mostrarTodosOsItens();
         painelConteudo.revalidate();
     }//GEN-LAST:event_formMouseExited
 
     private void painelConteudoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelConteudoMouseEntered
         atualizaItens(idUsuario);
-        painelConteudo.removeAll();
-        mostrarTodosOsItens();
         painelConteudo.revalidate();
     }//GEN-LAST:event_painelConteudoMouseEntered
 
@@ -709,6 +714,16 @@ public class TelaInicial extends javax.swing.JFrame {
         this.dispose();
         new PainelAdmin(idUsuario);
     }//GEN-LAST:event_admPainelMouseClicked
+
+    private void textFieldPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldPesquisaFocusGained
+        textFieldPesquisa.setText("");
+    }//GEN-LAST:event_textFieldPesquisaFocusGained
+
+    private void textFieldPesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldPesquisaFocusLost
+        if(textFieldPesquisa.getText().equals("")) {
+            textFieldPesquisa.setText("Pesquisar...");
+        }
+    }//GEN-LAST:event_textFieldPesquisaFocusLost
 
     public static void main(String args[]) throws IllegalAccessException {
         /* Set the Nimbus look and feel */

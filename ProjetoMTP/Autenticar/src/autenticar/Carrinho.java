@@ -81,6 +81,8 @@ public class Carrinho extends javax.swing.JFrame {
             panelCarrinho.setVisible(false);
             labelSemItens.setVisible(true);
             panelEndereco.setVisible(false);
+            painelCarrinho2.setVisible(false);
+            jScrollPane1.setVisible(false);
         }
         else {
             if (cont==1) {
@@ -118,7 +120,7 @@ public class Carrinho extends javax.swing.JFrame {
         labelEntrega.setFont(ctr.mudaFonte(14));
         labelEndereco.setFont(ctr.mudaFonte(15));
         labelCarrinhoDeCompras.setFont(ctr.mudaFonte(18));
-        labelSemItens.setFont(ctr.mudaFonte(11));
+        labelSemItens.setFont(ctr.mudaFonte(24));
     }
     
     public void mostraIcones () {
@@ -158,11 +160,15 @@ public class Carrinho extends javax.swing.JFrame {
                 formMouseEntered(evt);
             }
         });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelCarrinhoDeCompras.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         labelCarrinhoDeCompras.setText("Carrinho de Compras do [USUÁRIO]");
+        getContentPane().add(labelCarrinhoDeCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 24, 360, 30));
 
         labelIconeCarrinho.setIcon(carrinho);
+        getContentPane().add(labelIconeCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 11, -1, -1));
+        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 74, 947, -1));
 
         panelCarrinho.setBackground(new java.awt.Color(255, 255, 255));
         panelCarrinho.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -214,6 +220,9 @@ public class Carrinho extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        getContentPane().add(panelCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 82, 177, -1));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 108, -1, -1));
+
         jScrollPane1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jScrollPane1FocusGained(evt);
@@ -236,7 +245,11 @@ public class Carrinho extends javax.swing.JFrame {
         jScrollPane1.setViewportView(painelCarrinho2);
         painelCarrinho2.getAccessibleContext().setAccessibleName("");
 
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 86, 738, 430));
+
+        labelSemItens.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelSemItens.setText("Hmm... parece meio vazio por aqui, tente adiciocar alguns itens!");
+        getContentPane().add(labelSemItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, -1));
 
         panelEndereco.setBackground(new java.awt.Color(254, 254, 254));
         panelEndereco.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -268,61 +281,7 @@ public class Carrinho extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 738, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(panelCarrinho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(panelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(labelSemItens)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelIconeCarrinho)
-                                .addGap(27, 27, 27)
-                                .addComponent(labelCarrinhoDeCompras)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelIconeCarrinho)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addComponent(labelCarrinhoDeCompras)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(labelSemItens)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(panelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1)))
-                .addContainerGap())
-        );
+        getContentPane().add(panelEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 322, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
