@@ -111,7 +111,7 @@ public class Logar extends javax.swing.JFrame {
         if((controle.validoLogin() == true) && (controle.administrador()==true)) {
             JOptionPane.showMessageDialog(null , controle.retornaMensagem());
             this.dispose();
-            new TelaInicial(controle.retornaId());
+            new TelaInicial(controle.retornaId(), controle.administrador());
         }
         else {
             if(controle.validoLogin() == true){
@@ -119,7 +119,7 @@ public class Logar extends javax.swing.JFrame {
                 controle.getId(login.getText());
                 JOptionPane.showMessageDialog(null , controle.retornaMensagem());
                 this.dispose();
-                new TelaInicial(controle.retornaId());
+                new TelaInicial(controle.retornaId(), controle.administrador());
             }
             else {
                JOptionPane.showMessageDialog(null , controle.retornaMensagem() , "Erro" , JOptionPane.ERROR_MESSAGE); 

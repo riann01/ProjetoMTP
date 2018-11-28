@@ -24,6 +24,7 @@ import java.awt.Event;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import javax.swing.ImageIcon;
+import javax.swing.ScrollPaneConstants;
 
 public class TelaInicial extends javax.swing.JFrame {
     {        
@@ -34,7 +35,7 @@ public class TelaInicial extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public TelaInicial(int id) {
+    public TelaInicial(int id, boolean administrador) {
         super ("Super Loja Fictícia");
         this.idUsuario = id;
         mostraIcones();
@@ -54,9 +55,11 @@ public class TelaInicial extends javax.swing.JFrame {
         mostrarTodosOsItens();
         insereCategorias();
         alterarFonte();
-        verificaAdministrador();
+        verificaAdministrador(administrador);
         botaoIr.requestFocus();
         listaCategorias.setSelectedIndex(0);
+        jScrollPane2.setWheelScrollingEnabled(true);
+        jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         //new Propaganda ();
     }
     public void deletarDoCarrinho () {
@@ -202,8 +205,9 @@ public class TelaInicial extends javax.swing.JFrame {
         labelAcessar.setFont(ctr.mudaFonte(12));
     }
     
-    public void verificaAdministrador () {
-        if (new Controle().administrador()==true) {
+    public void verificaAdministrador (boolean administrador1) {
+        if (administrador1==true) {
+            System.out.printf(" asdadascaseadw");
             admPainel.setVisible(true);
         }
         else {
@@ -368,9 +372,9 @@ public class TelaInicial extends javax.swing.JFrame {
         jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
         painelConteudo.setBackground(new java.awt.Color(255, 255, 255));
-        painelConteudo.setMaximumSize(new java.awt.Dimension(800, 800));
-        painelConteudo.setMinimumSize(new java.awt.Dimension(800, 800));
-        painelConteudo.setPreferredSize(new java.awt.Dimension(800, 800));
+        painelConteudo.setMaximumSize(new java.awt.Dimension(800, 440));
+        painelConteudo.setMinimumSize(new java.awt.Dimension(800, 440));
+        painelConteudo.setPreferredSize(new java.awt.Dimension(800, 440));
         painelConteudo.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseMoved(java.awt.event.MouseEvent evt) {
                 painelConteudoMouseMoved(evt);
@@ -638,7 +642,7 @@ public class TelaInicial extends javax.swing.JFrame {
         String pesquisa = "%"+textFieldPesquisa.getText()+"%";
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto like ? OR descricao like ?");
+            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
             st.setString(1, pesquisa);
             st.setString(2, pesquisa);
             ResultSet rs = st.executeQuery();
@@ -750,6 +754,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public javax.swing.JPanel getPainel () {
         return this.painelConteudo;
     }
+    Controle controle = new Controle();
     private ImageIcon carrinho;
     private Font font;
     Conexao conexao = new Conexao();

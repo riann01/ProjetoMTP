@@ -1,12 +1,14 @@
 package autenticar;
 import java.awt.Color;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 public class MinhaConta extends javax.swing.JFrame {
 
     public MinhaConta(int idUsuario) {
         initComponents();
         mudarFonte();
         idDoUsuario = idUsuario;
-        
         this.setVisible(true);
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
@@ -17,6 +19,7 @@ public class MinhaConta extends javax.swing.JFrame {
         else {
             labelTitulo.setText("Configurações da Conta da "+separador[0]);
         }
+        
     }
     
     public void mudarFonte() {
@@ -25,6 +28,22 @@ public class MinhaConta extends javax.swing.JFrame {
         labelDados.setFont(ctr.mudaFonte(14));
         labelPedidos.setFont(ctr.mudaFonte(14));
         labelSair.setFont(ctr.mudaFonte(14));
+    }
+    
+    public boolean pegaBoolean (int idUsuario) {
+        boolean T = false;
+        try {
+            PreparedStatement ps = this.conn.getConnection().prepareStatement("SELECT administrador FROM pessoa WHERE id_pessoa = ?");
+            ps.setInt(1 , idUsuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                T = rs.getBoolean(1);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return T;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -126,7 +145,7 @@ public class MinhaConta extends javax.swing.JFrame {
 
     private void labelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSairMouseClicked
         this.dispose();
-        new TelaInicial(idDoUsuario);
+        new TelaInicial(idDoUsuario,pegaBoolean(idDoUsuario));
     }//GEN-LAST:event_labelSairMouseClicked
 
     /**
@@ -156,7 +175,7 @@ public class MinhaConta extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-
+    private Conexao conn = new Conexao();
     private int idDoUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

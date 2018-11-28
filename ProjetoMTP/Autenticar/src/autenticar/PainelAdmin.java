@@ -1,5 +1,8 @@
 package autenticar;
 import java.awt.Color;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class PainelAdmin extends javax.swing.JFrame {
 
@@ -17,6 +20,21 @@ public class PainelAdmin extends javax.swing.JFrame {
         labelAdmPainel.setFont(ctr.mudaFonte(16));
         labelCadastrar.setFont(ctr.mudaFonte(14));
         botaoFechar.setFont(ctr.mudaFonte(13));
+    }
+    public boolean pegaBoolean (int idUsuario) {
+        boolean T = false;
+        try {
+            PreparedStatement ps = this.conn.getConnection().prepareStatement("SELECT administrador FROM pessoa WHERE id_pessoa = ?");
+            ps.setInt(1 , idUsuario);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                T = rs.getBoolean(1);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return T;
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -82,7 +100,7 @@ public class PainelAdmin extends javax.swing.JFrame {
 
     private void botaoFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoFecharActionPerformed
         this.dispose();
-        new TelaInicial(idDoUsuario);
+        new TelaInicial(idDoUsuario,pegaBoolean(idDoUsuario));
     }//GEN-LAST:event_botaoFecharActionPerformed
 
     private void labelCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCadastrarMouseClicked
@@ -114,6 +132,7 @@ public class PainelAdmin extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    private Conexao conn = new Conexao();
     private int idDoUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoFechar;
