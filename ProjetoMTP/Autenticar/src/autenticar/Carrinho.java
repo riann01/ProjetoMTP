@@ -44,6 +44,7 @@ public class Carrinho extends javax.swing.JFrame {
         labelSemItens.setVisible(false);
         mostrarItens();
         atualizaItens(idUsuario);
+        mostraTotal(idUsuario);
     }
     
     public void mostrarItens () {
@@ -125,6 +126,23 @@ public class Carrinho extends javax.swing.JFrame {
     
     public void mostraIcones () {
         carrinho = new ImageIcon(getClass().getResource("Foto/carrinho.png"));
+    }
+    
+    public void mostraTotal (int id_pessoa) {
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT preco_total FROM carrinho WHERE id_pessoa = ?");
+            st.setInt(1, id_pessoa);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                this.valorTotalGlobal = rs.getFloat(1);
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        precoTotal.setText("R$"+String.valueOf(this.valorTotalGlobal));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -336,6 +354,7 @@ public class Carrinho extends javax.swing.JFrame {
         /* Create and display the form */
         
     }
+    Float valorTotalGlobal;
     Conexao conexao = new Conexao();
     private final int idUsuario;
     ImageIcon carrinho;

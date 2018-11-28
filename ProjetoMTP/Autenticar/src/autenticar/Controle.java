@@ -96,6 +96,7 @@ public class Controle {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
     public void mudarFoto (int id, File foto) {
         Conexao conn = new Conexao();
         PreparedStatement st;
@@ -288,7 +289,7 @@ public class Controle {
     
     public Font mudaFonte (int tamanho) {
         try {
-        fonte = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Fonte/GoogleSans-Regular.ttf"))).deriveFont(0, tamanho);
+            fonte = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Fonte/GoogleSans-Regular.ttf"))).deriveFont(0, tamanho);
         }
         catch (FontFormatException e) {
             e.printStackTrace();
@@ -298,7 +299,30 @@ public class Controle {
         }
         return this.fonte;
     }
-        
+    
+    /*public void insereTotal(float preco, float quantidade, int id_pessoa) {
+        float total = preco*quantidade;
+        int quantidadeum = 0;
+        try {
+            PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
+            ps.setInt(1, id_pessoa);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ++quantidadeum;
+            }
+            rs.close();
+            ps.close();
+            ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET preco_total = preco_total+? WHERE id_pessoa = ?");
+            ps.setFloat(1,total);
+            ps.setInt(2,id_pessoa);
+            ps.executeUpdate();
+            ps.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }*/
+    
     public int getCont() {
         return this.cont;
     }
