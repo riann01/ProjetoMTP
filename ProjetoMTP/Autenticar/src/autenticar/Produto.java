@@ -12,7 +12,7 @@ public class Produto extends javax.swing.JPanel {
         this.preco = preco;
         labelNomeProduto.setText(nome);
         labelDescricao.setText(descricao);
-        labelPreco.setText("R$"+Float.toString(preco));
+        labelPreco.setText(new Controle().retornaValorFormatado(Float.toString(preco)));
         labelFotoProduto.setIcon(foto);
         setVisible(true);
         this.idUsuario1 = idUsuario;
@@ -112,7 +112,6 @@ public class Produto extends javax.swing.JPanel {
     private void carrinhoAdicionaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_carrinhoAdicionaMouseClicked
         Controle ctr = new Controle();
         ctr.corrigirDualidades(idProduto1, idUsuario1, Integer.parseInt(quantidade.getText()));
-        //ctr.insereTotal(preco, Float.parseFloat(quantidade.getText()), idUsuario1);
         quantidade.setText("1");
         JOptionPane.showMessageDialog(null, "Produto adicionado com sucesso!");
     }//GEN-LAST:event_carrinhoAdicionaMouseClicked

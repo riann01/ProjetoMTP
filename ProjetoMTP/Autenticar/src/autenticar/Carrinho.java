@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,8 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 public class Carrinho extends javax.swing.JFrame {
-    {        
+
+    {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception e) {
@@ -23,62 +25,58 @@ public class Carrinho extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+
     public Carrinho(int id) {
         super("Carrinho de Compras");
-        Controle controle = new Controle ();
+        Controle controle = new Controle();
         mostraIcones();
         initComponents();
         mudarFonte();
-        String nome1 = controle.mostraNome(id);
-        String[] nome2 = nome1.split(" ");
         getContentPane().setBackground(Color.WHITE);
         setLocationRelativeTo(null);
         idUsuario = id;
-        if(controle.pegaSexo(idUsuario).equals("M")) {
-            labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
-        }
-        else {
-            labelCarrinhoDeCompras.setText("Carrinho de Compras da " + nome2[0]);
-        }
+        mudaNomeLabel(idUsuario);
         mostraEndereco(idUsuario);
         labelSemItens.setVisible(false);
         mostrarItens();
         atualizaItens(idUsuario);
         mostraTotal(idUsuario);
     }
-    
-    public void mostrarItens () {
+
+    public void mostrarItens() {
         int controle1 = 0;
         PreparedStatement st;
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {  
+            while (rs.next()) {
                 ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1));
                 controle1 += 170;
                 painelCarrinho2.add(p);
-                painelCarrinho2.setPreferredSize(new Dimension(700,controle1));
+                painelCarrinho2.setPreferredSize(new Dimension(700, controle1));
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
-    public void atualizaItens (int idPessoa) {
+
+    public void atualizaItens(int idPessoa) {
         int cont = 0;
         PreparedStatement st;
         try {
             st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_pessoa = ?");
-            st.setInt(1,idPessoa);
+            st.setInt(1, idPessoa);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 ++cont;
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
-        if (cont==0) {
+        if (cont == 0) {
             panelCarrinho.setVisible(false);
             labelSemItens.setVisible(true);
             panelEndereco.setVisible(false);
@@ -86,33 +84,31 @@ public class Carrinho extends javax.swing.JFrame {
             jScrollPane1.setVisible(false);
         }
         else {
-            if (cont==1) {
-                labelQtdItens.setText(String.valueOf(cont)+" ITEM");
+            if (cont == 1) {
+                labelQtdItens.setText(String.valueOf(cont) + " ITEM");
                 panelCarrinho.setVisible(true);
-            }
-            else {
-                labelQtdItens.setText(String.valueOf(cont)+" ITENS");
+            } else {
+                labelQtdItens.setText(String.valueOf(cont) + " ITENS");
             }
         }
     }
-        
-    public void mostraEndereco (int idUsuario) {
-        Conexao conn = new Conexao ();
+
+    public void mostraEndereco(int idUsuario) {
+        Conexao conn = new Conexao();
         try {
             PreparedStatement ps = conn.getConnection().prepareStatement("SELECT endereco, cidade_estado FROM pessoa WHERE id_pessoa = ?");
             ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
-                labelEndereco.setText("<html><body><center>"+rs.getString(1)+"\n"+rs.getString(2)+"</center></body></html>");
+                labelEndereco.setText("<html><body><center>" + rs.getString(1) + "\n" + rs.getString(2) + "</center></body></html>");
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    
-    public void mudarFonte () {
-        Controle ctr = new Controle ();
+
+    public void mudarFonte() {
+        Controle ctr = new Controle();
         labelResumo.setFont(ctr.mudaFonte(24));
         labelFinalizarCompra.setFont(ctr.mudaFonte(14));
         labelQtdItens.setFont(ctr.mudaFonte(14));
@@ -123,18 +119,23 @@ public class Carrinho extends javax.swing.JFrame {
         labelCarrinhoDeCompras.setFont(ctr.mudaFonte(18));
         labelSemItens.setFont(ctr.mudaFonte(24));
     }
-    
-    public void mostraIcones () {
+
+    public void mostraIcones() {
         carrinho = new ImageIcon(getClass().getResource("Foto/carrinho.png"));
+        //labelIconeCarrinho.setIcon(carrinho);
     }
     
     public void mostraTotal (int id_pessoa) {
+        float quantidade, valorProduto, total = 0;
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT preco_total FROM carrinho WHERE id_pessoa = ?");
+            String query = "SELECT preco_venda, quantidade FROM produto AS P JOIN carrinho AS C ON C.id_produto = P.id_produto WHERE C.id_pessoa = ?";
+            PreparedStatement st = this.conexao.getConnection().prepareStatement(query);
             st.setInt(1, id_pessoa);
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                this.valorTotalGlobal = rs.getFloat(1);
+            while (rs.next()) {
+                valorProduto = rs.getFloat(1);
+                quantidade = rs.getInt(2);
+                total = ((quantidade*valorProduto)+total);
             }
             rs.close();
             st.close();
@@ -142,8 +143,23 @@ public class Carrinho extends javax.swing.JFrame {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        precoTotal.setText("R$"+String.valueOf(this.valorTotalGlobal));
+        this.valorTotalGlobal = total;
+        String valorTotal = "R$"+String.valueOf(this.valorTotalGlobal).replace(".", ",");
+        
+        precoTotal.setText(valorTotal);
     }
+
+    public void mudaNomeLabel (int idUser) {
+        Controle ctr = new Controle();
+        String nome1 = ctr.mostraNome(idUser);
+        String[] nome2 = nome1.split(" ");
+        if (ctr.pegaSexo(idUser).equals("M")) {
+            labelCarrinhoDeCompras.setText("Carrinho de Compras do " + nome2[0]);
+        } else {
+            labelCarrinhoDeCompras.setText("Carrinho de Compras da " + nome2[0]);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -178,15 +194,16 @@ public class Carrinho extends javax.swing.JFrame {
                 formMouseEntered(evt);
             }
         });
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelCarrinhoDeCompras.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         labelCarrinhoDeCompras.setText("Carrinho de Compras do [USUÁRIO]");
-        getContentPane().add(labelCarrinhoDeCompras, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 24, 360, 30));
+        labelCarrinhoDeCompras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        labelIconeCarrinho.setIcon(carrinho);
-        getContentPane().add(labelIconeCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(282, 11, -1, -1));
-        getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 74, 947, -1));
+        labelIconeCarrinho.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/carrinho.png"))); // NOI18N
+        labelIconeCarrinho.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
+        labelIconeCarrinho.setMaximumSize(new java.awt.Dimension(52, 52));
+        labelIconeCarrinho.setMinimumSize(new java.awt.Dimension(52, 52));
+        labelIconeCarrinho.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
         panelCarrinho.setBackground(new java.awt.Color(255, 255, 255));
         panelCarrinho.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -199,6 +216,11 @@ public class Carrinho extends javax.swing.JFrame {
         labelFinalizarCompra.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelFinalizarCompra.setText("FINALIZAR COMPRA");
         labelFinalizarCompra.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelFinalizarCompra.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelFinalizarCompraMouseClicked(evt);
+            }
+        });
 
         labelQtdItens.setFont(new java.awt.Font("Bahnschrift", 0, 14)); // NOI18N
         labelQtdItens.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -216,7 +238,7 @@ public class Carrinho extends javax.swing.JFrame {
         panelCarrinho.setLayout(panelCarrinhoLayout);
         panelCarrinhoLayout.setHorizontalGroup(
             panelCarrinhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelFinalizarCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelFinalizarCompra, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)
             .addComponent(labelResumo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelQtdItens, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(labelSubtotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -237,9 +259,6 @@ public class Carrinho extends javax.swing.JFrame {
                 .addComponent(labelFinalizarCompra)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        getContentPane().add(panelCarrinho, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 82, 177, -1));
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 108, -1, -1));
 
         jScrollPane1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -263,11 +282,8 @@ public class Carrinho extends javax.swing.JFrame {
         jScrollPane1.setViewportView(painelCarrinho2);
         painelCarrinho2.getAccessibleContext().setAccessibleName("");
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 86, 738, 430));
-
         labelSemItens.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         labelSemItens.setText("Hmm... parece meio vazio por aqui, tente adiciocar alguns itens!");
-        getContentPane().add(labelSemItens, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 280, -1, -1));
 
         panelEndereco.setBackground(new java.awt.Color(254, 254, 254));
         panelEndereco.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -295,11 +311,65 @@ public class Carrinho extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(labelEntrega)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        getContentPane().add(panelEndereco, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 322, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelIconeCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(labelCarrinhoDeCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(273, 273, 273))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(labelSemItens))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelEndereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jSeparator1)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(labelCarrinhoDeCompras, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10))
+                    .addComponent(labelIconeCarrinho, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(67, 67, 67)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(190, 190, 190)
+                                        .addComponent(labelSemItens))
+                                    .addComponent(panelCarrinho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(panelEndereco, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -323,6 +393,29 @@ public class Carrinho extends javax.swing.JFrame {
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         atualizaItens(idUsuario);
     }//GEN-LAST:event_formMouseEntered
+
+    private void labelFinalizarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFinalizarCompraMouseClicked
+        
+        PreparedStatement st;
+        try {
+            st = conexao.getConnection().prepareStatement("INSERT INTO pedido(valor_total, data, id_pessoa) VALUES (?,?,?)");            
+            st.setFloat(1, valorTotalGlobal);
+            java.util.Date dataUtil = new java.util.Date();
+            java.sql.Date data = new Date(dataUtil.getTime());
+            st.setDate(2, data);
+            st.setInt(3, idUsuario);
+            st.executeUpdate();
+            st.close();
+            st = conexao.getConnection().prepareStatement("DELETE FROM carrinho WHERE id_pessoa = ?");           
+            st.setInt(1, idUsuario);
+            st.executeUpdate();
+            st.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        this.dispose();
+        new FinalizarPedido(idUsuario);
+    }//GEN-LAST:event_labelFinalizarCompraMouseClicked
 
     /**
      * @param args the command line arguments
@@ -350,11 +443,8 @@ public class Carrinho extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Carrinho.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
-        /* Create and display the form */
-        
     }
-    Float valorTotalGlobal;
+    Float valorTotalGlobal = new Float(1.0);
     Conexao conexao = new Conexao();
     private final int idUsuario;
     ImageIcon carrinho;

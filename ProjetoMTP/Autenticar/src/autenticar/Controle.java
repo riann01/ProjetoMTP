@@ -260,6 +260,7 @@ public class Controle {
 
     public void corrigirDualidades (int idProduto, int idUsuario, int quantidade) {
         int quantidadeum = 0;
+        float precoTotal = 0;
         try {
             PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
             ps.setInt(1, idProduto);
@@ -270,8 +271,16 @@ public class Controle {
             }
             rs.close();
             ps.close();
+            ps = this.conexao.getConnection().prepareStatement("SELECT preco_venda FROM produto WHERE id_produto = ?");
+            ps.setInt(1, idProduto);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                precoTotal = rs.getFloat(1);
+            }
+            rs.close();
+            ps.close();
             if (quantidadeum==0) {
-                conexao.inserirProdutoCarrinho(idUsuario, idProduto, quantidade);
+                conexao.inserirProdutoCarrinho(idUsuario, idProduto, quantidade, precoTotal);
             }
             else {
                 ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = quantidade+? WHERE id_produto = ? AND id_pessoa = ?");
@@ -299,30 +308,19 @@ public class Controle {
         }
         return this.fonte;
     }
-    
-    /*public void insereTotal(float preco, float quantidade, int id_pessoa) {
-        float total = preco*quantidade;
-        int quantidadeum = 0;
-        try {
-            PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
-            ps.setInt(1, id_pessoa);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                ++quantidadeum;
-            }
-            rs.close();
-            ps.close();
-            ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET preco_total = preco_total+? WHERE id_pessoa = ?");
-            ps.setFloat(1,total);
-            ps.setInt(2,id_pessoa);
-            ps.executeUpdate();
-            ps.close();
+        
+    public String retornaValorFormatado (String valor) {
+        valor = valor.replace("."," ");
+        String separador [] = valor.split(" ");
+        if (Integer.parseInt(separador[0])<10) {
+            separador[0] = "0"+separador[0];
         }
-        catch (SQLException e) {
-            e.printStackTrace();
+        if (separador[1].length()==1) {
+            separador[1] = separador[1]+"0";
         }
-    }*/
-    
+        String retorno = "R$"+separador[0]+","+separador[1];
+        return retorno;
+    }
     public int getCont() {
         return this.cont;
     }

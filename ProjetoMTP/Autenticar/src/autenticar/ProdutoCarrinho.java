@@ -37,10 +37,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
                 labelFotoProduto.setIcon(icon);
                 labelNome.setText("<html><body><center>"+rs.getString(1)+"</center></body></html>");
                 labelDescricao.setText("<html><body><center>"+rs.getString(2)+"</center></body></html>");
-                float transf = rs.getFloat(3);
-                String convertido = String.valueOf(transf);
-                String replace = convertido.replace('.', ',');
-                labelPreco.setText("R$"+replace);
+                labelPreco.setText(new Controle().retornaValorFormatado(Float.toString(rs.getFloat(3))));
                 precoTotal = precoTotal+rs.getFloat(3);
             }
             rs.close();
