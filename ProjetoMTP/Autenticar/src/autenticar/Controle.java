@@ -296,7 +296,7 @@ public class Controle {
             rs.close();
             ps.close();
             if (quantidadeum==0) {
-                conexao.inserirProdutoCarrinho(idUsuario, idProduto, quantidade, precoTotal);
+                conexao.inserirProdutoCarrinho(idUsuario, idProduto, quantidade);
             }
             else {
                 ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = quantidade+? WHERE id_produto = ? AND id_pessoa = ?");
