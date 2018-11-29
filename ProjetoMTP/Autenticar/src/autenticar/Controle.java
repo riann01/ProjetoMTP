@@ -264,7 +264,7 @@ public class Controle {
             PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
-                model = model+"/"+rs.getString(1);
+                model = rs.getString(1)+"/"+model;
             }
         }
         catch (SQLException e) {
@@ -348,14 +348,55 @@ public class Controle {
     }
     
     public void excluirCategoria (String nomeCategoria) {
+        int quantidade = 0;
+        int idCategoria = 0;
+        String nomes = "";
+        String mensagem = "";
+        String quantidadeCasting;
+        String quantidade2 = "";
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("DELETE FROM cetegoria WHERE nome_categoria = ?");
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
             st.setString(1, nomeCategoria);
-            st.executeUpdate();
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                idCategoria = rs.getInt(1);
+            }
+            rs.close();
             st.close();
+            st = this.conexao.getConnection().prepareStatement("SELECT nome_produto FROM produto WHERE id_categoria = ?");
+            st.setInt(1, idCategoria);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                nomes = "- "+nomes+"/n"+rs.getString(1);
+                ++quantidade;
+            }
+            rs.close();
+            st.close();
+            if (quantidade>1) {
+                quantidadeCasting = " itens";
+                quantidade2 = " cadastrados.";
+            }
+            else {
+                quantidadeCasting = " item";
+                quantidade2 = " cadastrado.";
+            }
+            mensagem = "A categoria que você tentou excluir possui "+String.valueOf(quantidade)+quantidadeCasting+quantidade2+nomes;
+            if (quantidade>0) {
+                JOptionPane.showMessageDialog(null, mensagem, "Não foi possível excluir a categoria", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                JOptionPane jp = new JOptionPane();
+                jp.showMessageDialog(null, "A categoria "+nomeCategoria+" será excluída, deseja continuar?", "Confirmar exclusão de categoria", JOptionPane.YES_NO_OPTION);
+                if(jp.getOptionType()==-1) {
+                    st = this.conexao.getConnection().prepareStatement("DELETE FROM categoria WHERE nome_categoria = ?");
+                    st.setString(1, nomeCategoria);
+                    st.executeUpdate();
+                    st.close();
+                    JOptionPane.showMessageDialog(null, "Informação", "Categoria excluída", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         }
         catch (SQLException e) {
-            JOptionPane.showMessageDialog(null, "Atenção", "Você não pode excluir categorias com produtos cadastrados nela." , JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
     }
