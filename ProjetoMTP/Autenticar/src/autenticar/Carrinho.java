@@ -127,14 +127,18 @@ public class Carrinho extends javax.swing.JFrame {
     public void mostraTotal (int id_pessoa) {
         float quantidade, valorProduto, total = 0;
         try {
-            String query = "SELECT preco_venda, quantidade FROM produto AS P JOIN carrinho AS C ON C.id_produto = P.id_produto WHERE C.id_pessoa = ?";
+            String query = "SELECT preco_venda, quantidade, P.id_produto FROM produto AS P JOIN carrinho AS C ON C.id_produto = P.id_produto WHERE C.id_pessoa = ?";
             PreparedStatement st = this.conexao.getConnection().prepareStatement(query);
             st.setInt(1, id_pessoa);
             ResultSet rs = st.executeQuery();
+            m = -1;
             while (rs.next()) {
+                idsPedidos[m+1] = rs.getInt(3);
+                quantidades[m+1] = rs.getInt(2);
                 valorProduto = rs.getFloat(1);
                 quantidade = rs.getInt(2);
                 total = ((quantidade*valorProduto)+total);
+                m++;
             }
             rs.close();
             st.close();
@@ -404,6 +408,25 @@ public class Carrinho extends javax.swing.JFrame {
             st.setInt(3, idUsuario);
             st.executeUpdate();
             st.close();
+            int idPedido11 = 0;
+            st = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");      
+            st.setInt(1, idUsuario);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                
+                idPedido11 = rs.getInt(1);
+                
+            }
+            rs.close();
+            st.close();
+            for(int k=0;k<=m;k++){    
+                st = conexao.getConnection().prepareStatement("INSERT INTO produto_pedido(id_produto, id_pedido, quantidade) VALUES (?,?,?)");            
+                st.setInt(1, idsPedidos[k]);
+                st.setInt(2, idPedido11);
+                st.setInt(3, quantidades[k]);
+                st.executeUpdate();
+                st.close();
+            }    
             st = conexao.getConnection().prepareStatement("DELETE FROM carrinho WHERE id_pessoa = ?");           
             st.setInt(1, idUsuario);
             st.executeUpdate();
@@ -448,6 +471,10 @@ public class Carrinho extends javax.swing.JFrame {
     Conexao conexao = new Conexao();
     private final int idUsuario;
     ImageIcon carrinho;
+    
+    int m;
+    Integer[] idsPedidos = new Integer[50];
+    Integer[] quantidades = new Integer[50];
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
