@@ -3,8 +3,16 @@ import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.UIManager;
 public class MinhaConta extends javax.swing.JFrame {
-
+    {        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Não foi possível alterar o LookAndFeel");
+            e.printStackTrace();
+        }
+    }
     public MinhaConta(int idUsuario) {
         initComponents();
         mudarFonte();

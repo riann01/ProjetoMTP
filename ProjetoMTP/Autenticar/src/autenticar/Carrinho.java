@@ -16,7 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
 public class Carrinho extends javax.swing.JFrame {
-
     {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -395,7 +394,6 @@ public class Carrinho extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseEntered
 
     private void labelFinalizarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFinalizarCompraMouseClicked
-        
         PreparedStatement st;
         try {
             st = conexao.getConnection().prepareStatement("INSERT INTO pedido(valor_total, data, id_pessoa) VALUES (?,?,?)");            
@@ -410,6 +408,8 @@ public class Carrinho extends javax.swing.JFrame {
             st.setInt(1, idUsuario);
             st.executeUpdate();
             st.close();
+            //st = conexao.getConnection().prepareStatement("INSET INTO pedido_produto (preco, quantidade, id_produto, id_pedido) VALUES (?,?,?,?)");
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

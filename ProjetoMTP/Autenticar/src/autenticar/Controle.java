@@ -312,15 +312,13 @@ public class Controle {
     public String retornaValorFormatado (String valor) {
         valor = valor.replace("."," ");
         String separador [] = valor.split(" ");
-        if (Integer.parseInt(separador[0])<10) {
-            separador[0] = "0"+separador[0];
-        }
         if (separador[1].length()==1) {
             separador[1] = separador[1]+"0";
         }
         String retorno = "R$"+separador[0]+","+separador[1];
         return retorno;
     }
+    
     public int getCont() {
         return this.cont;
     }

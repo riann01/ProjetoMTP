@@ -5,173 +5,186 @@ import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.UIManager;
 
 public class FinalizarPedido extends javax.swing.JFrame {
-
+    {        
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            System.err.println("Não foi possível alterar o LookAndFeel");
+            e.printStackTrace();
+        }
+    }
     public FinalizarPedido(int idUsuario) {
         initComponents();
+        mudaFonte();
+        idUsuario2 = idUsuario;
         getContentPane().setBackground(Color.WHITE);
         PreparedStatement st;
         Controle controle = new Controle();
         String nome = controle.mostraNome(idUsuario);
         String[] teste = nome.split(" ");
-        System.out.printf(teste[0]);
-        nomePessoa1.setText(teste[0]+",");
-        
-        String numeroPedido1 = new String();
-        PreparedStatement sp;
-        
-        try {
-            sp = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
-            sp.setInt(1, idUsuario);
-            ResultSet rk = sp.executeQuery();
-            while(rk.next()){
-                
-                numeroPedido1 = "#"+rk.getInt(1);
-                
-            }
-            
-            numeroPedido.setText(numeroPedido1);
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
-        
+        nome1 = teste[0];
+        iniciarTela();
         setLocationRelativeTo(null);
         this.setVisible(true);
     }
-
+       
+    public void iniciarTela () {
+        PreparedStatement st;
+        int numeroPedido = 0;
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
+            st.setInt(1, idUsuario2);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                numeroPedido = rs.getInt(1);
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String texto = "<html><body><center>"+nome1+", seu pedido foi finalizado com sucesso.\n";
+        texto = texto+"A encomenda chegará no endereço especificado, dentro do prazo especificado pela transportadora.</center></body></html>";
+        labelTexto.setText(texto);
+        labelPedido.setText("Pedido "+tratarNumeroPedido(numeroPedido));
+    }
+    
+    public void mudaFonte () {
+        Controle ctr = new Controle();
+        labelTitulo.setFont(ctr.mudaFonte(30));
+        labelTexto.setFont(ctr.mudaFonte(14));
+        labelRetornar.setFont(ctr.mudaFonte(15));
+        labelComprovante.setFont(ctr.mudaFonte(15));
+        labelPedido.setFont(ctr.mudaFonte(27));
+    }
+    
+    public String tratarNumeroPedido(int num) {
+        String numeroTratado = "";
+        if (num<10) {
+            numeroTratado = "#0000"+String.valueOf(num);
+        }
+        else {
+            if (num<100) {
+                numeroTratado = "#000"+String.valueOf(num);
+            }
+            else {
+                if (num<1000) {
+                    numeroTratado = "#00"+String.valueOf(num);
+                }
+                if (num<10000) {
+                    numeroTratado = "#0"+String.valueOf(num);
+                }
+                else {
+                    if (num<100000) {
+                        numeroTratado = "#"+String.valueOf(num);
+                    }
+                }
+            }
+        }
+        return numeroTratado;
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        nomePessoa1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        numeroPedido = new javax.swing.JLabel();
+        labelTitulo = new javax.swing.JLabel();
+        labelComprovante = new javax.swing.JLabel();
+        labelRetornar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        labelTexto = new javax.swing.JLabel();
+        labelPedido = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
 
-        jLabel1.setFont(new java.awt.Font("Noto Sans", 0, 36)); // NOI18N
-        jLabel1.setText("PEDIDO FINALIZADO!");
+        labelTitulo.setFont(new java.awt.Font("Noto Sans", 0, 30)); // NOI18N
+        labelTitulo.setText("COMPRA FINALIZADA");
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(142, 133, 133)));
+        labelComprovante.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelComprovante.setText("Vizualizar Comprovante");
+        labelComprovante.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelComprovante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelComprovanteMouseClicked(evt);
+            }
+        });
 
-        nomePessoa1.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        nomePessoa1.setText("Usuário,");
+        labelRetornar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelRetornar.setText("Retornar à Tela Inicial");
+        labelRetornar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelRetornar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelRetornarMouseClicked(evt);
+            }
+        });
 
-        jLabel3.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jLabel3.setText("seu pedido de número");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/icone_confirma.png"))); // NOI18N
 
-        numeroPedido.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        numeroPedido.setText("#000000");
+        labelTexto.setFont(new java.awt.Font("Tahoma", 0, 19)); // NOI18N
+        labelTexto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTexto.setText("<html><body><center>[USUÁRIO], seu pedido foi finalizado com sucesso. A encomenda chegará no endereço especificado, dentro do prazo especificado pela transportadora.</center></body></html>");
 
-        jLabel2.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jLabel2.setText("finalizado com sucesso.");
-
-        jLabel4.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jLabel4.setText("foi");
-
-        jLabel5.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jLabel5.setText("A encomenda chegará no endereço especificado");
-
-        jLabel6.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jLabel6.setText("no momento de sua compra, dentro do prazo");
-
-        jLabel7.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
-        jLabel7.setText("especificado pela transportadora.");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(nomePessoa1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(numeroPedido)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel4))))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(nomePessoa1)
-                    .addComponent(jLabel3)
-                    .addComponent(numeroPedido)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel7)
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-
-        jButton1.setBackground(new java.awt.Color(250, 250, 250));
-        jButton1.setText("Imprimir Comprovante");
-
-        jButton2.setBackground(new java.awt.Color(250, 250, 250));
-        jButton2.setText("Retornar à Tela Inicial");
+        labelPedido.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        labelPedido.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelPedido.setText("PEDIDO #99999");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(66, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(60, 60, 60))
             .addGroup(layout.createSequentialGroup()
-                .addGap(118, 118, 118)
-                .addComponent(jLabel1)
+                .addGap(52, 52, 52)
+                .addComponent(labelRetornar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelComprovante)
+                .addGap(52, 52, 52))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(57, 57, 57))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(159, 159, 159)
+                .addComponent(jLabel2)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(jButton2)
-                .addGap(54, 54, 54)
-                .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(labelPedido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(labelTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(28, 28, 28)
-                .addComponent(jLabel1)
-                .addGap(37, 37, 37)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(labelTitulo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(labelPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelTexto, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
-                .addGap(55, 55, 55))
+                    .addComponent(labelComprovante)
+                    .addComponent(labelRetornar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void labelRetornarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelRetornarMouseClicked
+        this.dispose();
+    }//GEN-LAST:event_labelRetornarMouseClicked
+
+    private void labelComprovanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelComprovanteMouseClicked
+        new Comprovante(idUsuario2);
+        this.dispose();
+    }//GEN-LAST:event_labelComprovanteMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -197,20 +210,15 @@ public class FinalizarPedido extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-
+    private String nome1;
+    private int idUsuario2;
     Conexao conexao = new Conexao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JLabel nomePessoa1;
-    private javax.swing.JLabel numeroPedido;
+    private javax.swing.JLabel labelComprovante;
+    private javax.swing.JLabel labelPedido;
+    private javax.swing.JLabel labelRetornar;
+    private javax.swing.JLabel labelTexto;
+    private javax.swing.JLabel labelTitulo;
     // End of variables declaration//GEN-END:variables
 }
