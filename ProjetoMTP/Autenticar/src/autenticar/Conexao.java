@@ -91,11 +91,10 @@ public class Conexao {
         
     public void inserirProdutoCarrinho(int idUsuario, int idProduto, int quantidade, float precoTotal) {
         try {
-            PreparedStatement st = this.conn.prepareStatement("INSERT INTO carrinho (id_pessoa, id_produto, quantidade, preco_total) VALUES (?, ?, ?, ?)");
+            PreparedStatement st = this.conn.prepareStatement("INSERT INTO carrinho (id_pessoa, id_produto, quantidade) VALUES (?, ?, ?)");
             st.setInt(1, idUsuario);
             st.setInt(2, idProduto);   
             st.setInt(3, quantidade);
-            st.setFloat(4, precoTotal);
             st.executeUpdate();
             st.close();
         }
