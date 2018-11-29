@@ -89,7 +89,7 @@ public class Conexao {
         }
     }
         
-    public void inserirProdutoCarrinho(int idUsuario, int idProduto, int quantidade, float precoTotal) {
+    public void inserirProdutoCarrinho(int idUsuario, int idProduto, int quantidade) {
         try {
             PreparedStatement st = this.conn.prepareStatement("INSERT INTO carrinho (id_pessoa, id_produto, quantidade) VALUES (?, ?, ?)");
             st.setInt(1, idUsuario);
