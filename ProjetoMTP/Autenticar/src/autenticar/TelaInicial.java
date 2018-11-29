@@ -57,6 +57,7 @@ public class TelaInicial extends javax.swing.JFrame {
         alterarFonte();
         verificaAdministrador(administrador);
         botaoIr.requestFocus();
+        inserirModelo();
         listaCategorias.setSelectedIndex(0);
         jScrollPane2.setWheelScrollingEnabled(true);
         jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
@@ -214,6 +215,14 @@ public class TelaInicial extends javax.swing.JFrame {
             admPainel.setVisible(false);
         }
     }
+    
+    public void inserirModelo () {
+        listaCategorias.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = controle.pegaModeloCat();
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -322,7 +331,7 @@ public class TelaInicial extends javax.swing.JFrame {
         listaCategorias.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         listaCategorias.setFont(new java.awt.Font("Google Sans", 0, 15)); // NOI18N
         listaCategorias.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Todos", "Informática", "Eletrodomésticos", "Artigos Esportivos", "Games", "Lazer", "Smartphones", "TV e vídeo", "..." };
+            String[] strings = { "Todos", "Informática", "Eletrodomésticos", "Artigos Esportivos", "Games", "Lazer", "Smartphones", "TV e vídeo" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });

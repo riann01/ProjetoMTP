@@ -243,12 +243,28 @@ public class Controle {
     }
     
     public String [] pegaModeloCat() {
+        String model = "Todos";
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                model = model+"/"+rs.getString(1);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String arrayModel [] = model.split("/");
+        return arrayModel;
+    }
+    
+    public String [] pegaModeloCatGerenciador() {
         String model = "";
         try {
             PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
-                model = rs.getString(1)+"/"+model;
+                model = model+"/"+rs.getString(1);
             }
         }
         catch (SQLException e) {
@@ -319,6 +335,17 @@ public class Controle {
         return retorno;
     }
     
+    public void insereCatergoria (String nomeCategoria) {
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("INSERT INTO categoria (nome_categoria) VALUES ?");
+            st.setString(1, nomeCategoria);
+            st.executeUpdate();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public int getCont() {
         return this.cont;
     }
