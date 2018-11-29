@@ -22,10 +22,10 @@
     <column id="COL4" populated="true" UUID="7c3fd454-975a-43bd-9cdf-ce74b9b3cead" autoIncrement="false" autoIncrementSequenceName="produto_descricao_seq" defaultValue="" name="descricao" nullable="0" physicalName="descricao" precision="1000" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="12" userDefinedTypeUUID="831ac2d4-0e65-47ec-a0b7-62b7f6b8760a" >
      <remarks></remarks>
     </column>
-    <column id="COL5" populated="true" UUID="3074edc9-9a2e-40d0-9b16-4cb4eb93dd7f" autoIncrement="false" autoIncrementSequenceName="produto_preco_custo_seq" defaultValue="" name="preco_custo" nullable="0" physicalName="preco_custo" precision="0" referenceCount="1" scale="2" sourceDataTypeName="UserDefinedSQLType" type="3" userDefinedTypeUUID="cc1304ea-628a-4fc5-a84a-06ba14759152" >
+    <column id="COL5" populated="true" UUID="3074edc9-9a2e-40d0-9b16-4cb4eb93dd7f" autoIncrement="false" autoIncrementSequenceName="produto_preco_custo_seq" defaultValue="" name="preco_custo" nullable="0" physicalName="preco_custo" precision="9" referenceCount="1" scale="2" sourceDataTypeName="UserDefinedSQLType" type="3" userDefinedTypeUUID="cc1304ea-628a-4fc5-a84a-06ba14759152" >
      <remarks></remarks>
     </column>
-    <column id="COL6" populated="true" UUID="44694d83-25d1-4379-a005-bc74d2446b53" autoIncrement="false" autoIncrementSequenceName="produto_preco_venda_seq" defaultValue="" name="preco_venda" nullable="0" physicalName="preco_venda" precision="0" referenceCount="1" scale="2" sourceDataTypeName="UserDefinedSQLType" type="3" userDefinedTypeUUID="cc1304ea-628a-4fc5-a84a-06ba14759152" >
+    <column id="COL6" populated="true" UUID="44694d83-25d1-4379-a005-bc74d2446b53" autoIncrement="false" autoIncrementSequenceName="produto_preco_venda_seq" defaultValue="" name="preco_venda" nullable="0" physicalName="preco_venda" precision="9" referenceCount="1" scale="2" sourceDataTypeName="UserDefinedSQLType" type="3" userDefinedTypeUUID="cc1304ea-628a-4fc5-a84a-06ba14759152" >
      <remarks></remarks>
     </column>
     <column id="COL7" populated="true" UUID="4baf95e8-ca26-4639-b794-0a222bbf12be" autoIncrement="false" autoIncrementSequenceName="produto_foto_seq" defaultValue="" name="foto" nullable="0" physicalName="foto" precision="0" referenceCount="1" scale="0" sourceDataTypeName="UserDefinedSQLType" type="2004" userDefinedTypeUUID="5c50e616-a448-40e1-abcd-5bfc04dcc607" >
