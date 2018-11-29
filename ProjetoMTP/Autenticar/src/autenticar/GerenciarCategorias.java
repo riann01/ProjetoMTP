@@ -1,5 +1,6 @@
 package autenticar;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 public class GerenciarCategorias extends javax.swing.JFrame {
 
     public GerenciarCategorias(int idPessoa) {
@@ -42,6 +43,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setResizable(false);
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 formMouseEntered(evt);
@@ -53,6 +55,11 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         labelAtualizarCategoria.setText("Atualizar Categoria");
 
         labelExcluirCategoria.setText("Excluir Categoria");
+        labelExcluirCategoria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelExcluirCategoriaMouseClicked(evt);
+            }
+        });
 
         labelGerenciarCategorias.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
         labelGerenciarCategorias.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -68,7 +75,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -140,6 +147,11 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         inserirModelo();
     }//GEN-LAST:event_formMouseEntered
 
+    private void labelExcluirCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelExcluirCategoriaMouseClicked
+        controle.excluirCategoria(listCategorias.getSelectedValue());
+        JOptionPane.showMessageDialog(null, "Informação", "Categoria excluída", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_labelExcluirCategoriaMouseClicked
+
     public static void main(String args[]) {
 
         try {
@@ -160,7 +172,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-
+    Controle controle = new Controle();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;

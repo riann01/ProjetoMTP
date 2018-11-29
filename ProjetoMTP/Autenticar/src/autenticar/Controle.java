@@ -346,6 +346,19 @@ public class Controle {
             e.printStackTrace();
         }
     }
+    
+    public void excluirCategoria (String nomeCategoria) {
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("DELETE FROM cetegoria WHERE nome_categoria = ?");
+            st.setString(1, nomeCategoria);
+            st.executeUpdate();
+            st.close();
+        }
+        catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Atenção", "Você não pode excluir categorias com produtos cadastrados nela." , JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
     public int getCont() {
         return this.cont;
     }

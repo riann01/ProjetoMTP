@@ -32,7 +32,6 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         caminho.setVisible(false);
         fc = new JFileChooser();
         cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
-
     }
 
     @SuppressWarnings("unchecked")
