@@ -116,12 +116,6 @@
           <Image iconType="3" name="/autenticar/Foto/carrinho.png"/>
         </Property>
         <Property name="horizontalTextPosition" type="int" value="2"/>
-        <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[52, 52]"/>
-        </Property>
-        <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[52, 52]"/>
-        </Property>
         <Property name="verticalTextPosition" type="int" value="1"/>
       </Properties>
     </Component>
