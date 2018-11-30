@@ -150,7 +150,8 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelAdicionarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAdicionarProdutoMouseClicked
-
+        this.dispose();
+        new CadastrarProdutos(idDaPessoa);
     }//GEN-LAST:event_labelAdicionarProdutoMouseClicked
 
     private void labelAtualizarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAtualizarProdutoMouseClicked
