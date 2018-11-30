@@ -15,20 +15,21 @@ public class PainelAdmin extends javax.swing.JFrame {
         }
     }
     public PainelAdmin(int idUsuario) {
-        setLocationRelativeTo(null);
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         mudarFonte();
         idDoUsuario = idUsuario;
-        this.setVisible(true);
+        setLocationRelativeTo(null);
+        this.setVisible(true);        
     }
 
     public void mudarFonte () {
         Controle ctr = new Controle();
         labelAdmPainel.setFont(ctr.mudaFonte(18));
-        labelCadastrar.setFont(ctr.mudaFonte(16));
+        labelGerenciarProdutos.setFont(ctr.mudaFonte(16));
         labelGerenciarCatergorias.setFont(ctr.mudaFonte(16));
         botaoFechar.setFont(ctr.mudaFonte(14));
+        labelGerenciarProdutos.setFont(ctr.mudaFonte(16));
     }
     public boolean pegaBoolean (int idUsuario) {
         boolean T = false;
@@ -53,7 +54,7 @@ public class PainelAdmin extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         labelAdmPainel = new javax.swing.JLabel();
         botaoFechar = new javax.swing.JButton();
-        labelCadastrar = new javax.swing.JLabel();
+        labelGerenciarProdutos = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -79,12 +80,12 @@ public class PainelAdmin extends javax.swing.JFrame {
             }
         });
 
-        labelCadastrar.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
-        labelCadastrar.setText("Cadastrar Produtos");
-        labelCadastrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        labelCadastrar.addMouseListener(new java.awt.event.MouseAdapter() {
+        labelGerenciarProdutos.setFont(new java.awt.Font("Noto Sans", 0, 16)); // NOI18N
+        labelGerenciarProdutos.setText("Gerenciar Produtos");
+        labelGerenciarProdutos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelGerenciarProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                labelCadastrarMouseClicked(evt);
+                labelGerenciarProdutosMouseClicked(evt);
             }
         });
 
@@ -97,14 +98,10 @@ public class PainelAdmin extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(labelGerenciarProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelGerenciarCatergorias, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(botaoFechar, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(138, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(30, 30, 30)
-                    .addComponent(labelCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(138, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,16 +109,13 @@ public class PainelAdmin extends javax.swing.JFrame {
                 .addComponent(labelAdmPainel, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(103, 103, 103)
+                .addGap(18, 18, 18)
+                .addComponent(labelGerenciarProdutos, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelGerenciarCatergorias, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 151, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 134, Short.MAX_VALUE)
                 .addComponent(botaoFechar)
                 .addContainerGap())
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(88, 88, 88)
-                    .addComponent(labelCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(269, Short.MAX_VALUE)))
         );
 
         pack();
@@ -137,10 +131,10 @@ public class PainelAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_labelGerenciarCatergoriasMouseClicked
 
-    private void labelCadastrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelCadastrarMouseClicked
+    private void labelGerenciarProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelGerenciarProdutosMouseClicked
         this.dispose();
-        new CadastrarProdutos(idDoUsuario);
-    }//GEN-LAST:event_labelCadastrarMouseClicked
+        new GerenciarProdutos(idDoUsuario);
+    }//GEN-LAST:event_labelGerenciarProdutosMouseClicked
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -172,7 +166,7 @@ public class PainelAdmin extends javax.swing.JFrame {
     private javax.swing.JButton botaoFechar;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel labelAdmPainel;
-    private javax.swing.JLabel labelCadastrar;
     private javax.swing.JLabel labelGerenciarCatergorias;
+    private javax.swing.JLabel labelGerenciarProdutos;
     // End of variables declaration//GEN-END:variables
 }

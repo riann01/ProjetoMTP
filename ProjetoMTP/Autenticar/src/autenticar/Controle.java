@@ -337,7 +337,7 @@ public class Controle {
     
     public void insereCatergoria (String nomeCategoria) {
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("INSERT INTO categoria (nome_categoria) VALUES ?");
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("INSERT INTO categoria (nome_categoria) VALUES (?)");
             st.setString(1, nomeCategoria);
             st.executeUpdate();
             st.close();
@@ -367,7 +367,7 @@ public class Controle {
             st.setInt(1, idCategoria);
             rs = st.executeQuery();
             while (rs.next()) {
-                nomes = "- "+nomes+"/n"+rs.getString(1);
+                nomes = nomes+"\n"+rs.getString(1);
                 ++quantidade;
             }
             rs.close();
@@ -395,6 +395,38 @@ public class Controle {
                     JOptionPane.showMessageDialog(null, "Informação", "Categoria excluída", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void atualizaCategoria (String nomeCategoria, String novoNomeCategoria) {
+        int idCategoria = 0;
+        if (!(novoNomeCategoria==null)) {
+            try {
+                PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
+                st.setString(1, nomeCategoria);
+                ResultSet rs = st.executeQuery();
+                if (rs.next()) {
+                    idCategoria = rs.getInt(1);
+                }
+                st = this.conexao.getConnection().prepareStatement("UPDATE categoria SET nome_categoria = ? WHERE id_categoria = ?");
+                st.setString(1, novoNomeCategoria);
+                st.setInt(2, idCategoria);
+                st.executeUpdate();
+                st.close();
+                JOptionPane.showMessageDialog(null, "A categoria foi atualizada", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public void excluirProduto () {
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("");
         }
         catch (SQLException e) {
             e.printStackTrace();

@@ -208,7 +208,6 @@ public class TelaInicial extends javax.swing.JFrame {
     
     public void verificaAdministrador (boolean administrador1) {
         if (administrador1==true) {
-            System.out.printf(" asdadascaseadw");
             admPainel.setVisible(true);
         }
         else {
