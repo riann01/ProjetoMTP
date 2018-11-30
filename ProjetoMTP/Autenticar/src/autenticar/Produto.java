@@ -18,8 +18,8 @@ public class Produto extends javax.swing.JPanel {
         mudarFonte();
         setBackground(Color.WHITE);
         this.preco = preco;
-        labelNomeProduto.setText(nome);
-        labelDescricao.setText(descricao);
+        labelNomeProduto.setText("<html><body><center>"+nome+"</center></body></html>");
+        labelDescricao.setText("<html><body><center>"+descricao+"</center></body></html>");
         labelPreco.setText(new Controle().retornaValorFormatado(Float.toString(preco)));
         labelFotoProduto.setIcon(foto);
         setVisible(true);

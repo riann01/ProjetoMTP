@@ -84,6 +84,12 @@ public class MinhaConta extends javax.swing.JFrame {
 
         labelPedidos.setFont(new java.awt.Font("Google Sans", 0, 14)); // NOI18N
         labelPedidos.setText("Meus pedidos");
+        labelPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        labelPedidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                labelPedidosMouseClicked(evt);
+            }
+        });
 
         labelSair.setFont(new java.awt.Font("Google Sans", 0, 14)); // NOI18N
         labelSair.setText("Sair");
@@ -155,6 +161,11 @@ public class MinhaConta extends javax.swing.JFrame {
         this.dispose();
         new TelaInicial(idDoUsuario,pegaBoolean(idDoUsuario));
     }//GEN-LAST:event_labelSairMouseClicked
+
+    private void labelPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelPedidosMouseClicked
+        this.dispose();
+        new MeusPedidos(idDoUsuario);
+    }//GEN-LAST:event_labelPedidosMouseClicked
 
     /**
      * @param args the command line arguments

@@ -1,5 +1,6 @@
 package autenticar;
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 public class GerenciarProdutos extends javax.swing.JFrame {
 
@@ -8,6 +9,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         initComponents();
         mudarFonte();
+        inserirModelo();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -21,6 +23,15 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         labelAtualizarProduto.setFont(ctr.mudaFonte(12));
         btnFechar.setFont(ctr.mudaFonte(12));
     }
+    
+    public void inserirModelo () {
+        listProdutos.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = new Controle().pegaModeloProduto();
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -146,11 +157,21 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFecharActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
- 
+        if (listProdutos.getSelectedValue()==null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para excluí-lo.", "Erro ao excluir", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            
+        }
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void labelAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAtualizarMouseClicked
-
+        if (listProdutos.getSelectedValue().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para atualizá-lo.", "Erro ao atualizar", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            
+        }
     }//GEN-LAST:event_labelAtualizarMouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked

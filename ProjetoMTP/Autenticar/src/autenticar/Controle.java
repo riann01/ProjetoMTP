@@ -50,7 +50,8 @@ public class Controle {
                     T = false;
                 }
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
             e.printStackTrace();
         }
@@ -92,7 +93,8 @@ public class Controle {
                     }
                 }
             }
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -133,33 +135,31 @@ public class Controle {
                     setFoto(icon);
                 }
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
     }
     
     public String mostraNome (int idUsuario) {
-        
         String nome1 = new String();
         Conexao conexao = new Conexao();
         PreparedStatement st;
-        
         try {
             st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(2)==idUsuario) {
-                    
                     nome1 = rs.getString(1);
-                    
-                    }  
-                }
-        } catch (SQLException ex) {
+                }  
+            }
+        }
+        catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
         return nome1;
     }
     
@@ -173,7 +173,8 @@ public class Controle {
             while (rs.next()) {
                 this.idUsuario = rs.getInt("id_pessoa");
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -187,7 +188,8 @@ public class Controle {
             while (rs.next()) {
                 setNome(rs.getString("nome"));
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -220,7 +222,8 @@ public class Controle {
             while (rs.next()) {                
                 ++this.cont;
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -431,6 +434,65 @@ public class Controle {
         catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+    
+    public String [] pegaModeloProduto() {
+        String model = "";
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_produto FROM produto");
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                model = rs.getString(1)+"/"+model;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String arrayModel [] = model.split("/");
+        return arrayModel;
+    }
+    
+    public String [] pegaModeloPedido(int idPessoa) {
+        String model = "";
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
+            st.setInt(1, idPessoa);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                model = tratarNumeroPedido(Integer.parseInt(rs.getString(1)))+"/"+model;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        String arrayModel [] = model.split("/");
+        return arrayModel;
+    }
+    
+    public String tratarNumeroPedido(int num) {
+        String numeroTratado = "";
+        if (num<10) {
+            numeroTratado = "#0000"+String.valueOf(num);
+        }
+        else {
+            if (num<100) {
+                numeroTratado = "#000"+String.valueOf(num);
+            }
+            else {
+                if (num<1000) {
+                    numeroTratado = "#00"+String.valueOf(num);
+                }
+                if (num<10000) {
+                    numeroTratado = "#0"+String.valueOf(num);
+                }
+                else {
+                    if (num<100000) {
+                        numeroTratado = "#"+String.valueOf(num);
+                    }
+                }
+            }
+        }
+        return numeroTratado;
     }
     public int getCont() {
         return this.cont;

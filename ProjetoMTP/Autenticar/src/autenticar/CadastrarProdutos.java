@@ -257,14 +257,14 @@ public class CadastrarProdutos extends javax.swing.JFrame {
             jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
             if (jp.getOptionType()==-1) {
                 Conexao conexao = new Conexao();
-                conexao.inserirProduto("<html><body><center>"+nome.getText()+"</center></body></html>", "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
                 this.dispose();
                 new GerenciarProdutos(idDoUsuario);
             }
         }
         else {
             Conexao conexao = new Conexao();
-            conexao.inserirProduto(nome.getText(), "<html><body><center>"+descricao.getText()+"</center></body></html>", Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+            conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
             this.dispose();
             new GerenciarProdutos(idDoUsuario);
         }

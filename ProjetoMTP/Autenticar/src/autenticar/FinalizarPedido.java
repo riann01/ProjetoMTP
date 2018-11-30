@@ -50,7 +50,7 @@ public class FinalizarPedido extends javax.swing.JFrame {
         String texto = "<html><body><center>"+nome1+", seu pedido foi finalizado com sucesso.\n";
         texto = texto+"A encomenda chegará no endereço especificado, dentro do prazo especificado pela transportadora.</center></body></html>";
         labelTexto.setText(texto);
-        labelPedido.setText("Pedido "+tratarNumeroPedido(numeroPedido));
+        labelPedido.setText("Pedido "+new Controle().tratarNumeroPedido(numeroPedido));
     }
     
     public void mudaFonte () {
@@ -62,31 +62,6 @@ public class FinalizarPedido extends javax.swing.JFrame {
         labelPedido.setFont(ctr.mudaFonte(27));
     }
     
-    public String tratarNumeroPedido(int num) {
-        String numeroTratado = "";
-        if (num<10) {
-            numeroTratado = "#0000"+String.valueOf(num);
-        }
-        else {
-            if (num<100) {
-                numeroTratado = "#000"+String.valueOf(num);
-            }
-            else {
-                if (num<1000) {
-                    numeroTratado = "#00"+String.valueOf(num);
-                }
-                if (num<10000) {
-                    numeroTratado = "#0"+String.valueOf(num);
-                }
-                else {
-                    if (num<100000) {
-                        numeroTratado = "#"+String.valueOf(num);
-                    }
-                }
-            }
-        }
-        return numeroTratado;
-    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
