@@ -129,7 +129,6 @@ public class TelaInicial extends javax.swing.JFrame {
         int controle1 = 415;
         int contador1 = 0;
         PreparedStatement st;
-        
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE id_categoria = ?");
             st.setInt(1,id_categoria);
@@ -204,6 +203,7 @@ public class TelaInicial extends javax.swing.JFrame {
         listaCategorias.setFont(ctr.mudaFonte(15));
         labelDepartamentos.setFont(ctr.mudaFonte(15));
         labelAcessar.setFont(ctr.mudaFonte(12));
+        labelMostrandoAgora.setFont(ctr.mudaFonte(18));
     }
     
     public void verificaAdministrador (boolean administrador1) {
@@ -246,6 +246,7 @@ public class TelaInicial extends javax.swing.JFrame {
         textFieldPesquisa = new javax.swing.JTextField();
         botaoIr = new javax.swing.JButton();
         admPainel = new javax.swing.JLabel();
+        labelMostrandoAgora = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -443,6 +444,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
+        labelMostrandoAgora.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        labelMostrandoAgora.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelMostrandoAgora.setText("Mostrando agora:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -475,8 +480,13 @@ public class TelaInicial extends javax.swing.JFrame {
                                                 .addGap(1, 1, 1)
                                                 .addComponent(LabelSair)))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(admPainel, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(143, 143, 143)))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(admPainel, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(143, 143, 143))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(labelMostrandoAgora, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(16, 16, 16)))))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(76, 76, 76)
@@ -516,31 +526,34 @@ public class TelaInicial extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(26, Short.MAX_VALUE)
+                                .addContainerGap(18, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(LabelNomeUsuario)
                                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(LabelMinhaConta, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(LabelSair))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(27, 27, 27)
-                                        .addComponent(admPainel)))
-                                .addGap(25, 25, 25))
+                                    .addComponent(admPainel))
+                                .addGap(35, 35, 35))
                             .addComponent(labelFotoUsuarioMouseEvento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(10, 10, 10))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(LabelCarrinho)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelCarrinho)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labelAcessar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(labelMostrandoAgora, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(LabelCarrinho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labelCarrinho)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(labelAcessar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)))
                         .addGap(18, 18, 18)))
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -645,17 +658,25 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void botaoIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIrActionPerformed
+        listaCategorias.clearSelection();
+        jScrollPane2.revalidate();
+        painelConteudo.removeAll();
+        int contador = 0;
         int controle1 = 500;
         int contador1 = 0;
+        if (textFieldPesquisa.getText().equals("Pesquisar...")) {
+            textFieldPesquisa.setText("");
+        }
         String pesquisa = "%"+textFieldPesquisa.getText()+"%";
+        labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
         PreparedStatement st;
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
             st.setString(1, pesquisa);
             st.setString(2, pesquisa);
             ResultSet rs = st.executeQuery();
-            painelConteudo.removeAll();
-            while (rs.next()) {                
+            while (rs.next()) {
+                ++contador;
                 contador1++;
                 byte[] binario = rs.getBytes(5);
                 InputStream is = new ByteArrayInputStream(binario);
@@ -672,10 +693,16 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             rs.close();
             st.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
+        }
+        painelConteudo.revalidate();
+        if (contador==0) {
+            
         }
         painelConteudo.revalidate();
     }//GEN-LAST:event_botaoIrActionPerformed
@@ -696,14 +723,19 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseMoved
 
     private void listaCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaCategoriasValueChanged
+        painelConteudo.revalidate();
         painelConteudo.removeAll();
         painelConteudo.revalidate();
-        if (listaCategorias.getSelectedValue().equals("Todos")) {
-            mostrarTodosOsItens();
-        }
-        else {
-            mostrarCategoria(new Controle().pegaIdCategorias(listaCategorias.getSelectedValue()));
-            painelConteudo.revalidate();
+        if (listaCategorias.getSelectedValue()!=null) {
+            if (listaCategorias.getSelectedValue().equals("Todos")) {
+                mostrarTodosOsItens();
+                labelMostrandoAgora.setText("Mostrando Todos os Itens");
+            }
+            else {
+                mostrarCategoria(new Controle().pegaIdCategorias(listaCategorias.getSelectedValue()));
+                labelMostrandoAgora.setText("Mostrando "+listaCategorias.getSelectedValue());
+                painelConteudo.revalidate();
+            }
         }
     }//GEN-LAST:event_listaCategoriasValueChanged
 
@@ -786,6 +818,7 @@ public class TelaInicial extends javax.swing.JFrame {
     private javax.swing.JLabel labelDepartamentos;
     private javax.swing.JLabel labelFotoUsuario;
     private javax.swing.JLabel labelFotoUsuarioMouseEvento;
+    private javax.swing.JLabel labelMostrandoAgora;
     private javax.swing.JList<String> listaCategorias;
     private javax.swing.JPanel painelConteudo;
     private javax.swing.JTextField textFieldPesquisa;
