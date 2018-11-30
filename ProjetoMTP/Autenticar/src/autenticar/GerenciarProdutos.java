@@ -158,7 +158,13 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_labelAtualizarProdutoMouseClicked
 
     private void labelExcluirProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelExcluirProdutoMouseClicked
-
+        if (listProdutos.getSelectedValue()==null) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para excluí-lo.", "Erro ao excluir", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            new Controle().excluirProduto(listProdutos.getSelectedValue());
+            inserirModelo();
+        }
     }//GEN-LAST:event_labelExcluirProdutoMouseClicked
 
     private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
@@ -171,7 +177,8 @@ public class GerenciarProdutos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para excluí-lo.", "Erro ao excluir", JOptionPane.ERROR_MESSAGE);
         }
         else {
-            
+            new Controle().excluirProduto(listProdutos.getSelectedValue());
+            inserirModelo();
         }
     }//GEN-LAST:event_jLabel1MouseClicked
 
@@ -190,7 +197,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void listProdutosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProdutosMouseExited
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_listProdutosMouseExited
 
     public static void main(String args[]) {

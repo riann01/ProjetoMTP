@@ -428,15 +428,6 @@ public class Controle {
         }
     }
     
-    public void excluirProduto () {
-        try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("");
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-    
     public String [] pegaModeloProduto() {
         String model = "";
         try {
@@ -501,6 +492,51 @@ public class Controle {
             }
         }
         return numeroTratado;
+    }
+    
+    public void excluirProduto (String nomeProduto) {
+        int contCarrinho = 0;
+        int contPedido = 0;
+        int idProduto = 0;
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_produto FROM produto WHERE nome_produto = ?");
+            st.setString(1, nomeProduto);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                idProduto = rs.getInt(1);
+            }
+            rs.close();
+            st.close();
+            st = this.conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_produto = ?");
+            st.setInt(1, idProduto);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                ++contCarrinho;
+            }
+            rs.close();
+            st.close();
+            st = this.conexao.getConnection().prepareStatement("SELECT * FROM pedido_produto WHERE id_produto = ?");
+            st.setInt(1, idProduto);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                ++contPedido;
+            }
+            rs.close();
+            st.close();
+            if (contPedido==0 && contCarrinho==0) {
+                st = this.conexao.getConnection().prepareStatement("DELETE FROM produto WHERE id_produto = ?");
+                st.setInt(1, idProduto);
+                st.executeUpdate();
+                st.close();
+                JOptionPane.showMessageDialog(null, "Produto excluído com sucesso", "Informação", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "O produto "+nomeProduto+" não pode ser excluído, há pedido(s) e/ou clientes com esse produto no carrinho", "Erro na exclusão", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public int getCont() {
         return this.cont;
