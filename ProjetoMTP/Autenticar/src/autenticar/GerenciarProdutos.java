@@ -155,7 +155,12 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_labelAdicionarProdutoMouseClicked
 
     private void labelAtualizarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAtualizarProdutoMouseClicked
-
+        if (listProdutos.getSelectedValue().equals("")) {
+            JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para atualizá-lo.", "Erro ao atualizar", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            
+        }
     }//GEN-LAST:event_labelAtualizarProdutoMouseClicked
 
     private void labelExcluirProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelExcluirProdutoMouseClicked
