@@ -7,6 +7,7 @@ public class VisualizarPedido extends javax.swing.JFrame {
     public VisualizarPedido(int idPessoa, int idPedido) {
         this.getContentPane().setBackground(Color.WHITE);
         idDaPessoa = idPessoa;
+        idDoPedido = idPedido;
         initComponents();
         labelTitulo.setText("Pedido "+new Controle().tratarNumeroPedido(idPedido));
         mudarFonte();
@@ -108,7 +109,7 @@ public class VisualizarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_labelFecharMouseClicked
 
     private void labelVisualizarComprovanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelVisualizarComprovanteMouseClicked
-        
+        new Comprovante(idDaPessoa, idDoPedido, 2);
     }//GEN-LAST:event_labelVisualizarComprovanteMouseClicked
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -134,6 +135,7 @@ public class VisualizarPedido extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    private int idDoPedido;
     private int idDaPessoa;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator1;

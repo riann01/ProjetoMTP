@@ -21,7 +21,7 @@ public class Comprovante extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        preencherTabela(idUsuario ,idPedido);
+        preencherTabela(idUsuario, idPedido, operacao);
         this.setVisible(true);
     }
 
@@ -234,8 +234,8 @@ public class Comprovante extends javax.swing.JFrame {
                     .addComponent(labelEndereco)
                     .addComponent(jLabel9))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 341, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
@@ -254,7 +254,7 @@ public class Comprovante extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -273,7 +273,7 @@ public class Comprovante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelAtencao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -309,46 +309,93 @@ public class Comprovante extends javax.swing.JFrame {
         //</editor-fold>
     }
     
-    public void preencherTabela (int idUsuario, int idPedido) {
+    public void preencherTabela (int idUsuario, int idPedido, int operacao) {
         Conexao conn = new Conexao();
         try {
-            PreparedStatement st = conn.getConnection().prepareStatement("SELECT id_pedido, data, valor_total FROM pedido WHERE id_pessoa = ?");
-            st.setInt(1, idUsuario);
-            ResultSet rs = st.executeQuery();
-            while(rs.next()) {
-                labelNo.setText("#"+new Controle().tratarNumeroPedido(rs.getInt(1)));
-                labelData.setText(String.valueOf(rs.getDate(2)).replace("-", "/"));
-                labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(3))));
-            }
-            rs.close();
-            st.close();
-            st = conn.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
-            st.setInt(1, idUsuario);
-            rs = st.executeQuery();
-            while (rs.next()) {
-                labelCliente.setText(rs.getString(1));
-                labelEmail.setText(rs.getString(2));
-                labelEndereco.setText(rs.getString(3)+", "+rs.getString(4));
-                if (rs.getString(5).equals("M")) {
-                    labelSexo.setText("Masculino");
+            if (operacao==1) {
+                PreparedStatement st = conn.getConnection().prepareStatement("SELECT id_pedido, data, valor_total FROM pedido WHERE id_pessoa = ?");
+                st.setInt(1, idUsuario);
+                ResultSet rs = st.executeQuery();
+                while(rs.next()) {
+                    labelNo.setText("#"+new Controle().tratarNumeroPedido(rs.getInt(1)));
+                    labelData.setText(String.valueOf(rs.getDate(2)).replace("-", "/"));
+                    labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(3))));
                 }
-                else {
-                    labelSexo.setText("Feminino");
-                }
-            }
-            rs.close();
-            st.close();
-            String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
-            query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
-            st = conn.getConnection().prepareStatement(query);
-            rs = st.executeQuery();
-            while (rs.next()) {
-                if (rs.getInt(1)==idPedido) {
-                    if(rs.getInt(2)==idUsuario) {
-                        DefaultTableModel tabelaComprovanteModel = (DefaultTableModel) tabelaComprovante.getModel();
-                        tabelaComprovanteModel.addRow(new String[] {rs.getString(4),new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(5))), String.valueOf(rs.getInt(3)), new Controle().retornaValorFormatado(String.valueOf(((float)rs.getInt(3))*rs.getFloat(5)))});
+                rs.close();
+                st.close();
+                st = conn.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
+                st.setInt(1, idUsuario);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    labelCliente.setText(rs.getString(1));
+                    labelEmail.setText(rs.getString(2));
+                    labelEndereco.setText(rs.getString(3)+", "+rs.getString(4));
+                    if (rs.getString(5).equals("M")) {
+                        labelSexo.setText("Masculino");
+                    }
+                    else {
+                        labelSexo.setText("Feminino");
                     }
                 }
+                rs.close();
+                st.close();
+                String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
+                query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
+                st = conn.getConnection().prepareStatement(query);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    if (rs.getInt(1)==idPedido) {
+                        if(rs.getInt(2)==idUsuario) {
+                            DefaultTableModel tabelaComprovanteModel = (DefaultTableModel) tabelaComprovante.getModel();
+                            tabelaComprovanteModel.addRow(new String[] {rs.getString(4),new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(5))), String.valueOf(rs.getInt(3)), new Controle().retornaValorFormatado(String.valueOf(((float)rs.getInt(3))*rs.getFloat(5)))});
+                        }
+                    }
+                }
+                rs.close();
+                st.close();
+            }
+            else {
+                PreparedStatement st = conn.getConnection().prepareStatement("SELECT data, valor_total FROM pedido WHERE id_pessoa = ? AND id_pedido = ?");
+                st.setInt(1, idUsuario);
+                st.setInt(2, idPedido);
+                ResultSet rs = st.executeQuery();
+                while(rs.next()) {
+                    labelNo.setText("#"+new Controle().tratarNumeroPedido(idPedido));
+                    labelData.setText(String.valueOf(rs.getDate(1)).replace("-", "/"));
+                    labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(2))));
+                }
+                rs.close();
+                st.close();
+                st = conn.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
+                st.setInt(1, idUsuario);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    labelCliente.setText(rs.getString(1));
+                    labelEmail.setText(rs.getString(2));
+                    labelEndereco.setText(rs.getString(3)+", "+rs.getString(4));
+                    if (rs.getString(5).equals("M")) {
+                        labelSexo.setText("Masculino");
+                    }
+                    else {
+                        labelSexo.setText("Feminino");
+                    }
+                }
+                rs.close();
+                st.close();
+                String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
+                query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
+                st = conn.getConnection().prepareStatement(query);
+                rs = st.executeQuery();
+                while (rs.next()) {
+                    if (rs.getInt(1)==idPedido) {
+                        if(rs.getInt(2)==idUsuario) {
+                            DefaultTableModel tabelaComprovanteModel = (DefaultTableModel) tabelaComprovante.getModel();
+                            tabelaComprovanteModel.addRow(new String[] {rs.getString(4),new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(5))), String.valueOf(rs.getInt(3)), new Controle().retornaValorFormatado(String.valueOf(((float)rs.getInt(3))*rs.getFloat(5)))});
+                        }
+                    }
+                }
+                rs.close();
+                st.close();
             }
         }
         catch (SQLException e) {
