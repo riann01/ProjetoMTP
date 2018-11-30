@@ -30,6 +30,7 @@ public class Controle {
     private int cont;
     private double total;
     private Font fonte;
+    private String modelo = "";
     
     public Controle() {
         conexao = new Conexao();
@@ -454,12 +455,14 @@ public class Controle {
     
     public String [] pegaModeloPedido(int idPessoa) {
         String model = "";
+        
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_pedido, data FROM pedido WHERE id_pessoa = ?");
             st.setInt(1, idPessoa);
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
-                model = tratarNumeroPedido(Integer.parseInt(rs.getString(1)))+"/"+model;
+                model = tratarNumeroPedido(Integer.parseInt(rs.getString(1)))+" - Data: "+String.valueOf(rs.getDate(2))+"/"+model;
+                modelo = rs.getString(1)+"/"+model;
             }
         }
         catch (SQLException e) {
@@ -467,6 +470,11 @@ public class Controle {
         }
         String arrayModel [] = model.split("/");
         return arrayModel;
+    }
+    
+    public String[] retornaPedidos () {
+        String modeloPedidosSemTratamento[] = modelo.split("/");
+        return modeloPedidosSemTratamento;
     }
     
     public String tratarNumeroPedido(int num) {

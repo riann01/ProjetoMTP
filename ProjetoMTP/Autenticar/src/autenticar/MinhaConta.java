@@ -19,6 +19,7 @@ public class MinhaConta extends javax.swing.JFrame {
         idDoUsuario = idUsuario;
         this.setVisible(true);
         getContentPane().setBackground(Color.WHITE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         String separador [] = (new Controle().mostraNome(idUsuario)).split(" ");
         if (new Controle().pegaSexo(idUsuario).equals("M")) {

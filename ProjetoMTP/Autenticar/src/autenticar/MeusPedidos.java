@@ -9,6 +9,7 @@ public class MeusPedidos extends javax.swing.JFrame {
         initComponents();
         mudaFonte();
         inserirModelo();
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -27,6 +28,23 @@ public class MeusPedidos extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+    }
+    
+    public void pegaIdPedido () {
+        String idP = listPedidos.getSelectedValue();
+        int num = 0;
+        for (int i = 0; i < idP.length(); i++) {
+            try {
+                if (idP.charAt(i)==' ') {
+                    break;
+                }
+                else {
+                    num = Integer.parseInt(String.valueOf(idP.charAt(i)));
+                }
+            }
+            catch (NumberFormatException e) {}
+        }
+        numeroPedido = num;
     }
     
     @SuppressWarnings("unchecked")
@@ -62,6 +80,11 @@ public class MeusPedidos extends javax.swing.JFrame {
         labelMeusPedidos.setText("Meus Pedidos");
 
         btnVisualizar.setText("Visualizar Pedido");
+        btnVisualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVisualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -103,6 +126,12 @@ public class MeusPedidos extends javax.swing.JFrame {
         new MinhaConta(idDaPessoa);
     }//GEN-LAST:event_btnFecharActionPerformed
 
+    private void btnVisualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarActionPerformed
+        pegaIdPedido();
+        new VisualizarPedido(idDaPessoa , numeroPedido);
+        this.dispose();
+    }//GEN-LAST:event_btnVisualizarActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -127,6 +156,7 @@ public class MeusPedidos extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    private int numeroPedido;
     private int idDaPessoa;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;

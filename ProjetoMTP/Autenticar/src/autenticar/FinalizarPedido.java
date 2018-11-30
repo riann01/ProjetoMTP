@@ -27,13 +27,13 @@ public class FinalizarPedido extends javax.swing.JFrame {
         String[] teste = nome.split(" ");
         nome1 = teste[0];
         iniciarTela();
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         this.setVisible(true);
     }
        
     public void iniciarTela () {
         PreparedStatement st;
-        int numeroPedido = 0;
         try {
             st = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
             st.setInt(1, idUsuario2);
@@ -157,7 +157,7 @@ public class FinalizarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_labelRetornarMouseClicked
 
     private void labelComprovanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelComprovanteMouseClicked
-        new Comprovante(idUsuario2);
+        new Comprovante(idUsuario2, numeroPedido, 1);
         this.dispose();
     }//GEN-LAST:event_labelComprovanteMouseClicked
 
@@ -185,6 +185,7 @@ public class FinalizarPedido extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    private int numeroPedido;
     private String nome1;
     private int idUsuario2;
     Conexao conexao = new Conexao();

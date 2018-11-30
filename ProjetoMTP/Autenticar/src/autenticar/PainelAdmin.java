@@ -19,6 +19,7 @@ public class PainelAdmin extends javax.swing.JFrame {
         getContentPane().setBackground(Color.WHITE);
         mudarFonte();
         idDoUsuario = idUsuario;
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         this.setVisible(true);        
     }

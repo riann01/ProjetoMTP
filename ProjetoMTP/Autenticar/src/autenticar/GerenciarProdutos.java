@@ -10,6 +10,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         initComponents();
         mudarFonte();
         inserirModelo();
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -22,6 +23,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         labelExcluirProduto.setFont(ctr.mudaFonte(12));
         labelAtualizarProduto.setFont(ctr.mudaFonte(12));
         btnFechar.setFont(ctr.mudaFonte(12));
+        labelInstrucao.setFont(ctr.mudaFonte(14));
     }
     
     public void inserirModelo () {
@@ -47,8 +49,11 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listProdutos = new javax.swing.JList<>();
+        labelInstrucao = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(440, 390));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         labelAdicionarProduto.setText("Adicionar Produto");
@@ -58,7 +63,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 labelAdicionarProdutoMouseClicked(evt);
             }
         });
-        getContentPane().add(labelAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
+        getContentPane().add(labelAdicionarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, -1, -1));
 
         labelAtualizarProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelAtualizarProduto.setText("Atualizar Produto");
@@ -68,7 +73,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 labelAtualizarProdutoMouseClicked(evt);
             }
         });
-        getContentPane().add(labelAtualizarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 120, -1));
+        getContentPane().add(labelAtualizarProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 120, -1));
 
         labelExcluirProduto.setText("Excluir Produto");
         labelExcluirProduto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -77,7 +82,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 labelExcluirProdutoMouseClicked(evt);
             }
         });
-        getContentPane().add(labelExcluirProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 220, -1, -1));
+        getContentPane().add(labelExcluirProduto, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 240, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 59, 440, 10));
 
         labelGerenciarProdutos.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
@@ -91,7 +96,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 btnFecharActionPerformed(evt);
             }
         });
-        getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 340, 87, 30));
+        getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 360, 87, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/excluir.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -100,7 +105,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
 
         labelAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/atualizar.png"))); // NOI18N
         labelAtualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -109,7 +114,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 labelAtualizarMouseClicked(evt);
             }
         });
-        getContentPane().add(labelAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, -1, -1));
+        getContentPane().add(labelAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/adicionar_cat.png"))); // NOI18N
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -118,7 +123,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
                 jLabel2MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -134,7 +139,12 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listProdutos);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 240, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 240, 240));
+
+        labelInstrucao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelInstrucao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelInstrucao.setText("Selecione um produto para atualizar ou excluir");
+        getContentPane().add(labelInstrucao, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 320, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -219,6 +229,7 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     private javax.swing.JLabel labelAtualizarProduto;
     private javax.swing.JLabel labelExcluirProduto;
     private javax.swing.JLabel labelGerenciarProdutos;
+    private javax.swing.JLabel labelInstrucao;
     private javax.swing.JList<String> listProdutos;
     // End of variables declaration//GEN-END:variables
 }

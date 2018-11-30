@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.UIManager;
+import javax.swing.table.DefaultTableModel;
 
 public class Comprovante extends javax.swing.JFrame {
     {        
@@ -14,12 +15,13 @@ public class Comprovante extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    public Comprovante(int idUsuario) {
+    public Comprovante(int idUsuario, int idPedido, int operacao) {
         initComponents();
         labelAtencao.setFont(new Controle().mudaFonte(11));
         this.getContentPane().setBackground(Color.WHITE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        preencherTabela(idUsuario);
+        preencherTabela(idUsuario ,idPedido);
         this.setVisible(true);
     }
 
@@ -32,7 +34,7 @@ public class Comprovante extends javax.swing.JFrame {
         cabecalho = new javax.swing.JLabel();
         cabecalho1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaComprovante = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         labelCliente = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -69,9 +71,9 @@ public class Comprovante extends javax.swing.JFrame {
         cabecalho1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         cabecalho1.setText("COMPROVANTE DE TRANSAÇÃO");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaComprovante.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "NOME DO PRODUTO", "PREÇO", "QUANTIDADE", "TOTAL"
@@ -85,7 +87,7 @@ public class Comprovante extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaComprovante);
 
         jLabel4.setText("Cliente:");
 
@@ -307,14 +309,14 @@ public class Comprovante extends javax.swing.JFrame {
         //</editor-fold>
     }
     
-    public void preencherTabela (int idUsuario) {
+    public void preencherTabela (int idUsuario, int idPedido) {
         Conexao conn = new Conexao();
         try {
             PreparedStatement st = conn.getConnection().prepareStatement("SELECT id_pedido, data, valor_total FROM pedido WHERE id_pessoa = ?");
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
-                labelNo.setText("#"+rs.getInt(1));
+                labelNo.setText("#"+new Controle().tratarNumeroPedido(rs.getInt(1)));
                 labelData.setText(String.valueOf(rs.getDate(2)).replace("-", "/"));
                 labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(3))));
             }
@@ -336,6 +338,18 @@ public class Comprovante extends javax.swing.JFrame {
             }
             rs.close();
             st.close();
+            String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
+            query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
+            st = conn.getConnection().prepareStatement(query);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt(1)==idPedido) {
+                    if(rs.getInt(2)==idUsuario) {
+                        DefaultTableModel tabelaComprovanteModel = (DefaultTableModel) tabelaComprovante.getModel();
+                        tabelaComprovanteModel.addRow(new String[] {rs.getString(4),new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(5))), String.valueOf(rs.getInt(3)), new Controle().retornaValorFormatado(String.valueOf(((float)rs.getInt(3))*rs.getFloat(5)))});
+                    }
+                }
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -359,7 +373,6 @@ public class Comprovante extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelAtencao;
     private javax.swing.JLabel labelCliente;
     private javax.swing.JLabel labelData;
@@ -368,5 +381,6 @@ public class Comprovante extends javax.swing.JFrame {
     private javax.swing.JLabel labelNo;
     private javax.swing.JLabel labelSexo;
     private javax.swing.JLabel labelValor;
+    private javax.swing.JTable tabelaComprovante;
     // End of variables declaration//GEN-END:variables
 }

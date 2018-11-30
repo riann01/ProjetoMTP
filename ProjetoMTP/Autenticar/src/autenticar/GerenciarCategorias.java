@@ -9,6 +9,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         this.getContentPane().setBackground(Color.WHITE);
         inserirModelo();
         mudarFonte();
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
@@ -20,6 +21,8 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         labelInserirCategoria.setFont(ctr.mudaFonte(12));
         labelExcluirCategoria.setFont(ctr.mudaFonte(12));
         labelAtualizarCategoria.setFont(ctr.mudaFonte(12));
+        labelInstrucao.setFont(ctr.mudaFonte(14));
+        btnFechar.setFont(ctr.mudaFonte(12));
     }
     
     public void inserirModelo () {
@@ -38,12 +41,13 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         labelExcluirCategoria = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         labelGerenciarCategorias = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnFechar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         labelAtualizar = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         listCategorias = new javax.swing.JList<>();
+        labelInstrucao = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -62,7 +66,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
                 labelInserirCategoriaMouseClicked(evt);
             }
         });
-        getContentPane().add(labelInserirCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, -1, -1));
+        getContentPane().add(labelInserirCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 160, -1, -1));
 
         labelAtualizarCategoria.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelAtualizarCategoria.setText("Atualizar Categoria");
@@ -72,7 +76,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
                 labelAtualizarCategoriaMouseClicked(evt);
             }
         });
-        getContentPane().add(labelAtualizarCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 120, -1));
+        getContentPane().add(labelAtualizarCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 320, 120, -1));
 
         labelExcluirCategoria.setText("Excluir Categoria");
         labelExcluirCategoria.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -81,7 +85,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
                 labelExcluirCategoriaMouseClicked(evt);
             }
         });
-        getContentPane().add(labelExcluirCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, -1, -1));
+        getContentPane().add(labelExcluirCategoria, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, -1, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 59, 440, 10));
 
         labelGerenciarCategorias.setFont(new java.awt.Font("Noto Sans", 0, 18)); // NOI18N
@@ -89,13 +93,13 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         labelGerenciarCategorias.setText("GERENCIAR CATEGORIAS");
         getContentPane().add(labelGerenciarCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 53));
 
-        jButton1.setText("Fechar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnFecharActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 87, 30));
+        getContentPane().add(btnFechar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 87, 30));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/excluir.png"))); // NOI18N
         jLabel1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -104,7 +108,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
                 jLabel1MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 190, -1, -1));
 
         labelAtualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/atualizar.png"))); // NOI18N
         labelAtualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -113,7 +117,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
                 labelAtualizarMouseClicked(evt);
             }
         });
-        getContentPane().add(labelAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 250, -1, -1));
+        getContentPane().add(labelAtualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 270, -1, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/adicionar_cat.png"))); // NOI18N
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -122,7 +126,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
                 jLabel2MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 110, -1, -1));
 
         jScrollPane2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
@@ -138,15 +142,20 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(listCategorias);
 
-        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 240, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 240, 240));
+
+        labelInstrucao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelInstrucao.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelInstrucao.setText("Selecione uma categoria para atualizar ou excluir");
+        getContentPane().add(labelInstrucao, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 70, 320, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFecharActionPerformed
         this.dispose();
         new PainelAdmin(idDoUsuario);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnFecharActionPerformed
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
 
@@ -190,13 +199,19 @@ public class GerenciarCategorias extends javax.swing.JFrame {
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         JOptionPane jp = new JOptionPane();
-        String entrada = jp.showInputDialog("Entre com o nome da categoria");
-        if (entrada.equals("")) {
-            JOptionPane.showMessageDialog(null, "O nome da categoria não pode ficar vazio", "Erro ao inserir a categoria", JOptionPane.ERROR_MESSAGE);
+        String entrada;
+        try {
+            entrada = jp.showInputDialog("Entre com o nome da categoria");
+            if (entrada.equals("") || entrada.equals(" ")) {
+                JOptionPane.showMessageDialog(null, "O nome da categoria não pode ficar vazio", "Erro ao inserir a categoria", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                controle.insereCatergoria(String.valueOf(entrada));
+                inserirModelo();
+            }
         }
-        else {
-            controle.insereCatergoria(String.valueOf(entrada));
-            inserirModelo();
+        catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Criação de categoria cancelada" , "Criar Categoria" , JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jLabel2MouseClicked
 
@@ -208,7 +223,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
             JOptionPane jp = new JOptionPane();
             String nomeCategoria = listCategorias.getSelectedValue();
             String nomeCategoriaNova = jp.showInputDialog("Entre com o novo nome da categoria");
-            if (nomeCategoriaNova.equals("")) {
+            if (nomeCategoriaNova.equals("") || nomeCategoriaNova.equals(" ")) {
                 JOptionPane.showMessageDialog(null, "O novo nome da categoria não pode ficar vazio", "Erro ao atualizar a categoria", JOptionPane.ERROR_MESSAGE);
             }
             else {
@@ -255,7 +270,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
     private int selectedIndex;
     private int idDoUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnFechar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -265,6 +280,7 @@ public class GerenciarCategorias extends javax.swing.JFrame {
     private javax.swing.JLabel labelExcluirCategoria;
     private javax.swing.JLabel labelGerenciarCategorias;
     private javax.swing.JLabel labelInserirCategoria;
+    private javax.swing.JLabel labelInstrucao;
     private javax.swing.JList<String> listCategorias;
     // End of variables declaration//GEN-END:variables
 }
