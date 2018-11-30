@@ -35,6 +35,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         caminho.setVisible(false);
         fc = new JFileChooser();
         cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
+        
     }
     
     public void mudaFonte() {
@@ -42,6 +43,49 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         labelCadastrarProduto.setFont(ctr.mudaFonte(18));
         
     }
+    
+    public boolean verificador () {
+        if (verificaNome() || verificaDesc() || verificaValorCompra() || verificaValorVenda()) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean verificaNome() {
+        if (nome.getText().equals("") || nome.getText().equals(" ")) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean verificaDesc() {
+        if (descricao.getText().equals("") || descricao.getText().equals(" ")) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean verificaValorCompra() {
+        if (valor_compra.getText().equals("") || valor_compra.getText().equals(" ")) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean verificaValorVenda() {
+        if (valor_venda.getText().equals("") || valor_venda.getText().equals(" ")) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean verificaQuantidade() {
+        if (nome.getText().length()>20) {
+            return true;
+        }
+        return false;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -253,21 +297,31 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
-        if (fc.getSelectedFile()==null) {
-            JOptionPane jp = new JOptionPane ();
-            jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
-            if (jp.getOptionType()==-1) {
-                Conexao conexao = new Conexao();
-                conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
-                this.dispose();
-                new GerenciarProdutos(idDoUsuario);
-            }
+        if (verificaQuantidade()) {
+            JOptionPane.showMessageDialog(null, "O nome do produto não pode exceder vinte caracteres", "Erro ao inserir produto", JOptionPane.ERROR_MESSAGE);
         }
         else {
-            Conexao conexao = new Conexao();
-            conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
-            this.dispose();
-            new GerenciarProdutos(idDoUsuario);
+            if (verificador()) {
+                JOptionPane.showMessageDialog(null, "Não é possível adicionar o produto, um ou mais campos estão vazios", "Erro ao adicionar produto", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                if (fc.getSelectedFile()==null) {
+                    JOptionPane jp = new JOptionPane ();
+                    jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
+                    if (jp.getOptionType()==-1) {
+                        Conexao conexao = new Conexao();
+                        conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                        this.dispose();
+                        new GerenciarProdutos(idDoUsuario);
+                    }
+                }
+                else {
+                    Conexao conexao = new Conexao();
+                    conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                    this.dispose();
+                    new GerenciarProdutos(idDoUsuario);
+                }
+            }
         }
     }//GEN-LAST:event_botaoCadastrarActionPerformed
 
