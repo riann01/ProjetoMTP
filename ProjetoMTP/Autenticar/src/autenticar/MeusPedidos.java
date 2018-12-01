@@ -32,6 +32,7 @@ public class MeusPedidos extends javax.swing.JFrame {
     
     public void pegaIdPedido () {
         String idP = listPedidos.getSelectedValue();
+        String numero = "";
         int num = 0;
         for (int i = 0; i < idP.length(); i++) {
             try {
@@ -39,11 +40,14 @@ public class MeusPedidos extends javax.swing.JFrame {
                     break;
                 }
                 else {
-                    num = Integer.parseInt(String.valueOf(idP.charAt(i)));
+                    if ((idP.charAt(i)=='#')==false) {
+                        numero = numero+String.valueOf(idP.charAt(i));
+                    }
                 }
             }
             catch (NumberFormatException e) {}
         }
+        num = Integer.parseInt(numero);
         numeroPedido = num;
     }
     
