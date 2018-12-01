@@ -46,14 +46,14 @@ public class Comprovante extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         labelEndereco = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        labelInfo = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         labelNo = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         labelEmail = new javax.swing.JLabel();
-        btnFechar = new javax.swing.JButton();
         labelAtencao = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        btnFechar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -112,9 +112,9 @@ public class Comprovante extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel11.setText("-FIM DO DOCUMENTO-");
 
-        jLabel12.setFont(new java.awt.Font("Noto Sans", 0, 10)); // NOI18N
-        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel12.setText("Você poderá rever este documento a qualquer momento em Minha Conta > Meus pedidos.");
+        labelInfo.setFont(new java.awt.Font("Noto Sans", 0, 10)); // NOI18N
+        labelInfo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelInfo.setText("Você poderá rever este documento a qualquer momento em Minha Conta > Meus pedidos.");
 
         jLabel13.setText("Doc. No:");
 
@@ -123,13 +123,6 @@ public class Comprovante extends javax.swing.JFrame {
         jLabel8.setText("email:");
 
         labelEmail.setText("[EMAIL]");
-
-        btnFechar.setText("Fechar");
-        btnFechar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFecharActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -149,7 +142,7 @@ public class Comprovante extends javax.swing.JFrame {
                                     .addComponent(cabecalho1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
-                                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -191,10 +184,7 @@ public class Comprovante extends javax.swing.JFrame {
                                         .addComponent(labelEmail))))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(124, 124, 124)
-                        .addComponent(jLabel11))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(214, 214, 214)
-                        .addComponent(btnFechar)))
+                        .addComponent(jLabel11)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -236,11 +226,9 @@ public class Comprovante extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(labelInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel11)
-                .addGap(13, 13, 13)
-                .addComponent(btnFechar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -248,22 +236,32 @@ public class Comprovante extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/atencao.png"))); // NOI18N
 
+        btnFechar.setText("Fechar");
+        btnFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFecharActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelAtencao, javax.swing.GroupLayout.PREFERRED_SIZE, 420, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(51, 51, 51))
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(239, 239, 239)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(224, 224, 224)
+                .addComponent(btnFechar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(223, 223, 223))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,8 +271,10 @@ public class Comprovante extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(labelAtencao, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnFechar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -317,7 +317,7 @@ public class Comprovante extends javax.swing.JFrame {
                 st.setInt(1, idUsuario);
                 ResultSet rs = st.executeQuery();
                 while(rs.next()) {
-                    labelNo.setText("#"+new Controle().tratarNumeroPedido(rs.getInt(1)));
+                    labelNo.setText(new Controle().tratarNumeroPedido(rs.getInt(1)));
                     labelData.setText(String.valueOf(rs.getDate(2)).replace("-", "/"));
                     labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(3))));
                 }
@@ -355,12 +355,13 @@ public class Comprovante extends javax.swing.JFrame {
                 st.close();
             }
             else {
+                labelInfo.setVisible(false);
                 PreparedStatement st = conn.getConnection().prepareStatement("SELECT data, valor_total FROM pedido WHERE id_pessoa = ? AND id_pedido = ?");
                 st.setInt(1, idUsuario);
                 st.setInt(2, idPedido);
                 ResultSet rs = st.executeQuery();
                 while(rs.next()) {
-                    labelNo.setText("#"+new Controle().tratarNumeroPedido(idPedido));
+                    labelNo.setText(new Controle().tratarNumeroPedido(idPedido));
                     labelData.setText(String.valueOf(rs.getDate(1)).replace("-", "/"));
                     labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(2))));
                 }
@@ -409,7 +410,6 @@ public class Comprovante extends javax.swing.JFrame {
     private javax.swing.JLabel cabecalho1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -425,6 +425,7 @@ public class Comprovante extends javax.swing.JFrame {
     private javax.swing.JLabel labelData;
     private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelEndereco;
+    private javax.swing.JLabel labelInfo;
     private javax.swing.JLabel labelNo;
     private javax.swing.JLabel labelSexo;
     private javax.swing.JLabel labelValor;
