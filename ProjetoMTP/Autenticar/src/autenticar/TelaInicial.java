@@ -438,6 +438,7 @@ public class TelaInicial extends javax.swing.JFrame {
         admPainel.setFont(new java.awt.Font("Google Sans", 0, 18)); // NOI18N
         admPainel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         admPainel.setText("Painel do Administrador >");
+        admPainel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         admPainel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 admPainelMouseClicked(evt);
@@ -665,46 +666,48 @@ public class TelaInicial extends javax.swing.JFrame {
         int controle1 = 500;
         int contador1 = 0;
         if (textFieldPesquisa.getText().equals("Pesquisar...")) {
-            textFieldPesquisa.setText("");
+            JOptionPane.showMessageDialog(null, "Insira algum termo para pesquisar", "Barra de Pesquisa", JOptionPane.INFORMATION_MESSAGE);
         }
-        String pesquisa = "%"+textFieldPesquisa.getText()+"%";
-        labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
-        PreparedStatement st;
-        try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
-            st.setString(1, pesquisa);
-            st.setString(2, pesquisa);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                ++contador;
-                contador1++;
-                byte[] binario = rs.getBytes(5);
-                InputStream is = new ByteArrayInputStream(binario);
-                BufferedImage imag = ImageIO.read(is);
-                Image image = imag;                    
-                image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
-                ImageIcon icon = new ImageIcon(image);
-                Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
-                painelConteudo.add(p);
-                if(contador1%3==0){ 
-                    controle1 += 500;
+        else {
+            String pesquisa = "%"+textFieldPesquisa.getText()+"%";
+            labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
+            PreparedStatement st;
+            try {
+                st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
+                st.setString(1, pesquisa);
+                st.setString(2, pesquisa);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    ++contador;
+                    contador1++;
+                    byte[] binario = rs.getBytes(5);
+                    InputStream is = new ByteArrayInputStream(binario);
+                    BufferedImage imag = ImageIO.read(is);
+                    Image image = imag;                    
+                    image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(image);
+                    Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
+                    painelConteudo.add(p);
+                    if(contador1%3==0){ 
+                        controle1 += 500;
+                    }
+                    painelConteudo.setPreferredSize(new Dimension(800,controle1));
                 }
-                painelConteudo.setPreferredSize(new Dimension(800,controle1));
+                rs.close();
+                st.close();
             }
-            rs.close();
-            st.close();
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            painelConteudo.revalidate();
+            if (contador==0) {
+
+            }
+            painelConteudo.revalidate();
         }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        painelConteudo.revalidate();
-        if (contador==0) {
-            
-        }
-        painelConteudo.revalidate();
     }//GEN-LAST:event_botaoIrActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -760,7 +763,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_admPainelMouseClicked
 
     private void textFieldPesquisaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldPesquisaFocusGained
-        textFieldPesquisa.setText("");
+        if (textFieldPesquisa.getText().equals("Pesquisar...")) {
+            textFieldPesquisa.setText("");
+        }
     }//GEN-LAST:event_textFieldPesquisaFocusGained
 
     private void textFieldPesquisaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_textFieldPesquisaFocusLost
