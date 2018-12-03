@@ -1,5 +1,8 @@
 package autenticar;
 import java.awt.Color;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class GerenciarProdutos extends javax.swing.JFrame {
@@ -193,6 +196,12 @@ public class GerenciarProdutos extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para atualizá-lo.", "Erro ao atualizar", JOptionPane.ERROR_MESSAGE);
         }
         else {
+            int id = new Controle().pegaIdProduto(listProdutos.getSelectedValue());
+            try {
+                new AtualizarProdutos(id, idDaPessoa);
+            } catch (IOException ex) {
+                Logger.getLogger(GerenciarProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
     }//GEN-LAST:event_labelAtualizarMouseClicked

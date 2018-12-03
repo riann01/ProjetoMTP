@@ -538,6 +538,29 @@ public class Controle {
             e.printStackTrace();
         }
     }
+    
+    public int pegaIdProduto(String nomeProduto){
+        
+        int idProduto = 0;
+        
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_produto FROM produto WHERE nome_produto = ?");
+            st.setString(1, nomeProduto);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()) {
+                idProduto = rs.getInt(1);
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    
+        return idProduto;
+        
+    }
+    
     public int getCont() {
         return this.cont;
     }

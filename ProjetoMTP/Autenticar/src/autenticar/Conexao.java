@@ -88,6 +88,28 @@ public class Conexao {
             e.printStackTrace();
         }
     }
+    
+     public void atualizarProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo, int id_categoria, int id_produto) {
+        try {
+            FileInputStream fis = new FileInputStream(arquivo);
+            PreparedStatement st = this.conn.prepareStatement("UPDATE produto SET nome_produto = ?, descricao = ?, preco_custo = ?, preco_venda = ?, foto = ?, id_categoria = ? WHERE id_produto = ?");
+            st.setString(1, nome);
+            st.setString(2, descricao);
+            st.setFloat(3, preco_custo);
+            st.setFloat(4, preco_venda);
+            st.setBinaryStream(5, fis, (int) arquivo.length());
+            st.setInt(6, id_categoria);
+            st.setInt(7, id_categoria);
+            st.executeUpdate();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
         
     public void inserirProdutoCarrinho(int idUsuario, int idProduto, int quantidade) {
         try {

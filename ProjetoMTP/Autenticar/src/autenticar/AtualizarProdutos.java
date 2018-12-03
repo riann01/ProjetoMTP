@@ -13,9 +13,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.awt.Color;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.UIManager;
 
-public class CadastrarProdutos extends javax.swing.JFrame {
+public class AtualizarProdutos extends javax.swing.JFrame {
     {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -25,18 +28,43 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         }
     }
     
-    public CadastrarProdutos(int idUsuario) {
+    public AtualizarProdutos(int idProduto, int idUsuario) throws IOException {
         idDoUsuario = idUsuario;
+        idDoProduto = idProduto;
         initComponents();
+        try{    
+            PreparedStatement st = this.connection.getConnection().prepareStatement("SELECT nome_produto, descricao, preco_custo, preco_venda, foto, id_categoria FROM produto WHERE id_produto = ?");
+            st.setInt(1, idDoProduto);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+            
+                nome.setText(rs.getString(1));
+                valor_compra.setText(""+rs.getFloat(3));
+                valor_venda.setText(""+rs.getFloat(4));
+                descricao.setText(rs.getString(2));
+                byte[] binario = rs.getBytes(5);
+                InputStream is = new ByteArrayInputStream(binario);
+                BufferedImage imag = ImageIO.read(is);
+                Image image = imag;
+                image = image.getScaledInstance(230, 130, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(image);
+                labelImagem.setIcon(icon);
+                int catego = rs.getInt(6);
+                cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
+                cbCategoria.setSelectedIndex(7-catego);
+            
+            }
+            
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
         caminho.setVisible(false);
         fc = new JFileChooser();
-        cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
-        
-        cbCategoria.setSelectedIndex(WIDTH);
         
     }
     
@@ -119,9 +147,9 @@ public class CadastrarProdutos extends javax.swing.JFrame {
 
         labelCadastrarProduto.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
         labelCadastrarProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCadastrarProduto.setText("CADASTRAMENTO DE PRODUTOS");
+        labelCadastrarProduto.setText("ATUALIZAÇÃO DE PRODUTOS");
 
-        botaoCadastrar.setText("Cadastrar");
+        botaoCadastrar.setText("Atualizar");
         botaoCadastrar.setActionCommand("");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,7 +285,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(labelCadastrarProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+            .addComponent(labelCadastrarProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -269,7 +297,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                         .addGap(109, 109, 109)
                         .addComponent(botaoCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(35, 35, 35)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
+                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
                         .addGap(105, 105, 105)))
                 .addContainerGap())
         );
@@ -312,7 +340,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                     jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
                     if (jp.getOptionType()==-1) {
                         Conexao conexao = new Conexao();
-                        conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                        conexao.atualizarProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()), idDoProduto);
                         this.dispose();
                         new GerenciarProdutos(idDoUsuario);
                     }
@@ -369,16 +397,19 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastrarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AtualizarProdutos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
     }
+    private Conexao connection = new Conexao();
+    private int idDoProduto;
     private int idDoUsuario;
     private JFileChooser fc;
     private File arquivo = new File ("Foto/SEM FOTO.png");
