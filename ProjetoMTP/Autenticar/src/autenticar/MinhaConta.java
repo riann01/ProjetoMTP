@@ -157,34 +157,16 @@ public class MinhaConta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelDadosMouseClicked
-        try {
-            this.conn.getConnection().close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
         this.dispose();
         new AlterarDados(idDoUsuario);
     }//GEN-LAST:event_labelDadosMouseClicked
 
     private void labelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSairMouseClicked
-        try {
-            this.conn.getConnection().close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
         this.dispose();
         new TelaInicial(idDoUsuario,pegaBoolean(idDoUsuario));
     }//GEN-LAST:event_labelSairMouseClicked
 
     private void labelPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelPedidosMouseClicked
-        try {
-            this.conn.getConnection().close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
         this.dispose();
         new MeusPedidos(idDoUsuario);
     }//GEN-LAST:event_labelPedidosMouseClicked

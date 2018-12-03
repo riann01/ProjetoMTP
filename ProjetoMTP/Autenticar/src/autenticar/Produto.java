@@ -15,25 +15,27 @@ public class Produto extends javax.swing.JPanel {
     }
     public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
         initComponents();
-        
+        mudarFonte();
         setBackground(Color.WHITE);
         this.preco = preco;
         labelNomeProduto.setText("<html><body><center>"+nome+"</center></body></html>");
         labelDescricao.setText("<html><body><center>"+descricao+"</center></body></html>");
         labelPreco.setText(new Controle().retornaValorFormatado(Float.toString(preco)));
         labelFotoProduto.setIcon(foto);
-        mudarFonte();
         setVisible(true);
         this.idUsuario1 = idUsuario;
         this.idProduto1 = idProduto;
     }
+    
     public void mudarFonte () {
         Controle ctr = new Controle();
+        labelNomeProduto.setFont(ctr.mudaFonte(18));
         labelDescricao.setFont(ctr.mudaFonte(13));
         labelPreco.setFont(ctr.mudaFonte(20));
         quantidade.setFont(ctr.mudaFonte(14));
-        labelNomeProduto.setFont(ctr.mudaFonte(18));
+        
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

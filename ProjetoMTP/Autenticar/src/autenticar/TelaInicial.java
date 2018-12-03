@@ -126,7 +126,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     
     public void mostrarCategoria (int id_categoria) {
-        int controle1 = 415;
+        int controle1 = 440;
         int contador1 = 0;
         PreparedStatement st;
         try {
@@ -144,7 +144,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
                 painelConteudo.add(p);
                 if(contador1%3==0){
-                    controle1 += 415;
+                    controle1 += 440;
                 }
                 painelConteudo.setPreferredSize(new Dimension(800,controle1));
             }
@@ -579,23 +579,11 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void LabelMinhaContaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelMinhaContaMouseClicked
-        try {
-            this.conexao.getConnection().close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
         this.dispose();
         new MinhaConta(idUsuario);
     }//GEN-LAST:event_LabelMinhaContaMouseClicked
 
     private void LabelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelSairMouseClicked
-        try {
-            this.conexao.getConnection().close();
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
         this.dispose();
         new Logar();
     }//GEN-LAST:event_LabelSairMouseClicked
