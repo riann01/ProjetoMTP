@@ -174,12 +174,17 @@ public class GerenciarCategorias extends javax.swing.JFrame {
     private void labelInserirCategoriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelInserirCategoriaMouseClicked
         JOptionPane jp = new JOptionPane();
         String entrada = jp.showInputDialog("Entre com o nome da categoria");
-        if (entrada.equals("")) {
-            JOptionPane.showMessageDialog(null, "O nome da categoria não pode ficar vazio", "Erro ao inserir a categoria", JOptionPane.ERROR_MESSAGE);
+        try {
+            if (entrada.equals("") || entrada.equals(" ")) {
+                JOptionPane.showMessageDialog(null, "O nome da categoria não pode ficar vazio", "Erro ao inserir a categoria", JOptionPane.ERROR_MESSAGE);
+            }
+            else {
+                controle.insereCatergoria(String.valueOf(entrada));
+                inserirModelo();
+            }
         }
-        else {
-            controle.insereCatergoria(String.valueOf(entrada));
-            inserirModelo();
+        catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Criação de categoria cancelada" , "Criar Categoria" , JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_labelInserirCategoriaMouseClicked
 
@@ -222,13 +227,18 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         else {
             JOptionPane jp = new JOptionPane();
             String nomeCategoria = listCategorias.getSelectedValue();
-            String nomeCategoriaNova = jp.showInputDialog("Entre com o novo nome da categoria");
-            if (nomeCategoriaNova.equals("") || nomeCategoriaNova.equals(" ")) {
-                JOptionPane.showMessageDialog(null, "O novo nome da categoria não pode ficar vazio", "Erro ao atualizar a categoria", JOptionPane.ERROR_MESSAGE);
+            try {
+                String nomeCategoriaNova = jp.showInputDialog("Entre com o novo nome da categoria");
+                if (nomeCategoriaNova.equals("") || nomeCategoriaNova.equals(" ")) {
+                    JOptionPane.showMessageDialog(null, "O novo nome da categoria não pode ficar vazio", "Erro ao atualizar a categoria", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    controle.atualizaCategoria(nomeCategoria, nomeCategoriaNova);
+                    inserirModelo();
+                }
             }
-            else {
-                controle.atualizaCategoria(nomeCategoria, nomeCategoriaNova);
-                inserirModelo();
+            catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Atualização de categoria cancelada" , "Atualizar Categoria" , JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_labelAtualizarMouseClicked
@@ -240,9 +250,19 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         else {
             JOptionPane jp = new JOptionPane();
             String nomeCategoria = listCategorias.getSelectedValue();
-            String nomeCategoriaNova = jp.showInputDialog("Entre com o novo nome da categoria");
-            controle.atualizaCategoria(nomeCategoria, nomeCategoriaNova);
-            inserirModelo();
+            try {
+                String nomeCategoriaNova = jp.showInputDialog("Entre com o novo nome da categoria");
+                if (nomeCategoriaNova.equals("") || nomeCategoriaNova.equals(" ")) {
+                    JOptionPane.showMessageDialog(null, "O novo nome da categoria não pode ficar vazio", "Erro ao atualizar a categoria", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    controle.atualizaCategoria(nomeCategoria, nomeCategoriaNova);
+                    inserirModelo();
+                }
+            }
+            catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Atualização de categoria cancelada" , "Atualizar Categoria" , JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }//GEN-LAST:event_labelAtualizarCategoriaMouseClicked
 

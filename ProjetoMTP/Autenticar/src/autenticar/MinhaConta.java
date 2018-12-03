@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.UIManager;
+
 public class MinhaConta extends javax.swing.JFrame {
     {        
         try {
@@ -13,6 +14,7 @@ public class MinhaConta extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
     public MinhaConta(int idUsuario) {
         initComponents();
         mudarFonte();
@@ -54,6 +56,7 @@ public class MinhaConta extends javax.swing.JFrame {
         }
         return T;
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -154,23 +157,38 @@ public class MinhaConta extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void labelDadosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelDadosMouseClicked
+        try {
+            this.conn.getConnection().close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.dispose();
         new AlterarDados(idDoUsuario);
     }//GEN-LAST:event_labelDadosMouseClicked
 
     private void labelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelSairMouseClicked
+        try {
+            this.conn.getConnection().close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.dispose();
         new TelaInicial(idDoUsuario,pegaBoolean(idDoUsuario));
     }//GEN-LAST:event_labelSairMouseClicked
 
     private void labelPedidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelPedidosMouseClicked
+        try {
+            this.conn.getConnection().close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.dispose();
         new MeusPedidos(idDoUsuario);
     }//GEN-LAST:event_labelPedidosMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

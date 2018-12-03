@@ -599,12 +599,4 @@ public class Controle {
     public int retornaId(){
         return idUsuario;
     }
-    
-    public void setTotal (double total) {
-        this.total = total;
-    }
-    
-    public double getTotal () {
-        return this.total;
-    }
 }

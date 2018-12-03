@@ -192,17 +192,17 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void labelAtualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAtualizarMouseClicked
-        if (listProdutos.getSelectedValue().equals("")) {
+        if (listProdutos.getSelectedValue()==null) {
             JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para atualizá-lo.", "Erro ao atualizar", JOptionPane.ERROR_MESSAGE);
         }
         else {
             int id = new Controle().pegaIdProduto(listProdutos.getSelectedValue());
             try {
+                this.dispose();
                 new AtualizarProdutos(id, idDaPessoa);
             } catch (IOException ex) {
                 Logger.getLogger(GerenciarProdutos.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
         }
     }//GEN-LAST:event_labelAtualizarMouseClicked
 

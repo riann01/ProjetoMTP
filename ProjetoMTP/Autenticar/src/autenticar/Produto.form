@@ -47,7 +47,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelFotoProduto" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="labelNomeProduto" max="-2" attributes="0"/>
+              <Component id="labelNomeProduto" min="-2" pref="32" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="labelDescricao" min="-2" pref="87" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -55,7 +55,7 @@
               <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
               <Component id="quantidade" min="-2" pref="32" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="carrinhoAdiciona" pref="65" max="32767" attributes="0"/>
+              <Component id="carrinhoAdiciona" pref="57" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -64,8 +64,8 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="labelNomeProduto">
       <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Google Sans Medium" size="18" style="0"/>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <Connection code="new Controle().mudaFonte(18)" type="code"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="NOME DO PRODUTO"/>

@@ -15,23 +15,24 @@ public class Produto extends javax.swing.JPanel {
     }
     public Produto( int idUsuario, int idProduto, String nome, String descricao, Float preco, ImageIcon foto) {
         initComponents();
-        mudarFonte();
+        
         setBackground(Color.WHITE);
         this.preco = preco;
         labelNomeProduto.setText("<html><body><center>"+nome+"</center></body></html>");
         labelDescricao.setText("<html><body><center>"+descricao+"</center></body></html>");
         labelPreco.setText(new Controle().retornaValorFormatado(Float.toString(preco)));
         labelFotoProduto.setIcon(foto);
+        mudarFonte();
         setVisible(true);
         this.idUsuario1 = idUsuario;
         this.idProduto1 = idProduto;
     }
     public void mudarFonte () {
         Controle ctr = new Controle();
-        labelNomeProduto.setFont(ctr.mudaFonte(18));
         labelDescricao.setFont(ctr.mudaFonte(13));
         labelPreco.setFont(ctr.mudaFonte(20));
         quantidade.setFont(ctr.mudaFonte(14));
+        labelNomeProduto.setFont(ctr.mudaFonte(18));
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -46,7 +47,7 @@ public class Produto extends javax.swing.JPanel {
 
         setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        labelNomeProduto.setFont(new java.awt.Font("Google Sans Medium", 0, 18)); // NOI18N
+        labelNomeProduto.setFont(new Controle().mudaFonte(18));
         labelNomeProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelNomeProduto.setText("NOME DO PRODUTO");
         labelNomeProduto.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -104,7 +105,7 @@ public class Produto extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(labelFotoProduto)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labelNomeProduto)
+                .addComponent(labelNomeProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labelDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -112,7 +113,7 @@ public class Produto extends javax.swing.JPanel {
                 .addGap(19, 19, 19)
                 .addComponent(quantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(carrinhoAdiciona, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addComponent(carrinhoAdiciona, javax.swing.GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

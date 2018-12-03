@@ -37,7 +37,6 @@ public class AtualizarProdutos extends javax.swing.JFrame {
             st.setInt(1, idDoProduto);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
-            
                 nome.setText(rs.getString(1));
                 valor_compra.setText(""+rs.getFloat(3));
                 valor_venda.setText(""+rs.getFloat(4));
@@ -52,26 +51,37 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                 int catego = rs.getInt(6);
                 cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
                 cbCategoria.setSelectedIndex(7-catego);
-            
             }
-            
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
         this.getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        mudaFonte();
         setLocationRelativeTo(null);
         setVisible(true);
-        caminho.setVisible(false);
         fc = new JFileChooser();
-        
     }
     
     public void mudaFonte() {
         Controle ctr = new Controle();
-        labelCadastrarProduto.setFont(ctr.mudaFonte(18));
-        
+        labelAtualizarProduto.setFont(ctr.mudaFonte(24));
+        labelNome.setFont(ctr.mudaFonte(12));
+        nome.setFont(ctr.mudaFonte(12));
+        labelCusto.setFont(ctr.mudaFonte(12));
+        valor_compra.setFont(ctr.mudaFonte(12));
+        labelValor.setFont(ctr.mudaFonte(12));
+        valor_venda.setFont(ctr.mudaFonte(12));
+        labelDescricao.setFont(ctr.mudaFonte(12));
+        descricao.setFont(ctr.mudaFonte(13));
+        labelCategoria.setFont(ctr.mudaFonte(12));
+        cbCategoria.setFont(ctr.mudaFonte(12));
+        labelFoto.setFont(ctr.mudaFonte(12));
+        adicionaImagem.setFont(ctr.mudaFonte(13));
+        caminho.setFont(ctr.mudaFonte(12));
+        botaoCadastrar.setFont(ctr.mudaFonte(13));
+        btnCancelar.setFont(ctr.mudaFonte(13));
     }
     
     public boolean verificador () {
@@ -120,24 +130,24 @@ public class AtualizarProdutos extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelCadastrarProduto = new javax.swing.JLabel();
+        labelAtualizarProduto = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         botaoCadastrar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        labelNome = new javax.swing.JLabel();
         nome = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        valor_compra = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        labelCusto = new javax.swing.JLabel();
+        labelValor = new javax.swing.JLabel();
         valor_venda = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        labelDescricao = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descricao = new javax.swing.JTextArea();
-        jLabel8 = new javax.swing.JLabel();
+        labelCategoria = new javax.swing.JLabel();
         cbCategoria = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
+        labelFoto = new javax.swing.JLabel();
         adicionaImagem = new javax.swing.JButton();
+        valor_compra = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         caminho = new javax.swing.JLabel();
         labelImagem = new javax.swing.JLabel();
@@ -145,9 +155,9 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        labelCadastrarProduto.setFont(new java.awt.Font("Bahnschrift", 0, 18)); // NOI18N
-        labelCadastrarProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelCadastrarProduto.setText("ATUALIZAÇÃO DE PRODUTOS");
+        labelAtualizarProduto.setFont(new java.awt.Font("Bahnschrift", 0, 24)); // NOI18N
+        labelAtualizarProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelAtualizarProduto.setText("ATUALIZAÇÃO DE PRODUTOS");
 
         botaoCadastrar.setText("Atualizar");
         botaoCadastrar.setActionCommand("");
@@ -157,32 +167,32 @@ public class AtualizarProdutos extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cancelar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setText("Nome");
+        labelNome.setText("Nome");
 
-        jLabel9.setText("Custo");
+        labelCusto.setText("Custo");
 
-        jLabel10.setText("Valor");
+        labelValor.setText("Valor");
 
-        jLabel4.setText("Descrição");
+        labelDescricao.setText("Descrição");
 
         descricao.setColumns(20);
         descricao.setRows(5);
         jScrollPane1.setViewportView(descricao);
 
-        jLabel8.setText("Categoria");
+        labelCategoria.setText("Categoria");
 
         cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "cbBox", " " }));
 
-        jLabel5.setText("Foto");
+        labelFoto.setText("Foto");
 
         adicionaImagem.setText("Procurar");
         adicionaImagem.addActionListener(new java.awt.event.ActionListener() {
@@ -200,56 +210,56 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(nome)
-                    .addComponent(valor_compra)
                     .addComponent(valor_venda, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel8)
+                            .addComponent(labelValor)
+                            .addComponent(labelNome)
+                            .addComponent(labelCusto)
+                            .addComponent(labelDescricao)
+                            .addComponent(labelCategoria)
                             .addComponent(adicionaImagem)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(labelFoto, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(valor_compra))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(labelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelCusto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(valor_compra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(11, 11, 11)
+                .addComponent(labelValor)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel10)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(valor_venda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(labelDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelCategoria)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(adicionaImagem)
-                .addGap(25, 25, 25))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
         caminho.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        caminho.setText("[CAMINHO]");
+        caminho.setText("Nome do Arquivo");
         caminho.setAutoscrolls(true);
         caminho.setFocusable(false);
         caminho.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -262,9 +272,9 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(76, 76, 76)
                 .addComponent(labelImagem, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(caminho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -284,47 +294,46 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addComponent(labelCadastrarProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(107, 107, 107)
+                .addComponent(botaoCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(35, 35, 35)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(107, 107, 107))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(109, 109, 109)
-                        .addComponent(botaoCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
-                        .addGap(105, 105, 105)))
-                .addContainerGap())
+                    .addComponent(labelAtualizarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 432, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(labelCadastrarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelAtualizarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(6, 6, 6)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(6, 6, 6)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoCadastrar)
-                    .addComponent(jButton1))
-                .addContainerGap())
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(botaoCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
         new GerenciarProdutos(idDoUsuario);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void botaoCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCadastrarActionPerformed
         if (verificaQuantidade()) {
@@ -347,7 +356,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                 }
                 else {
                     Conexao conexao = new Conexao();
-                    conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                    conexao.atualizarProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()), idDoProduto);
                     this.dispose();
                     new GerenciarProdutos(idDoUsuario);
                 }
@@ -360,8 +369,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         if (retorno == JFileChooser.APPROVE_OPTION) {
             arquivo = fc.getSelectedFile();
             try {
-                BufferedImage imag = ImageIO.read(arquivo);
-                FileInputStream fis = new FileInputStream(arquivo);                
+                BufferedImage imag = ImageIO.read(arquivo);              
                 if (imag == null) {                    
                     labelImagem.setIcon(null);  
                 }
@@ -416,22 +424,22 @@ public class AtualizarProdutos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionaImagem;
     private javax.swing.JButton botaoCadastrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel caminho;
     private javax.swing.JComboBox<String> cbCategoria;
     private javax.swing.JTextArea descricao;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel labelCadastrarProduto;
+    private javax.swing.JLabel labelAtualizarProduto;
+    private javax.swing.JLabel labelCategoria;
+    private javax.swing.JLabel labelCusto;
+    private javax.swing.JLabel labelDescricao;
+    private javax.swing.JLabel labelFoto;
     private javax.swing.JLabel labelImagem;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelValor;
     private javax.swing.JTextField nome;
     private javax.swing.JTextField valor_compra;
     private javax.swing.JTextField valor_venda;

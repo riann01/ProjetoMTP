@@ -579,11 +579,23 @@ public class TelaInicial extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     private void LabelMinhaContaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelMinhaContaMouseClicked
+        try {
+            this.conexao.getConnection().close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.dispose();
         new MinhaConta(idUsuario);
     }//GEN-LAST:event_LabelMinhaContaMouseClicked
 
     private void LabelSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LabelSairMouseClicked
+        try {
+            this.conexao.getConnection().close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
         this.dispose();
         new Logar();
     }//GEN-LAST:event_LabelSairMouseClicked
