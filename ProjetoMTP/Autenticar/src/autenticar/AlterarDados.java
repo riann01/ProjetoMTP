@@ -26,25 +26,8 @@ public class AlterarDados extends javax.swing.JFrame {
         mudarFonte();
         setLocationRelativeTo(null);
         setVisible(true);
-        Conexao conexao = new Conexao();
-        PreparedStatement st;
         this.idUsuario = id;
-        try {
-            st = conexao.getConnection().prepareStatement("SELECT email, senha, cidade_estado, endereco, nome, id_pessoa FROM pessoa");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                if (rs.getInt(6)==id) {
-                    mostrarEmail.setText(rs.getString(1));
-                    mostrarLocal.setText(rs.getString(4));
-                    mostrarNome.setText(rs.getString(5));
-                    mostrarCidade.setText(rs.getString(3));
-                    senha11 = rs.getString(2);
-                    mostrarSenha.setText(senha11);
-                    }  
-                }
-        } catch (SQLException ex) {
-            Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        preencherDados(idUsuario);
     }
     
     public void mudarFonte() {
@@ -62,6 +45,29 @@ public class AlterarDados extends javax.swing.JFrame {
         aplicar.setFont(ctr.mudaFonte(12));
         cancelar.setFont(ctr.mudaFonte(12));
     }
+    
+    public void preencherDados (int idUsuario) {
+        Conexao conexao = new Conexao();
+        PreparedStatement st;
+        try {
+            st = conexao.getConnection().prepareStatement("SELECT email, senha, cidade_estado, endereco, nome, id_pessoa FROM pessoa");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt(6)==idUsuario) {
+                    mostrarEmail.setText(rs.getString(1));
+                    mostrarLocal.setText(rs.getString(4));
+                    mostrarNome.setText(rs.getString(5));
+                    mostrarCidade.setText(rs.getString(3));
+                    senha11 = rs.getString(2);
+                    mostrarSenha.setText(senha11);
+                    }  
+                }
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -207,13 +213,11 @@ public class AlterarDados extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
-        Controle controle = new Controle ();
         this.dispose();
         new MinhaConta(this.idUsuario);
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void aplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarActionPerformed
-        // TODO add your handling code here:
         Conexao conexao = new Conexao();
         String passaSenha = new String(mostrarSenha.getPassword());
         conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);

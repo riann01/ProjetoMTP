@@ -1,11 +1,9 @@
 package autenticar;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
@@ -32,30 +30,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         idDoUsuario = idUsuario;
         idDoProduto = idProduto;
         initComponents();
-        try{    
-            PreparedStatement st = this.connection.getConnection().prepareStatement("SELECT nome_produto, descricao, preco_custo, preco_venda, foto, id_categoria FROM produto WHERE id_produto = ?");
-            st.setInt(1, idDoProduto);
-            ResultSet rs = st.executeQuery();
-            if(rs.next()){
-                nome.setText(rs.getString(1));
-                valor_compra.setText(""+rs.getFloat(3));
-                valor_venda.setText(""+rs.getFloat(4));
-                descricao.setText(rs.getString(2));
-                byte[] binario = rs.getBytes(5);
-                InputStream is = new ByteArrayInputStream(binario);
-                BufferedImage imag = ImageIO.read(is);
-                Image image = imag;
-                image = image.getScaledInstance(230, 130, Image.SCALE_SMOOTH);
-                ImageIcon icon = new ImageIcon(image);
-                labelImagem.setIcon(icon);
-                int catego = rs.getInt(6);
-                cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
-                cbCategoria.setSelectedIndex(pegaIndexCategoria(idDoProduto));
-            }
-        }
-        catch (SQLException e) {
-            e.printStackTrace();
-        }
+        preencheDados();
         this.getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         mudaFonte();
@@ -128,9 +103,10 @@ public class AtualizarProdutos extends javax.swing.JFrame {
     
     public int pegaIndexCategoria(int idProduto) {
         String nomeCategoria = "";
+        String query = "SELECT C.nome_categoria FROM produto AS P JOIN categoria AS C ON P.id_categoria = C.id_categoria WHERE P.id_produto = ?";
         int index = 0;
         try {
-            PreparedStatement st = this.connection.getConnection().prepareStatement("SELECT C.nome_categoria FROM produto AS P JOIN categoria AS C ON P.id_categoria = C.id_categoria WHERE P.id_produto = ?");
+            PreparedStatement st = this.connection.getConnection().prepareStatement(query);
             st.setInt(1, idProduto);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -150,6 +126,36 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         return index;
     }
     
+    public void preencheDados () {
+        String query = "SELECT nome_produto, descricao, preco_custo, preco_venda, foto FROM produto WHERE id_produto = ?";
+        try{    
+            PreparedStatement st = this.connection.getConnection().prepareStatement(query);
+            st.setInt(1, idDoProduto);
+            ResultSet rs = st.executeQuery();
+            if(rs.next()){
+                nome.setText(rs.getString(1));
+                valor_compra.setText(""+rs.getFloat(3));
+                valor_venda.setText(""+rs.getFloat(4));
+                descricao.setText(rs.getString(2));
+                byte[] binario = rs.getBytes(5);
+                InputStream is = new ByteArrayInputStream(binario);
+                BufferedImage imag = ImageIO.read(is);
+                Image image = imag;
+                image = image.getScaledInstance(230, 130, Image.SCALE_SMOOTH);
+                ImageIcon icon = new ImageIcon(image);
+                labelImagem.setIcon(icon);
+                cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
+                cbCategoria.setSelectedIndex(pegaIndexCategoria(idDoProduto));
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+        
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -440,6 +446,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
     }
+    
     private Conexao connection = new Conexao();
     private int idDoProduto;
     private int idDoUsuario;

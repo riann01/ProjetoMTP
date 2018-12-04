@@ -369,10 +369,6 @@
           <Image iconType="3" name="/autenticar/Foto/user.png"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelFotoUsuarioMouseEntered"/>
-        <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="labelFotoUsuarioMouseExited"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="cover">
       <Properties>

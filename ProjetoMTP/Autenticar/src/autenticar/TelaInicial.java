@@ -4,14 +4,10 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import java.io.File;
 import java.io.InputStream;
@@ -20,9 +16,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
 import javax.swing.ImageIcon;
 import java.awt.Dimension;
-import java.awt.Event;
 import java.awt.Font;
-import java.awt.FontFormatException;
 import javax.swing.ImageIcon;
 import javax.swing.ScrollPaneConstants;
 
@@ -358,14 +352,6 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         labelFotoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user.png"))); // NOI18N
-        labelFotoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseExited(evt);
-            }
-        });
 
         cover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user_branco.png"))); // NOI18N
         cover.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -644,14 +630,6 @@ public class TelaInicial extends javax.swing.JFrame {
         labelFotoUsuarioMouseEvento.setVisible(true);
     }//GEN-LAST:event_coverMouseEntered
 
-    private void labelFotoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelFotoUsuarioMouseExited
-
-    private void labelFotoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelFotoUsuarioMouseEntered
-
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         deletarDoCarrinho();
         atualizaItens(idUsuario);
@@ -662,51 +640,51 @@ public class TelaInicial extends javax.swing.JFrame {
         listaCategorias.clearSelection();
         jScrollPane2.revalidate();
         painelConteudo.removeAll();
-        int contador = 0;
-        int controle1 = 500;
+        int controle1 = 440;
         int contador1 = 0;
         if (textFieldPesquisa.getText().equals("Pesquisar...")) {
             JOptionPane.showMessageDialog(null, "Insira algum termo para pesquisar", "Barra de Pesquisa", JOptionPane.INFORMATION_MESSAGE);
         }
         else {
-            String pesquisa = "%"+textFieldPesquisa.getText()+"%";
-            labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
-            PreparedStatement st;
-            try {
-                st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
-                st.setString(1, pesquisa);
-                st.setString(2, pesquisa);
-                ResultSet rs = st.executeQuery();
-                while (rs.next()) {
-                    ++contador;
-                    contador1++;
-                    byte[] binario = rs.getBytes(5);
-                    InputStream is = new ByteArrayInputStream(binario);
-                    BufferedImage imag = ImageIO.read(is);
-                    Image image = imag;                    
-                    image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
-                    ImageIcon icon = new ImageIcon(image);
-                    Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
-                    painelConteudo.add(p);
-                    if(contador1%3==0){ 
-                        controle1 += 500;
+            if (textFieldPesquisa.getText().length()<2) {
+                JOptionPane.showMessageDialog(null, "O termo de pesquisa deve ter pelo menos dois caracteres", "Barra de Pesquisa", JOptionPane.INFORMATION_MESSAGE);
+                textFieldPesquisa.setText("Pesquisar...");
+            }
+            else {
+                String pesquisa = "%"+textFieldPesquisa.getText()+"%";
+                labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
+                PreparedStatement st;
+                try {
+                    st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
+                    st.setString(1, pesquisa);
+                    st.setString(2, pesquisa);
+                    ResultSet rs = st.executeQuery();
+                    while (rs.next()) {
+                        contador1++;
+                        byte[] binario = rs.getBytes(5);
+                        InputStream is = new ByteArrayInputStream(binario);
+                        BufferedImage imag = ImageIO.read(is);
+                        Image image = imag;                    
+                        image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
+                        ImageIcon icon = new ImageIcon(image);
+                        Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
+                        painelConteudo.add(p);
+                        if(contador1%3==0){ 
+                            controle1 += 440;
+                        }
+                        painelConteudo.setPreferredSize(new Dimension(800,controle1));
                     }
-                    painelConteudo.setPreferredSize(new Dimension(800,controle1));
+                    rs.close();
+                    st.close();
                 }
-                rs.close();
-                st.close();
+                catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                painelConteudo.revalidate();
             }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            painelConteudo.revalidate();
-            if (contador==0) {
-
-            }
-            painelConteudo.revalidate();
         }
     }//GEN-LAST:event_botaoIrActionPerformed
 

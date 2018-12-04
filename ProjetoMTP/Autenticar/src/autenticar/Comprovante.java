@@ -15,6 +15,7 @@ public class Comprovante extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
     public Comprovante(int idUsuario, int idPedido, int operacao) {
         initComponents();
         labelAtencao.setFont(new Controle().mudaFonte(11));

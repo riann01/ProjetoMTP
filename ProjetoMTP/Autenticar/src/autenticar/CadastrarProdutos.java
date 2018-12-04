@@ -392,8 +392,8 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         //</editor-fold>
         //</editor-fold>
     }
+    
     private Conexao connection = new Conexao();
-    private int idDoProduto;
     private int idDoUsuario;
     private JFileChooser fc;
     private File arquivo = new File ("Foto/SEM FOTO.png");

@@ -1,6 +1,7 @@
 package autenticar;
 import java.awt.Color;
 import java.awt.Image;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+
 public class ProdutoCarrinho extends javax.swing.JPanel {
     {        
         try {
@@ -21,14 +23,15 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }
-    public ProdutoCarrinho(int idProduto) {
+    
+    public ProdutoCarrinho(int idProduto, int idPessoa) {
         initComponents();
         mudarFonte();
         setBackground(Color.WHITE);
         setVisible(true);
+        idDaPessoa = idPessoa;
         idDoProduto = idProduto;
         float precoTotal = 0;
-        Conexao conexao = new Conexao();
         PreparedStatement st;
         
         try {
@@ -58,14 +61,15 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             }
             rs.close();
             st.close();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }        
     }
     
-    //System.out.println(precoTotal);
     public void deletarDoCarrinho (int idProduto) {
         try {
             PreparedStatement st;
@@ -75,9 +79,11 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             st.executeUpdate();
             st.close();
             this.finalize();
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
-        } catch (Throwable e) {
+        }
+        catch (Throwable e) {
             e.printStackTrace();
         }
     }
@@ -89,6 +95,39 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         labelPreco.setFont(ctr.mudaFonte(20));
         labelQtd.setFont(ctr.mudaFonte(20));
         tfQuantidade.setFont(ctr.mudaFonte(14));
+    }
+    
+    public void atualizaQuantidade(int idPessoa, int idProduto, int quantidade) {
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = ? WHERE id_pessoa = ? AND id_produto = ?");
+            st.setInt(1, quantidade);
+            st.setInt(2, idPessoa);
+            st.setInt(3, idProduto);
+            st.executeUpdate();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public int pegaQuantidade (int idPessoa, int idProduto) {
+        int quantidade = 0;
+        try {
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
+            st.setInt(1, idProduto);
+            st.setInt(2, idPessoa);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                quantidade = rs.getInt(1);
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return quantidade;
     }
     int idDoProduto;
     @SuppressWarnings("unchecked")
@@ -201,11 +240,21 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
     }//GEN-LAST:event_labelRemoverMouseClicked
 
     private void tfQuantidadeKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfQuantidadeKeyPressed
-        /*if (evt.getSource().equals("\n")) {
-            System.out.println("Pressionou o enter");
-        }*/
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            try {
+                atualizaQuantidade(idDaPessoa, idDoProduto, Integer.parseInt(tfQuantidade.getText()));
+                JOptionPane.showMessageDialog(null, "A quantidade foi alterada", "Carrinho", JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, insira uma quantidade válida", "Erro", JOptionPane.ERROR_MESSAGE);
+                tfQuantidade.setText(String.valueOf(pegaQuantidade(idDaPessoa,idDoProduto)));
+            }
+        }
     }//GEN-LAST:event_tfQuantidadeKeyPressed
 
+    Conexao conexao = new Conexao();
+    private int idDaPessoa;
+    private int quantidade;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelDescricao;
