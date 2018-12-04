@@ -17,8 +17,6 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.io.FileNotFoundException;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 public class Controle {
     String mensagem;
@@ -30,6 +28,7 @@ public class Controle {
     private String nome;
     private ImageIcon foto;
     private int cont;
+    private double total;
     private Font fonte;
     private String modelo = "";
     
@@ -102,11 +101,10 @@ public class Controle {
     }
     
     public void mudarFoto (int id, File foto) {
-        Conexao conn = new Conexao();
         PreparedStatement st;
         try {
             FileInputStream fis = new FileInputStream(foto);
-            st = conn.getConnection().prepareStatement("UPDATE pessoa SET foto = ? WHERE id_pessoa = ?");
+            st = conexao.getConnection().prepareStatement("UPDATE pessoa SET foto = ? WHERE id_pessoa = ?");
             st.setBinaryStream(1, fis, (int) foto.length());
             st.setInt(2, id);
             st.executeUpdate();
@@ -121,10 +119,9 @@ public class Controle {
     }
     
     public void pegaFoto (int id) {
-        Conexao conn = new Conexao();
         PreparedStatement st;
         try {
-            st = conn.getConnection().prepareStatement("SELECT foto, id_pessoa FROM pessoa");
+            st = conexao.getConnection().prepareStatement("SELECT foto, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (id==rs.getInt(2)) {
@@ -150,14 +147,13 @@ public class Controle {
         String nome1 = new String();
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT nome FROM pessoa WHERE id_pessoa = ?");
-            st.setInt(1, idUsuario);
+            st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
-            if (rs.next()) {
-                nome1 = rs.getString(1);
+            while (rs.next()) {
+                if (rs.getInt(2)==idUsuario) {
+                    nome1 = rs.getString(1);
+                }  
             }
-            rs.close();
-            st.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
@@ -217,7 +213,6 @@ public class Controle {
     
     public void mostrarItens () {
         PreparedStatement st;
-        Conexao conexao = new Conexao();
         try {
             st = conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
             ResultSet rs = st.executeQuery();
@@ -331,8 +326,12 @@ public class Controle {
     }
         
     public String retornaValorFormatado (String valor) {
-        NumberFormat formatoReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
-        String retorno = String.valueOf(formatoReal.format(Float.parseFloat(valor)));
+        valor = valor.replace("."," ");
+        String separador [] = valor.split(" ");
+        if (separador[1].length()==1) {
+            separador[1] = separador[1]+"0";
+        }
+        String retorno = "R$"+separador[0]+","+separador[1];
         return retorno;
     }
     
@@ -537,9 +536,7 @@ public class Controle {
     }
     
     public int pegaIdProduto(String nomeProduto){
-        
         int idProduto = 0;
-        
         try {
             PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_produto FROM produto WHERE nome_produto = ?");
             st.setString(1, nomeProduto);
@@ -553,9 +550,7 @@ public class Controle {
         catch (SQLException e) {
             e.printStackTrace();
         }
-    
         return idProduto;
-        
     }
     
     public int getCont() {
