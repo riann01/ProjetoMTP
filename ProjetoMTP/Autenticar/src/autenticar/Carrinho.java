@@ -380,14 +380,17 @@ public class Carrinho extends javax.swing.JFrame {
 
     private void painelCarrinho2MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelCarrinho2MouseMoved
         atualizaItens(idUsuario);
+        mostraTotal(idUsuario);
     }//GEN-LAST:event_painelCarrinho2MouseMoved
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
         this.revalidate();
+        mostraTotal(idUsuario);
     }//GEN-LAST:event_formMouseMoved
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
         atualizaItens(idUsuario);
+        mostraTotal(idUsuario);
     }//GEN-LAST:event_formMouseEntered
 
     private void labelFinalizarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFinalizarCompraMouseClicked

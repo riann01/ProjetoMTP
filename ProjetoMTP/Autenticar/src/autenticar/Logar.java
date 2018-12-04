@@ -1,5 +1,6 @@
 package autenticar;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
@@ -12,12 +13,37 @@ public class Logar extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
+    
     public Logar() {
         initComponents();
         getContentPane().setBackground(Color.WHITE);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
+    
+    public void logar() {
+        Controle controle = new Controle();
+        String senha1 = new String(senha.getPassword());
+        controle.controleLogin(login.getText(), senha1);
+        if((controle.validoLogin() == true) && (controle.administrador()==true)) {
+            JOptionPane.showMessageDialog(null , controle.retornaMensagem());
+            this.dispose();
+            new TelaInicial(controle.retornaId(), controle.administrador());
+        }
+        else {
+            if(controle.validoLogin() == true){
+                controle.getNome(controle.retornaId());
+                controle.getId(login.getText());
+                JOptionPane.showMessageDialog(null , controle.retornaMensagem());
+                this.dispose();
+                new TelaInicial(controle.retornaId(), controle.administrador());
+            }
+            else {
+               JOptionPane.showMessageDialog(null , controle.retornaMensagem() , "Erro" , JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -35,9 +61,21 @@ public class Logar extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/SLFLOGO.png"))); // NOI18N
 
+        login.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                loginKeyPressed(evt);
+            }
+        });
+
         jLabel2.setText("E-mail");
 
         jLabel3.setText("Senha");
+
+        senha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                senhaKeyPressed(evt);
+            }
+        });
 
         jButton1.setText("Entrar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -104,34 +142,25 @@ public class Logar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Controle controle = new Controle();
-        String senha1 = new String(senha.getPassword());
-        controle.controleLogin(login.getText(), senha1);
-        
-        if((controle.validoLogin() == true) && (controle.administrador()==true)) {
-            JOptionPane.showMessageDialog(null , controle.retornaMensagem());
-            this.dispose();
-            new TelaInicial(controle.retornaId(), controle.administrador());
-        }
-        else {
-            if(controle.validoLogin() == true){
-                controle.getNome(controle.retornaId());
-                controle.getId(login.getText());
-                JOptionPane.showMessageDialog(null , controle.retornaMensagem());
-                this.dispose();
-                new TelaInicial(controle.retornaId(), controle.administrador());
-            }
-            else {
-               JOptionPane.showMessageDialog(null , controle.retornaMensagem() , "Erro" , JOptionPane.ERROR_MESSAGE); 
-            }
-        }
+        logar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new FazerLogin();
-        //new Controle().mostraNome();
         this.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void senhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_senhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            logar();
+        }
+    }//GEN-LAST:event_senhaKeyPressed
+
+    private void loginKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_loginKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            logar();
+        }
+    }//GEN-LAST:event_loginKeyPressed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

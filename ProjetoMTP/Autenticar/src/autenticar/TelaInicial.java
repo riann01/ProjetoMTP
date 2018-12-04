@@ -23,6 +23,7 @@ import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.Font;
 import java.awt.FontFormatException;
+import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.ScrollPaneConstants;
 
@@ -222,6 +223,59 @@ public class TelaInicial extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
     }
+    
+    public void pesquisar() {
+        listaCategorias.clearSelection();
+        jScrollPane2.revalidate();
+        painelConteudo.removeAll();
+        int contador = 0;
+        int controle1 = 500;
+        int contador1 = 0;
+        if (textFieldPesquisa.getText().equals("Pesquisar...")) {
+            JOptionPane.showMessageDialog(null, "Insira algum termo para pesquisar", "Barra de Pesquisa", JOptionPane.INFORMATION_MESSAGE);
+        }
+        else {
+            String pesquisa = "%"+textFieldPesquisa.getText()+"%";
+            labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
+            PreparedStatement st;
+            try {
+                st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
+                st.setString(1, pesquisa);
+                st.setString(2, pesquisa);
+                ResultSet rs = st.executeQuery();
+                while (rs.next()) {
+                    ++contador;
+                    contador1++;
+                    byte[] binario = rs.getBytes(5);
+                    InputStream is = new ByteArrayInputStream(binario);
+                    BufferedImage imag = ImageIO.read(is);
+                    Image image = imag;                    
+                    image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
+                    ImageIcon icon = new ImageIcon(image);
+                    Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
+                    painelConteudo.add(p);
+                    if(contador1%3==0){ 
+                        controle1 += 500;
+                    }
+                    painelConteudo.setPreferredSize(new Dimension(800,controle1));
+                }
+                rs.close();
+                st.close();
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            painelConteudo.revalidate();
+            if (contador==0) {
+
+            }
+            painelConteudo.revalidate();
+        }
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -408,6 +462,11 @@ public class TelaInicial extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 textFieldPesquisaFocusLost(evt);
+            }
+        });
+        textFieldPesquisa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textFieldPesquisaKeyPressed(evt);
             }
         });
 
@@ -659,55 +718,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel2MouseClicked
 
     private void botaoIrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoIrActionPerformed
-        listaCategorias.clearSelection();
-        jScrollPane2.revalidate();
-        painelConteudo.removeAll();
-        int contador = 0;
-        int controle1 = 500;
-        int contador1 = 0;
-        if (textFieldPesquisa.getText().equals("Pesquisar...")) {
-            JOptionPane.showMessageDialog(null, "Insira algum termo para pesquisar", "Barra de Pesquisa", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
-            String pesquisa = "%"+textFieldPesquisa.getText()+"%";
-            labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
-            PreparedStatement st;
-            try {
-                st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
-                st.setString(1, pesquisa);
-                st.setString(2, pesquisa);
-                ResultSet rs = st.executeQuery();
-                while (rs.next()) {
-                    ++contador;
-                    contador1++;
-                    byte[] binario = rs.getBytes(5);
-                    InputStream is = new ByteArrayInputStream(binario);
-                    BufferedImage imag = ImageIO.read(is);
-                    Image image = imag;                    
-                    image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
-                    ImageIcon icon = new ImageIcon(image);
-                    Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
-                    painelConteudo.add(p);
-                    if(contador1%3==0){ 
-                        controle1 += 500;
-                    }
-                    painelConteudo.setPreferredSize(new Dimension(800,controle1));
-                }
-                rs.close();
-                st.close();
-            }
-            catch (SQLException e) {
-                e.printStackTrace();
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            painelConteudo.revalidate();
-            if (contador==0) {
-
-            }
-            painelConteudo.revalidate();
-        }
+        pesquisar();
     }//GEN-LAST:event_botaoIrActionPerformed
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
@@ -774,12 +785,13 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_textFieldPesquisaFocusLost
 
+    private void textFieldPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFieldPesquisaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            pesquisar();
+        }
+    }//GEN-LAST:event_textFieldPesquisaKeyPressed
+
     public static void main(String args[]) throws IllegalAccessException {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -794,7 +806,6 @@ public class TelaInicial extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
     }
     public javax.swing.JPanel getPainel () {
         return this.painelConteudo;
