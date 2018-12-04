@@ -146,10 +146,8 @@ public class Carrinho extends javax.swing.JFrame {
         catch (SQLException e) {
             e.printStackTrace();
         }
-        this.valorTotalGlobal = total;
-        String valorTotal = "R$"+String.valueOf(this.valorTotalGlobal).replace(".", ",");
-        
-        precoTotal.setText(valorTotal);
+        this.valorTotalGlobal = total;        
+        precoTotal.setText(new Controle().retornaValorFormatado(String.valueOf(this.valorTotalGlobal)));
     }
 
     public void mudaNomeLabel (int idUser) {

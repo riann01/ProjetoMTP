@@ -17,6 +17,8 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.io.FileNotFoundException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Controle {
     String mensagem;
@@ -154,6 +156,8 @@ public class Controle {
                     nome1 = rs.getString(1);
                 }  
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
@@ -326,12 +330,8 @@ public class Controle {
     }
         
     public String retornaValorFormatado (String valor) {
-        valor = valor.replace("."," ");
-        String separador [] = valor.split(" ");
-        if (separador[1].length()==1) {
-            separador[1] = separador[1]+"0";
-        }
-        String retorno = "R$"+separador[0]+","+separador[1];
+        NumberFormat formatoReal = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        String retorno = String.valueOf(formatoReal.format(Float.parseFloat(valor)));
         return retorno;
     }
     

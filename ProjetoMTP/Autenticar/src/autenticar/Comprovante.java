@@ -311,7 +311,6 @@ public class Comprovante extends javax.swing.JFrame {
     }
     
     public void preencherTabela (int idUsuario, int idPedido, int operacao) {
-        Conexao conn = new Conexao();
         try {
             if (operacao==1) {
                 PreparedStatement st = conn.getConnection().prepareStatement("SELECT id_pedido, data, valor_total FROM pedido WHERE id_pessoa = ?");
@@ -404,7 +403,8 @@ public class Comprovante extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-
+    
+    Conexao conn = new Conexao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
     private javax.swing.JLabel cabecalho;
