@@ -50,7 +50,7 @@ public class Carrinho extends javax.swing.JFrame {
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1));
+                ProdutoCarrinho p = new ProdutoCarrinho(rs.getInt(1), idUsuario);
                 controle1 += 170;
                 painelCarrinho2.add(p);
                 painelCarrinho2.setPreferredSize(new Dimension(700, controle1));
