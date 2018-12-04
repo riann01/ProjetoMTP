@@ -29,6 +29,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         mudarFonte();
         setBackground(Color.WHITE);
         setVisible(true);
+        this.setFocusable(false);
         idDaPessoa = idPessoa;
         idDoProduto = idProduto;
         float precoTotal = 0;

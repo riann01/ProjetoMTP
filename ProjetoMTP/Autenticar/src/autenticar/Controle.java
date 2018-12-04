@@ -148,16 +148,16 @@ public class Controle {
     
     public String mostraNome (int idUsuario) {
         String nome1 = new String();
-        Conexao conexao = new Conexao();
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
+            st = conexao.getConnection().prepareStatement("SELECT nome FROM pessoa WHERE id_pessoa = ?");
+            st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                if (rs.getInt(2)==idUsuario) {
-                    nome1 = rs.getString(1);
-                }  
+            if (rs.next()) {
+                nome1 = rs.getString(1);
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);

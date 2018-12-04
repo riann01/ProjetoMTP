@@ -135,7 +135,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         labelAtualizarProduto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelAtualizarProduto.setText("CADASTRAR PRODUTOS");
 
-        botaoCadastrar.setText("Atualizar");
+        botaoCadastrar.setText("Cadastrar");
         botaoCadastrar.setActionCommand("");
         botaoCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
