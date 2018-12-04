@@ -50,7 +50,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                 labelImagem.setIcon(icon);
                 int catego = rs.getInt(6);
                 cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
-                cbCategoria.setSelectedIndex(7-catego);
+                cbCategoria.setSelectedIndex(pegaIndexCategoria(idDoProduto));
             }
         }
         catch (SQLException e) {
@@ -124,6 +124,30 @@ public class AtualizarProdutos extends javax.swing.JFrame {
             return true;
         }
         return false;
+    }
+    
+    public int pegaIndexCategoria(int idProduto) {
+        String nomeCategoria = "";
+        int index = 0;
+        try {
+            PreparedStatement st = this.connection.getConnection().prepareStatement("SELECT C.nome_categoria FROM produto AS P JOIN categoria AS C ON P.id_categoria = C.id_categoria WHERE P.id_produto = ?");
+            st.setInt(1, idProduto);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                nomeCategoria = rs.getString(1);
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < cbCategoria.getItemCount(); i++) {
+            if(new Controle().pegaModeloCatGerenciador()[i].equals(nomeCategoria)) {
+                index = i;
+            }
+        }
+        return index;
     }
     
     @SuppressWarnings("unchecked")
