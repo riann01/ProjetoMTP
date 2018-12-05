@@ -311,99 +311,83 @@ public class Comprovante extends javax.swing.JFrame {
     }
     
     public void preencherTabela (int idUsuario, int idPedido, int operacao) {
+        if (operacao==1) {
+            pegaDadosPedido(idUsuario, idPedido);
+            pegaDadosPessoais(idUsuario);
+            preencheDemaisDados(idUsuario, idPedido);
+        }
+        else {
+            labelInfo.setVisible(false);
+            pegaDadosPessoais(idUsuario);
+            pegaDadosPedido(idUsuario, idPedido);
+            preencheDemaisDados(idUsuario, idPedido);
+        }        
+    }
+    
+    public void pegaDadosPessoais(int idUsuario) {
         try {
-            if (operacao==1) {
-                PreparedStatement st = conn.getConnection().prepareStatement("SELECT id_pedido, data, valor_total FROM pedido WHERE id_pessoa = ?");
-                st.setInt(1, idUsuario);
-                ResultSet rs = st.executeQuery();
-                while(rs.next()) {
-                    labelNo.setText(new Controle().tratarNumeroPedido(rs.getInt(1)));
-                    labelData.setText(String.valueOf(rs.getDate(2)).replace("-", "/"));
-                    labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(3))));
+            PreparedStatement st = conn.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
+            st.setInt(1, idUsuario);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                labelCliente.setText(rs.getString(1));
+                labelEmail.setText(rs.getString(2));
+                labelEndereco.setText(rs.getString(3)+", "+rs.getString(4));
+                if (rs.getString(5).equals("M")) {
+                    labelSexo.setText("Masculino");
                 }
-                rs.close();
-                st.close();
-                st = conn.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
-                st.setInt(1, idUsuario);
-                rs = st.executeQuery();
-                while (rs.next()) {
-                    labelCliente.setText(rs.getString(1));
-                    labelEmail.setText(rs.getString(2));
-                    labelEndereco.setText(rs.getString(3)+", "+rs.getString(4));
-                    if (rs.getString(5).equals("M")) {
-                        labelSexo.setText("Masculino");
-                    }
-                    else {
-                        labelSexo.setText("Feminino");
-                    }
+                else {
+                    labelSexo.setText("Feminino");
                 }
-                rs.close();
-                st.close();
-                String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
-                query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
-                st = conn.getConnection().prepareStatement(query);
-                rs = st.executeQuery();
-                while (rs.next()) {
-                    if (rs.getInt(1)==idPedido) {
-                        if(rs.getInt(2)==idUsuario) {
-                            DefaultTableModel tabelaComprovanteModel = (DefaultTableModel) tabelaComprovante.getModel();
-                            tabelaComprovanteModel.addRow(new String[] {rs.getString(4),new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(5))), String.valueOf(rs.getInt(3)), new Controle().retornaValorFormatado(String.valueOf(((float)rs.getInt(3))*rs.getFloat(5)))});
-                        }
-                    }
-                }
-                rs.close();
-                st.close();
             }
-            else {
-                labelInfo.setVisible(false);
-                PreparedStatement st = conn.getConnection().prepareStatement("SELECT data, valor_total FROM pedido WHERE id_pessoa = ? AND id_pedido = ?");
-                st.setInt(1, idUsuario);
-                st.setInt(2, idPedido);
-                ResultSet rs = st.executeQuery();
-                while(rs.next()) {
-                    labelNo.setText(new Controle().tratarNumeroPedido(idPedido));
-                    labelData.setText(String.valueOf(rs.getDate(1)).replace("-", "/"));
-                    labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(2))));
-                }
-                rs.close();
-                st.close();
-                st = conn.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
-                st.setInt(1, idUsuario);
-                rs = st.executeQuery();
-                while (rs.next()) {
-                    labelCliente.setText(rs.getString(1));
-                    labelEmail.setText(rs.getString(2));
-                    labelEndereco.setText(rs.getString(3)+", "+rs.getString(4));
-                    if (rs.getString(5).equals("M")) {
-                        labelSexo.setText("Masculino");
-                    }
-                    else {
-                        labelSexo.setText("Feminino");
-                    }
-                }
-                rs.close();
-                st.close();
-                String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
-                query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
-                st = conn.getConnection().prepareStatement(query);
-                rs = st.executeQuery();
-                while (rs.next()) {
-                    if (rs.getInt(1)==idPedido) {
-                        if(rs.getInt(2)==idUsuario) {
-                            DefaultTableModel tabelaComprovanteModel = (DefaultTableModel) tabelaComprovante.getModel();
-                            tabelaComprovanteModel.addRow(new String[] {rs.getString(4),new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(5))), String.valueOf(rs.getInt(3)), new Controle().retornaValorFormatado(String.valueOf(((float)rs.getInt(3))*rs.getFloat(5)))});
-                        }
-                    }
-                }
-                rs.close();
-                st.close();
-            }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
         }
     }
     
+    public void pegaDadosPedido (int idUsuario, int idPedido) {
+        try {
+            PreparedStatement st = conn.getConnection().prepareStatement("SELECT data, valor_total FROM pedido WHERE id_pessoa = ? AND id_pedido = ?");
+            st.setInt(1, idUsuario);
+            st.setInt(2, idPedido);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                labelNo.setText(new Controle().tratarNumeroPedido(idPedido));
+                labelData.setText(String.valueOf(rs.getDate(1)).replace("-", "/"));
+                labelValor.setText(new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(2))));
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void preencheDemaisDados (int idUsuario, int idPedido) {
+        try {
+            String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
+            query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
+            PreparedStatement st = conn.getConnection().prepareStatement(query);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                if (rs.getInt(1)==idPedido) {
+                    if(rs.getInt(2)==idUsuario) {
+                        DefaultTableModel tabelaComprovanteModel = (DefaultTableModel) tabelaComprovante.getModel();
+                        tabelaComprovanteModel.addRow(new String[] {rs.getString(4),new Controle().retornaValorFormatado(String.valueOf(rs.getFloat(5))), String.valueOf(rs.getInt(3)), new Controle().retornaValorFormatado(String.valueOf(((float)rs.getInt(3))*rs.getFloat(5)))});
+                    }
+                }
+            }
+            rs.close();
+            st.close();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     Conexao conn = new Conexao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;

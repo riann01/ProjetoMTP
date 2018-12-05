@@ -60,10 +60,9 @@ public class TelaInicial extends javax.swing.JFrame {
         botaoIr.requestFocus();
         inserirModelo();
         listaCategorias.setSelectedIndex(0);
-        jScrollPane2.setWheelScrollingEnabled(true);
         jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
-        //new Propaganda ();
     }
+    
     public void deletarDoCarrinho () {
         try {
             PreparedStatement st;
@@ -75,6 +74,7 @@ public class TelaInicial extends javax.swing.JFrame {
             e.printStackTrace();
         } 
     }
+    
     public void atualizaItens (int idPessoa) {
         cont = 0;
         try {
@@ -812,7 +812,6 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     Controle controle = new Controle();
     private ImageIcon carrinho;
-    private Font font;
     Conexao conexao = new Conexao();
     int idUsuario;
     int cont = 0;

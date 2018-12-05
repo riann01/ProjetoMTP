@@ -53,6 +53,8 @@ public class Controle {
                     T = false;
                 }
             }
+            rs.close();
+            stmt.close();
         }
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -96,6 +98,8 @@ public class Controle {
                     }
                 }
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
@@ -136,6 +140,8 @@ public class Controle {
                     setFoto(icon);
                 }
             }
+            st.close();
+            rs.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -175,6 +181,8 @@ public class Controle {
             while (rs.next()) {
                 this.idUsuario = rs.getInt("id_pessoa");
             }
+            rs.close();
+            stmt.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -190,6 +198,8 @@ public class Controle {
             while (rs.next()) {
                 setNome(rs.getString("nome"));
             }
+            rs.close();
+            stmt.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -223,6 +233,8 @@ public class Controle {
             while (rs.next()) {                
                 ++this.cont;
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -239,6 +251,8 @@ public class Controle {
             if(rs.next()) {
                 id_categoria = rs.getInt(1);
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -254,6 +268,8 @@ public class Controle {
             while(rs.next()) {
                 model = model+"/"+rs.getString(1);
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -270,6 +286,8 @@ public class Controle {
             while(rs.next()) {
                 model = rs.getString(1)+"/"+model;
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -411,6 +429,8 @@ public class Controle {
                 if (rs.next()) {
                     idCategoria = rs.getInt(1);
                 }
+                rs.close();
+                st.close();
                 st = this.conexao.getConnection().prepareStatement("UPDATE categoria SET nome_categoria = ? WHERE id_categoria = ?");
                 st.setString(1, novoNomeCategoria);
                 st.setInt(2, idCategoria);
@@ -432,6 +452,8 @@ public class Controle {
             while(rs.next()) {
                 model = rs.getString(1)+"/"+model;
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -442,7 +464,6 @@ public class Controle {
     
     public String [] pegaModeloPedido(int idPessoa) {
         String model = "";
-        
         try {
             PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_pedido, data FROM pedido WHERE id_pessoa = ?");
             st.setInt(1, idPessoa);
@@ -451,6 +472,8 @@ public class Controle {
                 model = tratarNumeroPedido(Integer.parseInt(rs.getString(1)))+" - Data: "+String.valueOf(rs.getDate(2))+"/"+model;
                 modelo = rs.getString(1)+"/"+model;
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();

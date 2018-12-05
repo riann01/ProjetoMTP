@@ -41,6 +41,8 @@ public class PainelAdmin extends javax.swing.JFrame {
             if (rs.next()) {
                 T = rs.getBoolean(1);
             }
+            rs.close();
+            ps.close();
         }
         catch (SQLException e) {
             e.printStackTrace();

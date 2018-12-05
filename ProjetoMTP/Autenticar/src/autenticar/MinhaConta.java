@@ -17,20 +17,20 @@ public class MinhaConta extends javax.swing.JFrame {
     
     public MinhaConta(int idUsuario) {
         initComponents();
+        Controle ctr = new Controle();
         mudarFonte();
         idDoUsuario = idUsuario;
         this.setVisible(true);
         getContentPane().setBackground(Color.WHITE);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         this.setLocationRelativeTo(null);
-        String separador [] = (new Controle().mostraNome(idUsuario)).split(" ");
+        String separador [] = ((ctr.mostraNome(idUsuario)).split(" "));
         if (new Controle().pegaSexo(idUsuario).equals("M")) {
             labelTitulo.setText("Configurações da Conta do "+separador[0]);
         }
         else {
             labelTitulo.setText("Configurações da Conta da "+separador[0]);
         }
-        
     }
     
     public void mudarFonte() {
@@ -50,6 +50,8 @@ public class MinhaConta extends javax.swing.JFrame {
             if (rs.next()) {
                 T = rs.getBoolean(1);
             }
+            rs.close();
+            ps.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -195,7 +197,7 @@ public class MinhaConta extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-    private Conexao conn = new Conexao();
+    Conexao conn = new Conexao();
     private int idDoUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
