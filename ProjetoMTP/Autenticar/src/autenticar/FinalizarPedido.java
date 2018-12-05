@@ -33,7 +33,7 @@ public class FinalizarPedido extends javax.swing.JFrame {
        
     public void iniciarTela () {
         try {
-            PreparedStatement st = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
             st.setInt(1, idUsuario2);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
@@ -186,7 +186,7 @@ public class FinalizarPedido extends javax.swing.JFrame {
     private String nome1;
     private int idUsuario2;
     Controle ctr = new Controle();
-    Conexao conexao = new Conexao();
+    //Conexao conexao = new Conexao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel labelComprovante;

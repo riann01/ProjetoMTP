@@ -17,12 +17,13 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.io.FileNotFoundException;
+import java.sql.Connection;
 import java.text.NumberFormat;
 import java.util.Locale;
 
 public class Controle {
     String mensagem;
-    Conexao conexao;
+    //Connection conexao;
     boolean teste = false;
     boolean loginTeste = false;
     boolean administradorTeste = false;
@@ -35,13 +36,13 @@ public class Controle {
     private String modelo = "";
     
     public Controle() {
-        conexao = new Conexao();
+        //conexao = Conexao.getConnection();
     }
     
     public boolean ConsultarExistenteEmail(String email) {
         boolean T = false;
         try {
-            PreparedStatement stmt = conexao.getConnection().prepareStatement("SELECT * FROM pessoa WHERE email = ?");
+            PreparedStatement stmt = Conexao.getConnection().prepareStatement("SELECT * FROM pessoa WHERE email = ?");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -55,6 +56,7 @@ public class Controle {
             }
             rs.close();
             stmt.close();
+
         }
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -76,7 +78,7 @@ public class Controle {
             teste = false;
         } 
         else {
-            conexao.inserir(nome, senha, email, local, endereco, foto, sexoSelecao);
+            Conexao.inserir(nome, senha, email, local, endereco, foto, sexoSelecao);
             mensagem = new String("Cadastrado com sucesso");
             teste = true;
         }
@@ -85,7 +87,7 @@ public class Controle {
     public void controleLogin(String login, String senha) {
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT email, senha, administrador, id_pessoa FROM pessoa");
+            st = Conexao.getConnection().prepareStatement("SELECT email, senha, administrador, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             mensagem = new String("Email ou senha incorretos!");
             while (rs.next()) {
@@ -110,7 +112,7 @@ public class Controle {
         PreparedStatement st;
         try {
             FileInputStream fis = new FileInputStream(foto);
-            st = conexao.getConnection().prepareStatement("UPDATE pessoa SET foto = ? WHERE id_pessoa = ?");
+            st = Conexao.getConnection().prepareStatement("UPDATE pessoa SET foto = ? WHERE id_pessoa = ?");
             st.setBinaryStream(1, fis, (int) foto.length());
             st.setInt(2, id);
             st.executeUpdate();
@@ -127,7 +129,7 @@ public class Controle {
     public void pegaFoto (int id) {
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT foto, id_pessoa FROM pessoa");
+            st = Conexao.getConnection().prepareStatement("SELECT foto, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (id==rs.getInt(2)) {
@@ -154,7 +156,7 @@ public class Controle {
     public String mostraNome (int idUsuario) {
         String nome1 = new String();
         try {
-            PreparedStatement st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(2)==idUsuario) {
@@ -174,7 +176,7 @@ public class Controle {
         String nome;
         PreparedStatement stmt;
         try {
-            stmt = conexao.getConnection().prepareStatement("SELECT id_pessoa FROM pessoa WHERE email = ?");
+            stmt = Conexao.getConnection().prepareStatement("SELECT id_pessoa FROM pessoa WHERE email = ?");
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -191,7 +193,7 @@ public class Controle {
     public void getNome (int id) {
         PreparedStatement stmt;
         try {
-            stmt = conexao.getConnection().prepareStatement("SELECT nome FROM pessoa WHERE id_pessoa = ?");
+            stmt = Conexao.getConnection().prepareStatement("SELECT nome FROM pessoa WHERE id_pessoa = ?");
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -208,7 +210,7 @@ public class Controle {
     public String pegaSexo (int idUsuario) {
         String sexo = "";
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT sexo FROM pessoa WHERE id_pessoa = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT sexo FROM pessoa WHERE id_pessoa = ?");
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -226,7 +228,7 @@ public class Controle {
     public void mostrarItens () {
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
+            st = Conexao.getConnection().prepareStatement("SELECT *FROM carrinho");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 ++this.cont;
@@ -243,7 +245,7 @@ public class Controle {
         String catCasting = String.valueOf(cat);
         int id_categoria = 0;
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
             st.setString(1, catCasting);
             ResultSet rs = st.executeQuery();
             if(rs.next()) {
@@ -261,7 +263,7 @@ public class Controle {
     public String [] pegaModeloCat() {
         String model = "Todos";
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
                 model = model+"/"+rs.getString(1);
@@ -279,7 +281,7 @@ public class Controle {
     public String [] pegaModeloCatGerenciador() {
         String model = "";
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome_categoria FROM categoria");
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
                 model = rs.getString(1)+"/"+model;
@@ -298,7 +300,7 @@ public class Controle {
         int quantidadeum = 0;
         float precoTotal = 0;
         try {
-            PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
+            PreparedStatement ps = Conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
             ps.setInt(1, idProduto);
             ps.setInt(2, idUsuario);
             ResultSet rs = ps.executeQuery();
@@ -307,7 +309,7 @@ public class Controle {
             }
             rs.close();
             ps.close();
-            ps = this.conexao.getConnection().prepareStatement("SELECT preco_venda FROM produto WHERE id_produto = ?");
+            ps = Conexao.getConnection().prepareStatement("SELECT preco_venda FROM produto WHERE id_produto = ?");
             ps.setInt(1, idProduto);
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -316,10 +318,10 @@ public class Controle {
             rs.close();
             ps.close();
             if (quantidadeum==0) {
-                conexao.inserirProdutoCarrinho(idUsuario, idProduto, quantidade);
+                Conexao.inserirProdutoCarrinho(idUsuario, idProduto, quantidade);
             }
             else {
-                ps = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = quantidade+? WHERE id_produto = ? AND id_pessoa = ?");
+                ps = Conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = quantidade+? WHERE id_produto = ? AND id_pessoa = ?");
                 ps.setInt(1, quantidade);
                 ps.setInt(2, idProduto);
                 ps.setInt(3, idUsuario);
@@ -353,7 +355,7 @@ public class Controle {
     
     public void insereCatergoria (String nomeCategoria) {
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("INSERT INTO categoria (nome_categoria) VALUES (?)");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("INSERT INTO categoria (nome_categoria) VALUES (?)");
             st.setString(1, nomeCategoria);
             st.executeUpdate();
             st.close();
@@ -371,7 +373,7 @@ public class Controle {
         String quantidadeCasting;
         String quantidade2 = "";
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
             st.setString(1, nomeCategoria);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -379,7 +381,7 @@ public class Controle {
             }
             rs.close();
             st.close();
-            st = this.conexao.getConnection().prepareStatement("SELECT nome_produto FROM produto WHERE id_categoria = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT nome_produto FROM produto WHERE id_categoria = ?");
             st.setInt(1, idCategoria);
             rs = st.executeQuery();
             while (rs.next()) {
@@ -404,7 +406,7 @@ public class Controle {
                 JOptionPane jp = new JOptionPane();
                 jp.showMessageDialog(null, "A categoria "+nomeCategoria+" será excluída, deseja continuar?", "Confirmar exclusão de categoria", JOptionPane.YES_NO_OPTION);
                 if(jp.getOptionType()==-1) {
-                    st = this.conexao.getConnection().prepareStatement("DELETE FROM categoria WHERE nome_categoria = ?");
+                    st = Conexao.getConnection().prepareStatement("DELETE FROM categoria WHERE nome_categoria = ?");
                     st.setString(1, nomeCategoria);
                     st.executeUpdate();
                     st.close();
@@ -421,7 +423,7 @@ public class Controle {
         int idCategoria = 0;
         if (!(novoNomeCategoria==null)) {
             try {
-                PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
+                PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT id_categoria FROM categoria WHERE nome_categoria = ?");
                 st.setString(1, nomeCategoria);
                 ResultSet rs = st.executeQuery();
                 if (rs.next()) {
@@ -429,7 +431,7 @@ public class Controle {
                 }
                 rs.close();
                 st.close();
-                st = this.conexao.getConnection().prepareStatement("UPDATE categoria SET nome_categoria = ? WHERE id_categoria = ?");
+                st = Conexao.getConnection().prepareStatement("UPDATE categoria SET nome_categoria = ? WHERE id_categoria = ?");
                 st.setString(1, novoNomeCategoria);
                 st.setInt(2, idCategoria);
                 st.executeUpdate();
@@ -445,7 +447,7 @@ public class Controle {
     public String [] pegaModeloProduto() {
         String model = "";
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT nome_produto FROM produto");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome_produto FROM produto");
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
                 model = rs.getString(1)+"/"+model;
@@ -463,7 +465,7 @@ public class Controle {
     public String [] pegaModeloPedido(int idPessoa) {
         String model = "";
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_pedido, data FROM pedido WHERE id_pessoa = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT id_pedido, data FROM pedido WHERE id_pessoa = ?");
             st.setInt(1, idPessoa);
             ResultSet rs = st.executeQuery();
             while(rs.next()) {
@@ -516,7 +518,7 @@ public class Controle {
         int contPedido = 0;
         int idProduto = 0;
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_produto FROM produto WHERE nome_produto = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT id_produto FROM produto WHERE nome_produto = ?");
             st.setString(1, nomeProduto);
             ResultSet rs = st.executeQuery();
             if(rs.next()) {
@@ -524,7 +526,7 @@ public class Controle {
             }
             rs.close();
             st.close();
-            st = this.conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_produto = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_produto = ?");
             st.setInt(1, idProduto);
             rs = st.executeQuery();
             while (rs.next()) {
@@ -532,7 +534,7 @@ public class Controle {
             }
             rs.close();
             st.close();
-            st = this.conexao.getConnection().prepareStatement("SELECT * FROM pedido_produto WHERE id_produto = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT * FROM pedido_produto WHERE id_produto = ?");
             st.setInt(1, idProduto);
             rs = st.executeQuery();
             while (rs.next()) {
@@ -541,7 +543,7 @@ public class Controle {
             rs.close();
             st.close();
             if (contPedido==0 && contCarrinho==0) {
-                st = this.conexao.getConnection().prepareStatement("DELETE FROM produto WHERE id_produto = ?");
+                st = Conexao.getConnection().prepareStatement("DELETE FROM produto WHERE id_produto = ?");
                 st.setInt(1, idProduto);
                 st.executeUpdate();
                 st.close();
@@ -559,7 +561,7 @@ public class Controle {
     public int pegaIdProduto(String nomeProduto){
         int idProduto = 0;
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT id_produto FROM produto WHERE nome_produto = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT id_produto FROM produto WHERE nome_produto = ?");
             st.setString(1, nomeProduto);
             ResultSet rs = st.executeQuery();
             if(rs.next()) {

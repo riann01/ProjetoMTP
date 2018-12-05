@@ -13,8 +13,8 @@ import java.util.Properties;
 public class Conexao {
     private String url = "jdbc:postgresql://localhost/mtp";
     private String usuario = "postgres";
-    private String senha = "postgres";
-    private Connection conn;
+    private String senha = "ifg";
+    private static Connection conn;
     
     public Conexao() {
         conectar();
@@ -38,14 +38,14 @@ public class Conexao {
         }
     }
 	
-    public Connection getConnection() {
-        return this.conn;
+    public static Connection getConnection() {
+        return conn;
     }
 	
-    public void inserir(String nome, String senha, String email, String cidade, String endereco, File foto, String sexo) {
+    public static void inserir(String nome, String senha, String email, String cidade, String endereco, File foto, String sexo) {
         try {
             FileInputStream fis = new FileInputStream(foto);
-            PreparedStatement st = this.conn.prepareStatement("INSERT INTO pessoa (nome, email, cidade_estado, endereco, senha, administrador, foto, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO pessoa (nome, email, cidade_estado, endereco, senha, administrador, foto, sexo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
             st.setString(1, nome);
             st.setString(2, email);
             st.setString(3, cidade);
@@ -69,10 +69,10 @@ public class Conexao {
         }
     }
         
-    public void inserirProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo, int id_categoria) {
+    public static void inserirProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo, int id_categoria) {
         try {
             FileInputStream fis = new FileInputStream(arquivo);
-            PreparedStatement st = this.conn.prepareStatement("INSERT INTO produto (nome_produto, descricao, preco_custo, preco_venda, foto, id_categoria) VALUES (?, ?, ?, ?, ?, ?)");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO produto (nome_produto, descricao, preco_custo, preco_venda, foto, id_categoria) VALUES (?, ?, ?, ?, ?, ?)");
             st.setString(1, nome);
             st.setString(2, descricao);
             st.setFloat(3, preco_custo);
@@ -90,10 +90,10 @@ public class Conexao {
         }
     }
     
-     public void atualizarProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo, int id_categoria, int id_produto) {
+     public static void atualizarProduto(String nome, String descricao, Float preco_custo, Float preco_venda, File arquivo, int id_categoria, int id_produto) {
         try {
             FileInputStream fis = new FileInputStream(arquivo);
-            PreparedStatement st = this.conn.prepareStatement("UPDATE produto SET nome_produto = ?, descricao = ?, preco_custo = ?, preco_venda = ?, foto = ?, id_categoria = ? WHERE id_produto = ?");
+            PreparedStatement st = conn.prepareStatement("UPDATE produto SET nome_produto = ?, descricao = ?, preco_custo = ?, preco_venda = ?, foto = ?, id_categoria = ? WHERE id_produto = ?");
             st.setString(1, nome);
             st.setString(2, descricao);
             st.setFloat(3, preco_custo);
@@ -112,9 +112,9 @@ public class Conexao {
         }
     }
         
-    public void inserirProdutoCarrinho(int idUsuario, int idProduto, int quantidade) {
+    public static void inserirProdutoCarrinho(int idUsuario, int idProduto, int quantidade) {
         try {
-            PreparedStatement st = this.conn.prepareStatement("INSERT INTO carrinho (id_pessoa, id_produto, quantidade) VALUES (?, ?, ?)");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO carrinho (id_pessoa, id_produto, quantidade) VALUES (?, ?, ?)");
             st.setInt(1, idUsuario);
             st.setInt(2, idProduto);   
             st.setInt(3, quantidade);
@@ -126,9 +126,9 @@ public class Conexao {
         }
     }
 	
-    public void atualizar(int id, String nome, String cidade, String endereco, String senha) {
+    public static void atualizar(int id, String nome, String cidade, String endereco, String senha) {
         try {
-            PreparedStatement st = this.conn.prepareStatement("UPDATE pessoa SET nome = ?, cidade_estado = ?, endereco = ?, senha = ? WHERE id_pessoa = ?");
+            PreparedStatement st = conn.prepareStatement("UPDATE pessoa SET nome = ?, cidade_estado = ?, endereco = ?, senha = ? WHERE id_pessoa = ?");
             st.setString(1, nome);
             st.setString(2, cidade);
             st.setString(3, endereco);

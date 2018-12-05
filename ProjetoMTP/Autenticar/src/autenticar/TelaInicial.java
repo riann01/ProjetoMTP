@@ -66,8 +66,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public void deletarDoCarrinho () {
         try {
             PreparedStatement st;
-            Conexao conn = new Conexao();
-            st = conn.getConnection().prepareStatement("DELETE FROM carrinho");
+            st = Conexao.getConnection().prepareStatement("DELETE FROM carrinho");
             st.executeUpdate();
             st.close();
         } catch (SQLException e) {
@@ -78,7 +77,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public void atualizaItens (int idPessoa) {
         cont = 0;
         try {
-            PreparedStatement st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_pessoa = ?;");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_pessoa = ?;");
             st.setInt(1, idPessoa);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
@@ -95,7 +94,7 @@ public class TelaInicial extends javax.swing.JFrame {
     public void insereCategorias () {
         boolean T = false;
         try {
-            PreparedStatement ps = this.conexao.getConnection().prepareStatement("SELECT criar_categorias FROM verificador");
+            PreparedStatement ps = Conexao.getConnection().prepareStatement("SELECT criar_categorias FROM verificador");
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 T = rs.getBoolean(1);
@@ -116,7 +115,7 @@ public class TelaInicial extends javax.swing.JFrame {
             insert = insert+"INSERT INTO categoria (nome_categoria) VALUES ('TV e vídeo');";
             insert = insert+"INSERT INTO verificador (criar_categorias) VALUES ('true')";
             try {
-                PreparedStatement ps = this.conexao.getConnection().prepareStatement(insert);
+                PreparedStatement ps = Conexao.getConnection().prepareStatement(insert);
                 ps.executeUpdate();
                 ps.close();
             }
@@ -131,7 +130,7 @@ public class TelaInicial extends javax.swing.JFrame {
         int contador1 = 0;
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE id_categoria = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE id_categoria = ?");
             st.setInt(1,id_categoria);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
@@ -160,10 +159,9 @@ public class TelaInicial extends javax.swing.JFrame {
     public void mostrarTodosOsItens() {
         int controle1 = 440;
         int contador1 = 0;
-        Conexao conexao = new Conexao();
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto");
+            st = Conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {                
                 contador1++;
@@ -239,7 +237,7 @@ public class TelaInicial extends javax.swing.JFrame {
             labelMostrandoAgora.setText("Mostrando Resultados da Pesquisa para \""+textFieldPesquisa.getText()+"\"");
             PreparedStatement st;
             try {
-                st = conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
+                st = Conexao.getConnection().prepareStatement("SELECT id_produto, nome_produto, descricao, preco_venda, foto FROM produto WHERE nome_produto ilike ? OR descricao ilike ?");
                 st.setString(1, pesquisa);
                 st.setString(2, pesquisa);
                 ResultSet rs = st.executeQuery();
@@ -737,9 +735,9 @@ public class TelaInicial extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseMoved
 
     private void listaCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaCategoriasValueChanged
-        painelConteudo.revalidate();
         painelConteudo.removeAll();
-        painelConteudo.revalidate();
+//        painelConteudo.revalidate();
+       // painelConteudo.invalidate();
         if (listaCategorias.getSelectedValue()!=null) {
             if (listaCategorias.getSelectedValue().equals("Todos")) {
                 mostrarTodosOsItens();
@@ -748,9 +746,10 @@ public class TelaInicial extends javax.swing.JFrame {
             else {
                 mostrarCategoria(new Controle().pegaIdCategorias(listaCategorias.getSelectedValue()));
                 labelMostrandoAgora.setText("Mostrando "+listaCategorias.getSelectedValue());
-                painelConteudo.revalidate();
+                //painelConteudo.revalidate();
             }
         }
+        painelConteudo.validate();
     }//GEN-LAST:event_listaCategoriasValueChanged
 
     private void formMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseEntered
@@ -812,7 +811,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     Controle controle = new Controle();
     private ImageIcon carrinho;
-    Conexao conexao = new Conexao();
+    //Conexao conexao = new Conexao();
     int idUsuario;
     int cont = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
