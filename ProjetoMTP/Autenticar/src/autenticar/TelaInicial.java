@@ -53,6 +53,7 @@ public class TelaInicial extends javax.swing.JFrame {
         inserirModelo();
         listaCategorias.setSelectedIndex(0);
         jScrollPane2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        jScrollPane2.getVerticalScrollBar().setUnitIncrement(20);
     }
     
     public void deletarDoCarrinho () {
