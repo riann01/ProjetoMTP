@@ -13,7 +13,7 @@ import java.util.Properties;
 public class Conexao {
     private String url = "jdbc:postgresql://localhost/mtp";
     private String usuario = "postgres";
-    private String senha = "ifg";
+    private String senha = "postgres";
     private static Connection conn;
     
     public Conexao() {
