@@ -44,7 +44,7 @@ public class MinhaConta extends javax.swing.JFrame {
     public boolean pegaBoolean (int idUsuario) {
         boolean T = false;
         try {
-            PreparedStatement ps = this.conn.getConnection().prepareStatement("SELECT administrador FROM pessoa WHERE id_pessoa = ?");
+            PreparedStatement ps = Conexao.getConnection().prepareStatement("SELECT administrador FROM pessoa WHERE id_pessoa = ?");
             ps.setInt(1 , idUsuario);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -197,7 +197,7 @@ public class MinhaConta extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-    Conexao conn = new Conexao();
+    
     private int idDoUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;

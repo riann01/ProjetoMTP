@@ -36,7 +36,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         PreparedStatement st;
         
         try {
-            st = conexao.getConnection().prepareStatement("SELECT nome_produto, descricao, preco_venda, foto FROM produto WHERE id_produto = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT nome_produto, descricao, preco_venda, foto FROM produto WHERE id_produto = ?");
             st.setInt(1, idProduto);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {                
@@ -54,7 +54,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
             }
             rs.close();
             st.close();
-            st = conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ?");
             st.setInt(1, idProduto);
             rs = st.executeQuery();
             if (rs.next()) {
@@ -73,9 +73,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
     
     public void deletarDoCarrinho (int idProduto) {
         try {
-            PreparedStatement st;
-            Conexao conn = new Conexao();
-            st = conn.getConnection().prepareStatement("DELETE FROM carrinho WHERE id_produto = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("DELETE FROM carrinho WHERE id_produto = ?");
             st.setInt(1, idProduto);
             st.executeUpdate();
             st.close();
@@ -100,7 +98,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
     
     public void atualizaQuantidade(int idPessoa, int idProduto, int quantidade) {
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = ? WHERE id_pessoa = ? AND id_produto = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("UPDATE carrinho SET quantidade = ? WHERE id_pessoa = ? AND id_produto = ?");
             st.setInt(1, quantidade);
             st.setInt(2, idPessoa);
             st.setInt(3, idProduto);
@@ -115,7 +113,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
     public int pegaQuantidade (int idPessoa, int idProduto) {
         int quantidade = 0;
         try {
-            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
             st.setInt(1, idProduto);
             st.setInt(2, idPessoa);
             ResultSet rs = st.executeQuery();
@@ -253,9 +251,7 @@ public class ProdutoCarrinho extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tfQuantidadeKeyPressed
 
-    Conexao conexao = new Conexao();
     private int idDaPessoa;
-    private int quantidade;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JLabel labelDescricao;

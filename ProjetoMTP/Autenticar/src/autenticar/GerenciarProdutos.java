@@ -135,11 +135,6 @@ public class GerenciarProdutos extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        listProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                listProdutosMouseExited(evt);
-            }
-        });
         jScrollPane2.setViewportView(listProdutos);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 240, 240));
@@ -158,11 +153,17 @@ public class GerenciarProdutos extends javax.swing.JFrame {
     }//GEN-LAST:event_labelAdicionarProdutoMouseClicked
 
     private void labelAtualizarProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelAtualizarProdutoMouseClicked
-        if (listProdutos.getSelectedValue().equals("")) {
+        if (listProdutos.getSelectedValue()==null) {
             JOptionPane.showMessageDialog(null, "Por favor, selecione um produto da lista para atualizá-lo.", "Erro ao atualizar", JOptionPane.ERROR_MESSAGE);
         }
         else {
-            
+            int id = new Controle().pegaIdProduto(listProdutos.getSelectedValue());
+            try {
+                this.dispose();
+                new AtualizarProdutos(id, idDaPessoa);
+            } catch (IOException ex) {
+                Logger.getLogger(GerenciarProdutos.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }//GEN-LAST:event_labelAtualizarProdutoMouseClicked
 
@@ -210,10 +211,6 @@ public class GerenciarProdutos extends javax.swing.JFrame {
         this.dispose();
         new CadastrarProdutos(idDaPessoa);
     }//GEN-LAST:event_jLabel2MouseClicked
-
-    private void listProdutosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listProdutosMouseExited
-        
-    }//GEN-LAST:event_listProdutosMouseExited
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

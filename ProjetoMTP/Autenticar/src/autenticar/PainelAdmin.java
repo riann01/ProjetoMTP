@@ -32,10 +32,11 @@ public class PainelAdmin extends javax.swing.JFrame {
         botaoFechar.setFont(ctr.mudaFonte(14));
         labelGerenciarProdutos.setFont(ctr.mudaFonte(16));
     }
+    
     public boolean pegaBoolean (int idUsuario) {
         boolean T = false;
         try {
-            PreparedStatement ps = this.conn.getConnection().prepareStatement("SELECT administrador FROM pessoa WHERE id_pessoa = ?");
+            PreparedStatement ps = Conexao.getConnection().prepareStatement("SELECT administrador FROM pessoa WHERE id_pessoa = ?");
             ps.setInt(1 , idUsuario);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -49,6 +50,7 @@ public class PainelAdmin extends javax.swing.JFrame {
         }
         return T;
     }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -163,7 +165,7 @@ public class PainelAdmin extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
-    private Conexao conn = new Conexao();
+
     private int idDoUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botaoFechar;

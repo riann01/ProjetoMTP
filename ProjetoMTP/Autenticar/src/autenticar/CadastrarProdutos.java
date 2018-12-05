@@ -1,21 +1,14 @@
 package autenticar;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import java.awt.Color;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import javax.swing.UIManager;
 
 public class CadastrarProdutos extends javax.swing.JFrame {
@@ -324,15 +317,13 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                     JOptionPane jp = new JOptionPane ();
                     jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
                     if (jp.getOptionType()==-1) {
-                        Conexao conexao = new Conexao();
-                        conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                        Conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
                         this.dispose();
                         new GerenciarProdutos(idDoUsuario);
                     }
                 }
                 else {
-                    Conexao conexao = new Conexao();
-                    conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                    Conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
                     this.dispose();
                     new GerenciarProdutos(idDoUsuario);
                 }
@@ -393,7 +384,6 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         //</editor-fold>
     }
     
-    private Conexao connection = new Conexao();
     private int idDoUsuario;
     private JFileChooser fc;
     private File arquivo = new File ("Foto/SEM FOTO.png");

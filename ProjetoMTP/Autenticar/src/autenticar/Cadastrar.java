@@ -1,10 +1,15 @@
 package autenticar;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 
 public class Cadastrar extends javax.swing.JFrame {
     {        
@@ -30,7 +35,143 @@ public class Cadastrar extends javax.swing.JFrame {
     public void mudarFonte() {
         Controle ctr = new Controle();
         jLabel7.setFont(ctr.mudaFonte(36));
+        labelSexo.setFont(ctr.mudaFonte(12));
+        cbSexo.setFont(ctr.mudaFonte(12));
+        labelNome.setFont(ctr.mudaFonte(12));
+        nome.setFont(ctr.mudaFonte(12));
+        labelEmail.setFont(ctr.mudaFonte(12));
+        email.setFont(ctr.mudaFonte(12));
+        labelEndereco.setFont(ctr.mudaFonte(12));
+        endereco.setFont(ctr.mudaFonte(12));
+        labelCidade.setFont(ctr.mudaFonte(12));
+        cidade.setFont(ctr.mudaFonte(12));
+        labelSenha.setFont(ctr.mudaFonte(12));
+        senha.setFont(ctr.mudaFonte(12));
+        labelConfirma.setFont(ctr.mudaFonte(12));
+        confirmaSenha.setFont(ctr.mudaFonte(12));
+        btnCadastrar.setFont(ctr.mudaFonte(12));
+        btnCancelar.setFont(ctr.mudaFonte(12));
     }
+    
+    public String verificarNome() {
+        String msg = new String("");
+        if (nome.getText().equals("") || nome.getText().equals(" ")) {
+            msg = "O nome não pode ficar vazio";
+        }
+        else {
+            if (nome.getText().length()<10) {
+                msg = "Digite seu nome completo";
+            }
+        }
+        return msg;
+    }
+    
+    public String verificarEmail() {
+        boolean T = false;
+        String msg = new String("");
+        if (email.getText().equals("") || email.getText().equals(" ")) {
+            msg = "O email não pode ficar vazio";
+        }
+        else {
+            for (int i = 0; i < email.getText().length(); i++) {
+                if ((email.getText().charAt(i)=='@')){
+                    T = true;
+                    break;
+                }
+            }
+            if (email.getText().length()<10) {
+                msg = "Esse não parece ser um email válido";
+                T = false;
+            }
+        }
+        if (T) {
+            return "";
+        }
+        else {
+            return msg;
+        }
+    }
+    
+    public String verificarEndereco() {
+        String msg = new String("");
+        if (endereco.getText().equals("") || endereco.getText().equals(" ")) {
+            msg = "O endereço não pode ficar vazio";
+        }
+        else {
+            if (endereco.getText().length() < 8) {
+                msg = "Esse não parece um endereço válido";
+            }
+        }
+        return msg;
+    }
+    
+    public String verificarCidade() {
+        String msg = new String("");
+        if (cidade.getText().equals("") || cidade.getText().equals(" ")) {
+            msg = "A cidade não pode ficar vazia";
+        }
+        else {
+            if (cidade.getText().length() < 7) {
+                msg = "Esse não parece uma cidade válida";
+            }
+        }
+        return msg;
+    }
+    
+    public String verificarSenha() {
+        String msg = new String("");
+        if ((new String(senha.getPassword())).equals("") || new String(senha.getPassword()).equals(" ")) {
+            msg = "A senha não pode ficar vazia";
+        }
+        else {
+            if ((new String(senha.getPassword())).length() < 7) {
+                msg = "A senha deve ter pelo menos 7 caracteres";
+            }
+            else {
+                if (new String(confirmaSenha.getPassword()).equals("") || new String(confirmaSenha.getPassword()).equals(" ")) {
+                    msg = "Por favor, confirme a sua senha corretamente";
+                }
+                if (!(new String(confirmaSenha.getPassword()).equals(new String(senha.getPassword())))) {
+                    msg = "As senhas não conhecidem, por favor corrija";
+                }
+            }
+        }
+        return msg;
+    }
+    
+    public boolean validar() {
+        boolean T = true;
+        if (!(verificarNome().equals(""))) {
+            JOptionPane.showMessageDialog(null, verificarNome(), "Erro", JOptionPane.ERROR_MESSAGE);
+            T = false;
+        }
+        else {
+            if (!(verificarEmail().equals(""))) {
+                JOptionPane.showMessageDialog(null, verificarEmail(), "Erro", JOptionPane.ERROR_MESSAGE);
+                T = false;
+            }
+            else {
+                if (!(verificarEndereco().equals(""))) {
+                    JOptionPane.showMessageDialog(null, verificarEndereco(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    T = false;
+                }
+                else {
+                    if (!(verificarCidade().equals(""))) {
+                        JOptionPane.showMessageDialog(null, verificarCidade(), "Erro", JOptionPane.ERROR_MESSAGE);
+                        T = false;
+                    }
+                    else {
+                        if (!(verificarSenha().equals(""))) {
+                            JOptionPane.showMessageDialog(null, verificarSenha(), "Erro", JOptionPane.ERROR_MESSAGE);
+                            T = false;
+                        }
+                    }
+                }
+            }
+        }
+        return T;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -38,8 +179,8 @@ public class Cadastrar extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCadastrar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel7 = new javax.swing.JLabel();
         quadro_branco = new javax.swing.JLabel();
@@ -49,13 +190,13 @@ public class Cadastrar extends javax.swing.JFrame {
         email = new javax.swing.JTextField();
         senha = new javax.swing.JPasswordField();
         confirmaSenha = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        labelNome = new javax.swing.JLabel();
+        labelEmail = new javax.swing.JLabel();
+        labelCidade = new javax.swing.JLabel();
         cidade = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        endereco1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        labelSenha = new javax.swing.JLabel();
+        labelEndereco = new javax.swing.JLabel();
+        labelConfirma = new javax.swing.JLabel();
         endereco = new javax.swing.JTextField();
         nome = new javax.swing.JTextField();
         labelSexo = new javax.swing.JLabel();
@@ -71,17 +212,17 @@ public class Cadastrar extends javax.swing.JFrame {
         setIconImages(null);
         setResizable(false);
 
-        jButton1.setText("Cadastrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCadastrar.setText("Cadastrar");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -108,17 +249,17 @@ public class Cadastrar extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setText("Nome");
+        labelNome.setText("Nome");
 
-        jLabel3.setText("E-mail");
+        labelEmail.setText("E-mail");
 
-        jLabel4.setText("Cidade/Estado");
+        labelCidade.setText("Cidade/Estado");
 
-        jLabel5.setText("Senha");
+        labelSenha.setText("Senha");
 
-        endereco1.setText("Endereço");
+        labelEndereco.setText("Endereço");
 
-        jLabel6.setText("Confirmar Senha");
+        labelConfirma.setText("Confirmar Senha");
 
         labelSexo.setText("Sexo");
 
@@ -140,12 +281,12 @@ public class Cadastrar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelSexo)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(endereco1)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6))
+                            .addComponent(labelNome)
+                            .addComponent(labelEmail)
+                            .addComponent(labelEndereco)
+                            .addComponent(labelCidade)
+                            .addComponent(labelSenha)
+                            .addComponent(labelConfirma))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(confirmaSenha))
                 .addContainerGap())
@@ -158,27 +299,27 @@ public class Cadastrar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
+                .addComponent(labelNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
+                .addComponent(labelEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(endereco1)
+                .addComponent(labelEndereco)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(endereco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel4)
+                .addComponent(labelCidade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
+                .addComponent(labelSenha)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(senha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addComponent(labelConfirma)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(confirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -191,19 +332,18 @@ public class Cadastrar extends javax.swing.JFrame {
             .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 4, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(95, 95, 95)
-                        .addComponent(quadro_branco))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jButton1)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(95, 95, 95)
+                .addComponent(quadro_branco)
+                .addContainerGap(103, Short.MAX_VALUE))
             .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCadastrar)
+                .addGap(18, 18, 18)
+                .addComponent(btnCancelar)
+                .addGap(77, 77, 77))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(95, 95, 95)
@@ -226,49 +366,51 @@ public class Cadastrar extends javax.swing.JFrame {
                 .addComponent(quadro_branco)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(95, 95, 95)
                     .addComponent(mudar_foto, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(415, Short.MAX_VALUE)))
+                    .addContainerGap(437, Short.MAX_VALUE)))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(104, 104, 104)
                     .addComponent(foto_usuario)
-                    .addContainerGap(421, Short.MAX_VALUE)))
+                    .addContainerGap(443, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
         new FazerLogin();
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if (String.valueOf(cbSexo.getSelectedItem()).equals("Selecione")) {
-            JOptionPane.showMessageDialog(null, "Por favor, selecione um sexo.", "Atenção", JOptionPane.INFORMATION_MESSAGE);
-        }
-        else {
-            Controle controle = new Controle();
-            String senha1 = new String(senha.getPassword());
-            controle.controleCadastro(email.getText(), senha1, cidade.getText(), endereco.getText(), nome.getText() , getFoto(), String.valueOf(cbSexo.getSelectedItem()));
-            if(controle.validoCadastro() == true){
-                JOptionPane.showMessageDialog(null, controle.retornaMensagem());
-                this.dispose();
-                new FazerLogin();
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        if (validar()) {
+            if (String.valueOf(cbSexo.getSelectedItem()).equals("Selecione")) {
+                JOptionPane.showMessageDialog(null, "Por favor, selecione um sexo.", "Atenção", JOptionPane.INFORMATION_MESSAGE);
             }
-            else{
-                JOptionPane.showMessageDialog(null, controle.retornaMensagem(), "Erro" , JOptionPane.ERROR_MESSAGE);
+            else {
+                Controle controle = new Controle();
+                String senha1 = new String(senha.getPassword());
+                controle.controleCadastro(email.getText(), senha1, cidade.getText(), endereco.getText(), nome.getText(), getFoto(), String.valueOf(cbSexo.getSelectedItem()));
+                if(controle.validoCadastro() == true){
+                    JOptionPane.showMessageDialog(null, controle.retornaMensagem());
+                    this.dispose();
+                    new FazerLogin();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null, controle.retornaMensagem(), "Erro" , JOptionPane.ERROR_MESSAGE);
+                }
             }
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void quadro_brancoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_quadro_brancoMouseEntered
         mudar_foto.setVisible(true);
@@ -286,8 +428,8 @@ public class Cadastrar extends javax.swing.JFrame {
         if (retorno == JFileChooser.APPROVE_OPTION) {
             arquivo = fc.getSelectedFile();
             try {
-                BufferedImage imag = ImageIO.read(arquivo);            
-                if (imag == null) {                    
+                BufferedImage imag = ImageIO.read(arquivo);
+                if (imag == null) {
                     foto_usuario.setIcon(foto);
                 } 
                 else {
@@ -321,26 +463,26 @@ public class Cadastrar extends javax.swing.JFrame {
     
     private File arquivo = new File ("Foto/user.png");
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JComboBox<String> cbSexo;
     private javax.swing.JTextField cidade;
     private javax.swing.JPasswordField confirmaSenha;
     private javax.swing.JTextField email;
     private javax.swing.JTextField endereco;
-    private javax.swing.JLabel endereco1;
     private javax.swing.JLabel foto_usuario;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel labelCidade;
+    private javax.swing.JLabel labelConfirma;
+    private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelEndereco;
+    private javax.swing.JLabel labelNome;
+    private javax.swing.JLabel labelSenha;
     private javax.swing.JLabel labelSexo;
     private javax.swing.JLabel mudar_foto;
     private javax.swing.JTextField nome;

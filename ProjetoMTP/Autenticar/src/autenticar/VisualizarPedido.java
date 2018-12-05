@@ -134,6 +134,7 @@ public class VisualizarPedido extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    
     Controle ctr = new Controle();
     private int idDoPedido;
     private int idDaPessoa;

@@ -1,7 +1,6 @@
 package autenticar;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

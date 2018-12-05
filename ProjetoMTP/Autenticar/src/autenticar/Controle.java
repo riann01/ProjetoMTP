@@ -17,7 +17,6 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.io.FileNotFoundException;
-import java.sql.Connection;
 import java.text.NumberFormat;
 import java.util.Locale;
 
@@ -34,11 +33,7 @@ public class Controle {
     private double total;
     private Font fonte;
     private String modelo = "";
-    
-    public Controle() {
-        //conexao = Conexao.getConnection();
-    }
-    
+
     public boolean ConsultarExistenteEmail(String email) {
         boolean T = false;
         try {
@@ -298,7 +293,6 @@ public class Controle {
 
     public void corrigirDualidades (int idProduto, int idUsuario, int quantidade) {
         int quantidadeum = 0;
-        float precoTotal = 0;
         try {
             PreparedStatement ps = Conexao.getConnection().prepareStatement("SELECT quantidade FROM carrinho WHERE id_produto = ? AND id_pessoa = ?");
             ps.setInt(1, idProduto);
@@ -306,14 +300,6 @@ public class Controle {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 ++quantidadeum;
-            }
-            rs.close();
-            ps.close();
-            ps = Conexao.getConnection().prepareStatement("SELECT preco_venda FROM produto WHERE id_produto = ?");
-            ps.setInt(1, idProduto);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                precoTotal = rs.getFloat(1);
             }
             rs.close();
             ps.close();
@@ -354,11 +340,25 @@ public class Controle {
     }
     
     public void insereCatergoria (String nomeCategoria) {
+        boolean T = false;
         try {
-            PreparedStatement st = Conexao.getConnection().prepareStatement("INSERT INTO categoria (nome_categoria) VALUES (?)");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT * FROM categoria WHERE nome_produto = ?");
             st.setString(1, nomeCategoria);
-            st.executeUpdate();
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                T = true;
+            }
+            rs.close();
             st.close();
+            if (T==false) {
+                st = Conexao.getConnection().prepareStatement("INSERT INTO categoria (nome_categoria) VALUES (?)");
+                st.setString(1, nomeCategoria);
+                st.executeUpdate();
+                st.close();
+            }
+            else {
+                JOptionPane.showMessageDialog(null, "Já existe uma categoria com o nome \""+nomeCategoria+"\", por favor, escolha outro nome", "Erro ao inserir categoria", JOptionPane.ERROR_MESSAGE);
+            }
         }
         catch (SQLException e) {
             e.printStackTrace();

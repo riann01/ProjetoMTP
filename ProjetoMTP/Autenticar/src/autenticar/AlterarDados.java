@@ -47,10 +47,9 @@ public class AlterarDados extends javax.swing.JFrame {
     }
     
     public void preencherDados (int idUsuario) {
-        Conexao conexao = new Conexao();
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT email, senha, cidade_estado, endereco, nome, id_pessoa FROM pessoa");
+            st = Conexao.getConnection().prepareStatement("SELECT email, senha, cidade_estado, endereco, nome, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(6)==idUsuario) {
@@ -62,6 +61,8 @@ public class AlterarDados extends javax.swing.JFrame {
                     mostrarSenha.setText(senha11);
                     }  
                 }
+            rs.close();
+            st.close();
         }
         catch (SQLException ex) {
             Logger.getLogger(Logar.class.getName()).log(Level.SEVERE, null, ex);
@@ -218,9 +219,8 @@ public class AlterarDados extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void aplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarActionPerformed
-        Conexao conexao = new Conexao();
         String passaSenha = new String(mostrarSenha.getPassword());
-        conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);
+        Conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);
         JOptionPane.showMessageDialog(null , "Atualizado com sucesso!");
         this.dispose();
         new MinhaConta(idUsuario);
@@ -254,7 +254,6 @@ public class AlterarDados extends javax.swing.JFrame {
     
     int idUsuario;
     String senha11;
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton aplicar;
     private javax.swing.JButton cancelar;

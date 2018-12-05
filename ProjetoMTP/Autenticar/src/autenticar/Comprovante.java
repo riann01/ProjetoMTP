@@ -326,7 +326,7 @@ public class Comprovante extends javax.swing.JFrame {
     
     public void pegaDadosPessoais(int idUsuario) {
         try {
-            PreparedStatement st = conn.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome, email, endereco, cidade_estado, sexo FROM pessoa WHERE id_pessoa = ?");
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -350,7 +350,7 @@ public class Comprovante extends javax.swing.JFrame {
     
     public void pegaDadosPedido (int idUsuario, int idPedido) {
         try {
-            PreparedStatement st = conn.getConnection().prepareStatement("SELECT data, valor_total FROM pedido WHERE id_pessoa = ? AND id_pedido = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT data, valor_total FROM pedido WHERE id_pessoa = ? AND id_pedido = ?");
             st.setInt(1, idUsuario);
             st.setInt(2, idPedido);
             ResultSet rs = st.executeQuery();
@@ -371,7 +371,7 @@ public class Comprovante extends javax.swing.JFrame {
         try {
             String query = "SELECT P.id_pedido, P.id_pessoa, PP.quantidade, V.nome_produto, V.preco_venda FROM pedido AS P INNER ";
             query = query+"JOIN pedido_produto AS PP ON P.id_pedido = PP.id_pedido INNER JOIN produto AS V ON V.id_produto = PP.id_produto";
-            PreparedStatement st = conn.getConnection().prepareStatement(query);
+            PreparedStatement st = Conexao.getConnection().prepareStatement(query);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(1)==idPedido) {
@@ -388,7 +388,7 @@ public class Comprovante extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    Conexao conn = new Conexao();
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;
     private javax.swing.JLabel cabecalho;

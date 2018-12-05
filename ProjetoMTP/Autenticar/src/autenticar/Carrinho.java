@@ -2,16 +2,10 @@ package autenticar;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.UIManager;
 
@@ -27,7 +21,6 @@ public class Carrinho extends javax.swing.JFrame {
 
     public Carrinho(int id) {
         super("Carrinho de Compras");
-        Controle controle = new Controle();
         mostraIcones();
         initComponents();
         mudarFonte();
@@ -46,7 +39,7 @@ public class Carrinho extends javax.swing.JFrame {
         int controle1 = 0;
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT id_produto FROM carrinho WHERE id_pessoa = ?");
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -65,7 +58,7 @@ public class Carrinho extends javax.swing.JFrame {
         int cont = 0;
         PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_pessoa = ?");
+            st = Conexao.getConnection().prepareStatement("SELECT * FROM carrinho WHERE id_pessoa = ?");
             st.setInt(1, idPessoa);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -93,9 +86,8 @@ public class Carrinho extends javax.swing.JFrame {
     }
 
     public void mostraEndereco(int idUsuario) {
-        Conexao conn = new Conexao();
         try {
-            PreparedStatement ps = conn.getConnection().prepareStatement("SELECT endereco, cidade_estado FROM pessoa WHERE id_pessoa = ?");
+            PreparedStatement ps = Conexao.getConnection().prepareStatement("SELECT endereco, cidade_estado FROM pessoa WHERE id_pessoa = ?");
             ps.setInt(1, idUsuario);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -127,7 +119,7 @@ public class Carrinho extends javax.swing.JFrame {
         float quantidade, valorProduto, total = 0;
         try {
             String query = "SELECT preco_venda, quantidade, P.id_produto FROM produto AS P JOIN carrinho AS C ON C.id_produto = P.id_produto WHERE C.id_pessoa = ?";
-            PreparedStatement st = this.conexao.getConnection().prepareStatement(query);
+            PreparedStatement st = Conexao.getConnection().prepareStatement(query);
             st.setInt(1, id_pessoa);
             ResultSet rs = st.executeQuery();
             m = -1;
@@ -392,7 +384,7 @@ public class Carrinho extends javax.swing.JFrame {
 
     private void labelFinalizarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFinalizarCompraMouseClicked
         try {
-            PreparedStatement st = conexao.getConnection().prepareStatement("INSERT INTO pedido(valor_total, data, id_pessoa) VALUES (?,?,?)");            
+            PreparedStatement st = Conexao.getConnection().prepareStatement("INSERT INTO pedido(valor_total, data, id_pessoa) VALUES (?,?,?)");            
             st.setFloat(1, valorTotalGlobal);
             java.util.Date dataUtil = new java.util.Date();
             java.sql.Date data = new Date(dataUtil.getTime());
@@ -401,7 +393,7 @@ public class Carrinho extends javax.swing.JFrame {
             st.executeUpdate();
             st.close();
             int idPedido11 = 0;
-            st = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");      
+            st = Conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");      
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
@@ -410,14 +402,14 @@ public class Carrinho extends javax.swing.JFrame {
             rs.close();
             st.close();
             for(int k = 0; k <= m; k++){    
-                st = conexao.getConnection().prepareStatement("INSERT INTO pedido_produto(id_produto, id_pedido, quantidade) VALUES (?,?,?)");            
+                st = Conexao.getConnection().prepareStatement("INSERT INTO pedido_produto(id_produto, id_pedido, quantidade) VALUES (?,?,?)");            
                 st.setInt(1, idsPedidos[k]);
                 st.setInt(2, idPedido11);
                 st.setInt(3, quantidades[k]);
                 st.executeUpdate();
                 st.close();
             }    
-            st = conexao.getConnection().prepareStatement("DELETE FROM carrinho WHERE id_pessoa = ?");           
+            st = Conexao.getConnection().prepareStatement("DELETE FROM carrinho WHERE id_pessoa = ?");           
             st.setInt(1, idUsuario);
             st.executeUpdate();
             st.close();
@@ -429,9 +421,6 @@ public class Carrinho extends javax.swing.JFrame {
         new FinalizarPedido(idUsuario);
     }//GEN-LAST:event_labelFinalizarCompraMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -456,8 +445,8 @@ public class Carrinho extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    
     Float valorTotalGlobal = new Float(1.0);
-    Conexao conexao = new Conexao();
     private final int idUsuario;
     ImageIcon carrinho;    
     int m;

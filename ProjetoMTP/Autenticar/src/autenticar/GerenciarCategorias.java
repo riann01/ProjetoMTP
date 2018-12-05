@@ -135,11 +135,6 @@ public class GerenciarCategorias extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        listCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                listCategoriasMouseExited(evt);
-            }
-        });
         jScrollPane2.setViewportView(listCategorias);
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 240, 240));
@@ -197,10 +192,6 @@ public class GerenciarCategorias extends javax.swing.JFrame {
             inserirModelo();
         }
     }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void listCategoriasMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listCategoriasMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_listCategoriasMouseExited
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         JOptionPane jp = new JOptionPane();

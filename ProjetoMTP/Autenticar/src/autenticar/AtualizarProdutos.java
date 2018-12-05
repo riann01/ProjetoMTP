@@ -106,7 +106,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         String query = "SELECT C.nome_categoria FROM produto AS P JOIN categoria AS C ON P.id_categoria = C.id_categoria WHERE P.id_produto = ?";
         int index = 0;
         try {
-            PreparedStatement st = this.connection.getConnection().prepareStatement(query);
+            PreparedStatement st = Conexao.getConnection().prepareStatement(query);
             st.setInt(1, idProduto);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -129,7 +129,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
     public void preencheDados () {
         String query = "SELECT nome_produto, descricao, preco_custo, preco_venda, foto FROM produto WHERE id_produto = ?";
         try{    
-            PreparedStatement st = this.connection.getConnection().prepareStatement(query);
+            PreparedStatement st = Conexao.getConnection().prepareStatement(query);
             st.setInt(1, idDoProduto);
             ResultSet rs = st.executeQuery();
             if(rs.next()){
@@ -147,6 +147,8 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                 cbCategoria.setModel(new javax.swing.DefaultComboBoxModel<>(new Controle().pegaModeloCatGerenciador()));
                 cbCategoria.setSelectedIndex(pegaIndexCategoria(idDoProduto));
             }
+            rs.close();
+            st.close();
         }
         catch (SQLException e) {
             e.printStackTrace();
@@ -378,15 +380,13 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                     JOptionPane jp = new JOptionPane ();
                     jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
                     if (jp.getOptionType()==-1) {
-                        Conexao conexao = new Conexao();
-                        conexao.atualizarProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()), idDoProduto);
+                        Conexao.atualizarProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()), idDoProduto);
                         this.dispose();
                         new GerenciarProdutos(idDoUsuario);
                     }
                 }
                 else {
-                    Conexao conexao = new Conexao();
-                    conexao.atualizarProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()), idDoProduto);
+                    Conexao.atualizarProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()), idDoProduto);
                     this.dispose();
                     new GerenciarProdutos(idDoUsuario);
                 }
@@ -404,7 +404,7 @@ public class AtualizarProdutos extends javax.swing.JFrame {
                     labelImagem.setIcon(null);  
                 }
                 else {
-                    Image image = imag;                    
+                    Image image = imag;
                     image = image.getScaledInstance(236, 135, Image.SCALE_SMOOTH);
                     ImageIcon icon = new ImageIcon(image);
                     labelImagem.setIcon(icon);
@@ -447,7 +447,6 @@ public class AtualizarProdutos extends javax.swing.JFrame {
         //</editor-fold>
     }
     
-    private Conexao connection = new Conexao();
     private int idDoProduto;
     private int idDoUsuario;
     private JFileChooser fc;

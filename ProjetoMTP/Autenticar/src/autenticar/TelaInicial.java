@@ -4,25 +4,17 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import java.io.File;
 import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JFileChooser;
-import javax.swing.ImageIcon;
 import java.awt.Dimension;
-import java.awt.Event;
-import java.awt.Font;
-import java.awt.FontFormatException;
 import java.awt.event.KeyEvent;
 import javax.swing.ImageIcon;
 import javax.swing.ScrollPaneConstants;
@@ -416,14 +408,6 @@ public class TelaInicial extends javax.swing.JFrame {
         });
 
         labelFotoUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user.png"))); // NOI18N
-        labelFotoUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                labelFotoUsuarioMouseExited(evt);
-            }
-        });
 
         cover.setIcon(new javax.swing.ImageIcon(getClass().getResource("/autenticar/Foto/user_branco.png"))); // NOI18N
         cover.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -707,14 +691,6 @@ public class TelaInicial extends javax.swing.JFrame {
         labelFotoUsuarioMouseEvento.setVisible(true);
     }//GEN-LAST:event_coverMouseEntered
 
-    private void labelFotoUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseExited
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelFotoUsuarioMouseExited
-
-    private void labelFotoUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFotoUsuarioMouseEntered
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelFotoUsuarioMouseEntered
-
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
         deletarDoCarrinho();
         atualizaItens(idUsuario);
@@ -742,8 +718,6 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void listaCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaCategoriasValueChanged
         painelConteudo.removeAll();
-//        painelConteudo.revalidate();
-       // painelConteudo.invalidate();
         if (listaCategorias.getSelectedValue()!=null) {
             if (listaCategorias.getSelectedValue().equals("Todos")) {
                 mostrarTodosOsItens();
@@ -752,7 +726,6 @@ public class TelaInicial extends javax.swing.JFrame {
             else {
                 mostrarCategoria(new Controle().pegaIdCategorias(listaCategorias.getSelectedValue()));
                 labelMostrandoAgora.setText("Mostrando "+listaCategorias.getSelectedValue());
-                //painelConteudo.revalidate();
             }
         }
         painelConteudo.validate();
@@ -812,12 +785,13 @@ public class TelaInicial extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaInicial.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
     }
+    
     public javax.swing.JPanel getPainel () {
         return this.painelConteudo;
     }
+    
     Controle controle = new Controle();
     private ImageIcon carrinho;
-    //Conexao conexao = new Conexao();
     int idUsuario;
     int cont = 0;
     // Variables declaration - do not modify//GEN-BEGIN:variables
