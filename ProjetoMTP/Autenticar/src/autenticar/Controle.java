@@ -153,9 +153,8 @@ public class Controle {
     
     public String mostraNome (int idUsuario) {
         String nome1 = new String();
-        PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
+            PreparedStatement st = conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 if (rs.getInt(2)==idUsuario) {
@@ -207,10 +206,9 @@ public class Controle {
     }
     
     public String pegaSexo (int idUsuario) {
-        PreparedStatement st;
         String sexo = "";
         try {
-            st = this.conexao.getConnection().prepareStatement("SELECT sexo FROM pessoa WHERE id_pessoa = ?");
+            PreparedStatement st = this.conexao.getConnection().prepareStatement("SELECT sexo FROM pessoa WHERE id_pessoa = ?");
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {

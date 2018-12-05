@@ -21,7 +21,6 @@ public class FinalizarPedido extends javax.swing.JFrame {
         mudaFonte();
         idUsuario2 = idUsuario;
         getContentPane().setBackground(Color.WHITE);
-        PreparedStatement st;
         Controle controle = new Controle();
         String nome = controle.mostraNome(idUsuario);
         String[] teste = nome.split(" ");
@@ -33,9 +32,8 @@ public class FinalizarPedido extends javax.swing.JFrame {
     }
        
     public void iniciarTela () {
-        PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
+            PreparedStatement st = conexao.getConnection().prepareStatement("SELECT id_pedido FROM pedido WHERE id_pessoa = ?");
             st.setInt(1, idUsuario2);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
@@ -50,11 +48,10 @@ public class FinalizarPedido extends javax.swing.JFrame {
         String texto = "<html><body><center>"+nome1+", seu pedido foi finalizado com sucesso.\n";
         texto = texto+"A encomenda chegará no endereço especificado, dentro do prazo especificado pela transportadora.</center></body></html>";
         labelTexto.setText(texto);
-        labelPedido.setText("Pedido "+new Controle().tratarNumeroPedido(numeroPedido));
+        labelPedido.setText("Pedido "+ctr.tratarNumeroPedido(numeroPedido));
     }
     
     public void mudaFonte () {
-        Controle ctr = new Controle();
         labelTitulo.setFont(ctr.mudaFonte(30));
         labelTexto.setFont(ctr.mudaFonte(14));
         labelRetornar.setFont(ctr.mudaFonte(15));
@@ -188,6 +185,7 @@ public class FinalizarPedido extends javax.swing.JFrame {
     private int numeroPedido;
     private String nome1;
     private int idUsuario2;
+    Controle ctr = new Controle();
     Conexao conexao = new Conexao();
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;

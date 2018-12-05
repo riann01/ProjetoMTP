@@ -121,7 +121,6 @@ public class Carrinho extends javax.swing.JFrame {
 
     public void mostraIcones() {
         carrinho = new ImageIcon(getClass().getResource("Foto/carrinho.png"));
-        //labelIconeCarrinho.setIcon(carrinho);
     }
     
     public void mostraTotal (int id_pessoa) {
@@ -392,9 +391,8 @@ public class Carrinho extends javax.swing.JFrame {
     }//GEN-LAST:event_formMouseEntered
 
     private void labelFinalizarCompraMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelFinalizarCompraMouseClicked
-        PreparedStatement st;
         try {
-            st = conexao.getConnection().prepareStatement("INSERT INTO pedido(valor_total, data, id_pessoa) VALUES (?,?,?)");            
+            PreparedStatement st = conexao.getConnection().prepareStatement("INSERT INTO pedido(valor_total, data, id_pessoa) VALUES (?,?,?)");            
             st.setFloat(1, valorTotalGlobal);
             java.util.Date dataUtil = new java.util.Date();
             java.sql.Date data = new Date(dataUtil.getTime());
@@ -407,13 +405,11 @@ public class Carrinho extends javax.swing.JFrame {
             st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while(rs.next()){
-                
                 idPedido11 = rs.getInt(1);
-                
             }
             rs.close();
             st.close();
-            for(int k=0;k<=m;k++){    
+            for(int k = 0; k <= m; k++){    
                 st = conexao.getConnection().prepareStatement("INSERT INTO pedido_produto(id_produto, id_pedido, quantidade) VALUES (?,?,?)");            
                 st.setInt(1, idsPedidos[k]);
                 st.setInt(2, idPedido11);
@@ -425,9 +421,8 @@ public class Carrinho extends javax.swing.JFrame {
             st.setInt(1, idUsuario);
             st.executeUpdate();
             st.close();
-            //st = conexao.getConnection().prepareStatement("INSET INTO pedido_produto (preco, quantidade, id_produto, id_pedido) VALUES (?,?,?,?)");
-            
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) {
             e.printStackTrace();
         }
         this.dispose();
@@ -464,8 +459,7 @@ public class Carrinho extends javax.swing.JFrame {
     Float valorTotalGlobal = new Float(1.0);
     Conexao conexao = new Conexao();
     private final int idUsuario;
-    ImageIcon carrinho;
-    
+    ImageIcon carrinho;    
     int m;
     Integer[] idsPedidos = new Integer[50];
     Integer[] quantidades = new Integer[50];

@@ -9,14 +9,13 @@ public class VisualizarPedido extends javax.swing.JFrame {
         idDaPessoa = idPessoa;
         idDoPedido = idPedido;
         initComponents();
-        labelTitulo.setText("Pedido "+new Controle().tratarNumeroPedido(idPedido));
+        labelTitulo.setText("Pedido "+ctr.tratarNumeroPedido(idPedido));
         mudarFonte();
         this.setLocationRelativeTo(null);
         this.setVisible(true);
     }
     
     public void mudarFonte () {
-        Controle ctr = new Controle();
         labelTitulo.setFont(ctr.mudaFonte(24));
         labelFechar.setFont(ctr.mudaFonte(14));
         labelVisualizarComprovante.setFont(ctr.mudaFonte(14));
@@ -135,6 +134,7 @@ public class VisualizarPedido extends javax.swing.JFrame {
         }
         //</editor-fold>
     }
+    Controle ctr = new Controle();
     private int idDoPedido;
     private int idDaPessoa;
     // Variables declaration - do not modify//GEN-BEGIN:variables
