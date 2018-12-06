@@ -1,5 +1,5 @@
 package autenticar;
-import java.awt.*;
+import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 public class FazerLogin extends javax.swing.JFrame {

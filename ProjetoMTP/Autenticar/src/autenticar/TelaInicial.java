@@ -266,7 +266,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 }
                 painelConteudo.revalidate();
                 if (contador==0) {
-
+                    labelMostrandoAgora.setText("Nenhum resultado de pesquisa para o termo \""+textFieldPesquisa.getText()+"\"");
                 }
                 painelConteudo.revalidate();
             }
@@ -704,20 +704,18 @@ public class TelaInicial extends javax.swing.JFrame {
 
     private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
         atualizaItens(idUsuario);
-        painelConteudo.revalidate();
     }//GEN-LAST:event_formFocusGained
 
     private void painelConteudoMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelConteudoMouseMoved
         atualizaItens(idUsuario);
-        painelConteudo.revalidate();
     }//GEN-LAST:event_painelConteudoMouseMoved
 
     private void formMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseMoved
-        painelConteudo.revalidate();
         atualizaItens(idUsuario);
     }//GEN-LAST:event_formMouseMoved
 
     private void listaCategoriasValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_listaCategoriasValueChanged
+        jScrollPane2.revalidate();
         painelConteudo.removeAll();
         if (listaCategorias.getSelectedValue()!=null) {
             if (listaCategorias.getSelectedValue().equals("Todos")) {
