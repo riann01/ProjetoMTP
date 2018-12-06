@@ -150,7 +150,7 @@ public class TelaInicial extends javax.swing.JFrame {
     }
     
     public void mostrarTodosOsItens() {
-        int controle1 = 440;
+        int controle1 = 455;
         int contador1 = 0;
         PreparedStatement st;
         try {
@@ -167,7 +167,7 @@ public class TelaInicial extends javax.swing.JFrame {
                 Produto p = new Produto(idUsuario, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(4), icon);
                 painelConteudo.add(p);
                 if(contador1%3==0){
-                    controle1 += 440;
+                    controle1 += 455;
                 }
                 painelConteudo.setPreferredSize(new Dimension(800,controle1));
             }
