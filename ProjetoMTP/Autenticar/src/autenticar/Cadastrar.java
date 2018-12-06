@@ -25,7 +25,6 @@ public class Cadastrar extends javax.swing.JFrame {
         initComponents();
         mudarFonte();
         this.getContentPane().setBackground(Color.WHITE);
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Foto/IFSULDEMINAS_vertical.png")));
         setLocationRelativeTo(null);
         setVisible(true);
         mudar_foto.setVisible(false);
