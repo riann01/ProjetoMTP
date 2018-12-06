@@ -278,7 +278,6 @@ public class GerenciarCategorias extends javax.swing.JFrame {
         //</editor-fold>
     }
     Controle controle = new Controle();
-    private int selectedIndex;
     private int idDoUsuario;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnFechar;

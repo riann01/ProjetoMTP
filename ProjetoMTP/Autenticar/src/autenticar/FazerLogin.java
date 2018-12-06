@@ -15,7 +15,6 @@ public class FazerLogin extends javax.swing.JFrame {
         super("Autenticar");
         getContentPane().setBackground(Color.WHITE);  
         initComponents();
-        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("Foto/IFSULDEMINAS_vertical.png")));
         setLocationRelativeTo(null);
         jButton1.requestFocus();
         setVisible(true);

@@ -25,23 +25,52 @@ public class Logar extends javax.swing.JFrame {
         Controle controle = new Controle();
         String senha1 = new String(senha.getPassword());
         controle.controleLogin(login.getText(), senha1);
-        if((controle.validoLogin() == true) && (controle.administrador()==true)) {
-            JOptionPane.showMessageDialog(null , controle.retornaMensagem());
-            this.dispose();
-            new TelaInicial(controle.retornaId(), controle.administrador());
+        if (verificacaoLogin() && verificacaoSenha()) {
+            JOptionPane.showMessageDialog(null, "Os campos estão vazios", "Autenticação falhou", JOptionPane.ERROR_MESSAGE);
         }
         else {
-            if(controle.validoLogin() == true){
-                controle.getNome(controle.retornaId());
-                controle.getId(login.getText());
-                JOptionPane.showMessageDialog(null , controle.retornaMensagem());
-                this.dispose();
-                new TelaInicial(controle.retornaId(), controle.administrador());
+            if (verificacaoLogin()) {
+                JOptionPane.showMessageDialog(null, "O email não pode ficar vazio", "Autenticação falhou", JOptionPane.ERROR_MESSAGE);
             }
             else {
-               JOptionPane.showMessageDialog(null , controle.retornaMensagem() , "Erro" , JOptionPane.ERROR_MESSAGE); 
+                if (verificacaoSenha()) {
+                    JOptionPane.showMessageDialog(null, "A senha não pode ficar vazia", "Autenticação falhou", JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    if((controle.validoLogin() == true) && (controle.administrador()==true)) {
+                        JOptionPane.showMessageDialog(null , controle.retornaMensagem());
+                        this.dispose();
+                        new TelaInicial(controle.retornaId(), controle.administrador());
+                    }
+                    else {
+                        if(controle.validoLogin() == true){
+                            controle.getNome(controle.retornaId());
+                            controle.getId(login.getText());
+                            JOptionPane.showMessageDialog(null , controle.retornaMensagem());
+                            this.dispose();
+                            new TelaInicial(controle.retornaId(), controle.administrador());
+                        }
+                        else {
+                           JOptionPane.showMessageDialog(null , controle.retornaMensagem() , "Erro" , JOptionPane.ERROR_MESSAGE); 
+                        }
+                    }
+                }
             }
         }
+    }
+    
+    public boolean verificacaoLogin() {
+        if (login.getText().equals("")) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean verificacaoSenha() {
+        if (new String(senha.getPassword()).equals("")) {
+            return true;
+        }
+        return false;
     }
     
     @SuppressWarnings("unchecked")

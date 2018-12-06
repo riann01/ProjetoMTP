@@ -22,7 +22,6 @@ import java.util.Locale;
 
 public class Controle {
     String mensagem;
-    //Connection conexao;
     boolean teste = false;
     boolean loginTeste = false;
     boolean administradorTeste = false;
@@ -30,7 +29,6 @@ public class Controle {
     private String nome;
     private ImageIcon foto;
     private int cont;
-    private double total;
     private Font fonte;
     private String modelo = "";
 
@@ -342,7 +340,7 @@ public class Controle {
     public void insereCatergoria (String nomeCategoria) {
         boolean T = false;
         try {
-            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT * FROM categoria WHERE nome_produto = ?");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT * FROM categoria WHERE nome_categoria = ?");
             st.setString(1, nomeCategoria);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
@@ -404,8 +402,8 @@ public class Controle {
             }
             else {
                 JOptionPane jp = new JOptionPane();
-                jp.showMessageDialog(null, "A categoria "+nomeCategoria+" será excluída, deseja continuar?", "Confirmar exclusão de categoria", JOptionPane.YES_NO_OPTION);
-                if(jp.getOptionType()==-1) {
+                int op = jp.showConfirmDialog(null, "A categoria "+nomeCategoria+" será excluída, deseja continuar?", "Confirmar exclusão de categoria", JOptionPane.YES_NO_OPTION);
+                if(op==0) {
                     st = Conexao.getConnection().prepareStatement("DELETE FROM categoria WHERE nome_categoria = ?");
                     st.setString(1, nomeCategoria);
                     st.executeUpdate();
@@ -574,6 +572,22 @@ public class Controle {
             e.printStackTrace();
         }
         return idProduto;
+    }
+    
+    public boolean verificaExistenteProduto (String nomeProduto) {
+        boolean T = false;
+        try {
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome_produto FROM produto WHERE nome_produto = ?");
+            st.setString(1, nomeProduto);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                T = true;
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return T;
     }
     
     public int getCont() {

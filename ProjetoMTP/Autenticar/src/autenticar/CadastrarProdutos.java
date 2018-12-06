@@ -94,7 +94,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
         }
         return false;
     }
-    
+       
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -317,15 +317,25 @@ public class CadastrarProdutos extends javax.swing.JFrame {
                     JOptionPane jp = new JOptionPane ();
                     jp.showConfirmDialog(null , "O produto será adicionado sem foto, deseja continuar?" , "Atenção" , JOptionPane.YES_NO_OPTION);
                     if (jp.getOptionType()==-1) {
+                        if (new Controle().verificaExistenteProduto(nome.getText())) {
+                            JOptionPane.showMessageDialog(null, "Já existe um produto com esse nome cadastrado, por favor escolha outro nome", "Erro ao inserir produto", JOptionPane.ERROR_MESSAGE);
+                        }
+                        else {
+                            Conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
+                            this.dispose();
+                            new GerenciarProdutos(idDoUsuario);
+                        }
+                    }
+                }
+                else {
+                    if (new Controle().verificaExistenteProduto(nome.getText())) {
+                            JOptionPane.showMessageDialog(null, "Já existe um produto com esse nome cadastrado, por favor escolha outro", "Erro ao inserir produto", JOptionPane.ERROR_MESSAGE);
+                    }
+                    else {
                         Conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
                         this.dispose();
                         new GerenciarProdutos(idDoUsuario);
                     }
-                }
-                else {
-                    Conexao.inserirProduto(nome.getText(), descricao.getText(), Float.parseFloat(valor_compra.getText()), Float.parseFloat(valor_venda.getText()), arquivo, new Controle().pegaIdCategorias(cbCategoria.getSelectedItem()));
-                    this.dispose();
-                    new GerenciarProdutos(idDoUsuario);
                 }
             }
         }
