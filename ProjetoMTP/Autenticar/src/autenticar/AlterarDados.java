@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
 public class AlterarDados extends javax.swing.JFrame {
-    {        
+    {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         }
