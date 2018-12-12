@@ -69,6 +69,85 @@ public class AlterarDados extends javax.swing.JFrame {
         }
     }
     
+    public String verificarNome() {
+        String msg = new String("");
+        if (mostrarNome.getText().equals("") || mostrarNome.getText().equals(" ")) {
+            msg = "O nome não pode ficar vazio";
+        }
+        else {
+            if (mostrarNome.getText().length()<10) {
+                msg = "Digite seu nome completo";
+            }
+        }
+        return msg;
+    }
+    
+    public String verificarEndereco() {
+        String msg = new String("");
+        if (mostrarLocal.getText().equals("") || mostrarLocal.getText().equals(" ")) {
+            msg = "O endereço não pode ficar vazio";
+        }
+        else {
+            if (mostrarLocal.getText().length() < 8) {
+                msg = "Esse não parece um endereço válido";
+            }
+        }
+        return msg;
+    }
+    
+    public String verificarCidade() {
+        String msg = new String("");
+        if (mostrarCidade.getText().equals("") || mostrarCidade.getText().equals(" ")) {
+            msg = "A cidade não pode ficar vazia";
+        }
+        else {
+            if (mostrarCidade.getText().length() < 7) {
+                msg = "Esse não parece uma cidade válida";
+            }
+        }
+        return msg;
+    }
+    
+    public String verificarSenha() {
+        String msg = new String("");
+        if ((new String(mostrarSenha.getPassword())).equals("") || new String(mostrarSenha.getPassword()).equals(" ")) {
+            msg = "A senha não pode ficar vazia";
+        }
+        else {
+            if ((new String(mostrarSenha.getPassword())).length() < 7) {
+                msg = "A senha deve ter pelo menos 7 caracteres";
+            }
+        }
+        return msg;
+    }
+    
+    public boolean validar() {
+        boolean T = true;
+        if (!(verificarNome().equals(""))) {
+            JOptionPane.showMessageDialog(null, verificarNome(), "Erro", JOptionPane.ERROR_MESSAGE);
+            T = false;
+        }
+        else {
+            if (!(verificarEndereco().equals(""))) {
+                JOptionPane.showMessageDialog(null, verificarEndereco(), "Erro", JOptionPane.ERROR_MESSAGE);
+                T = false;
+            }
+            else {
+                if (!(verificarCidade().equals(""))) {
+                    JOptionPane.showMessageDialog(null, verificarCidade(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    T = false;
+                }
+                else {
+                    if (!(verificarSenha().equals(""))) {
+                        JOptionPane.showMessageDialog(null, verificarSenha(), "Erro", JOptionPane.ERROR_MESSAGE);
+                        T = false;
+                    }
+                }
+            }
+        }
+        return T;
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -219,12 +298,13 @@ public class AlterarDados extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void aplicarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aplicarActionPerformed
-        String passaSenha = new String(mostrarSenha.getPassword());
-        Conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);
-        JOptionPane.showMessageDialog(null , "Atualizado com sucesso!");
-        this.dispose();
-        new MinhaConta(idUsuario);
-        
+        if (validar()) {
+            String passaSenha = new String(mostrarSenha.getPassword());
+            Conexao.atualizar(this.idUsuario, mostrarNome.getText(), mostrarCidade.getText(), mostrarLocal.getText(), passaSenha);
+            JOptionPane.showMessageDialog(null , "Atualizado com sucesso!");
+            this.dispose();
+            new MinhaConta(idUsuario);
+        }
     }//GEN-LAST:event_aplicarActionPerformed
 
     public static void main(String args[]) {

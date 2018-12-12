@@ -49,7 +49,6 @@ public class Controle {
             }
             rs.close();
             stmt.close();
-
         }
         catch (SQLException e) {
             JOptionPane.showMessageDialog(null, e, "Erro", JOptionPane.ERROR_MESSAGE);
@@ -149,12 +148,11 @@ public class Controle {
     public String mostraNome (int idUsuario) {
         String nome1 = new String();
         try {
-            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome, id_pessoa FROM pessoa");
+            PreparedStatement st = Conexao.getConnection().prepareStatement("SELECT nome FROM pessoa WHERE id_pessoa = ?");
+            st.setInt(1, idUsuario);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                if (rs.getInt(2)==idUsuario) {
-                    nome1 = rs.getString(1);
-                }  
+               nome1 = rs.getString(1);
             }
             rs.close();
             st.close();
@@ -173,7 +171,7 @@ public class Controle {
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                this.idUsuario = rs.getInt("id_pessoa");
+                this.idUsuario = rs.getInt(1);
             }
             rs.close();
             stmt.close();
@@ -190,7 +188,7 @@ public class Controle {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                setNome(rs.getString("nome"));
+                setNome(rs.getString(1));
             }
             rs.close();
             stmt.close();
@@ -320,7 +318,7 @@ public class Controle {
     
     public Font mudaFonte (int tamanho) {
         try {
-            fonte = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("Fonte/GoogleSans-Regular.ttf"))).deriveFont(0, tamanho);
+            fonte = Font.createFont(Font.TRUETYPE_FONT, new FileInputStream(new File("src/autenticar/Fonte/GoogleSans-Regular.ttf"))).deriveFont(0, tamanho);
         }
         catch (FontFormatException e) {
             e.printStackTrace();

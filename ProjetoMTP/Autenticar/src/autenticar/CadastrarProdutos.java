@@ -396,7 +396,7 @@ public class CadastrarProdutos extends javax.swing.JFrame {
     
     private int idDoUsuario;
     private JFileChooser fc;
-    private File arquivo = new File ("Foto/SEM FOTO.png");
+    private File arquivo = new File ("src/autenticar/Foto/SEM FOTO.png");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton adicionaImagem;
     private javax.swing.JButton botaoCadastrar;

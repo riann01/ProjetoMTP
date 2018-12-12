@@ -460,7 +460,7 @@ public class Cadastrar extends javax.swing.JFrame {
         return this.arquivo;
     }
     
-    private File arquivo = new File ("Foto/user.png");
+    private File arquivo = new File ("src/autenticar/Foto/user.png");
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnCancelar;
